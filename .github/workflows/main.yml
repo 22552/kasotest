@@ -1,0 +1,28 @@
+name: Run Scraper
+
+on:
+  schedule:
+    - cron: "0 */8 * * *"  # 8時間ごと（UTC）
+  workflow_dispatch:       # 手動実行OK
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make executable
+        run: chmod +x ./scraper
+
+      - name: Run scraper
+        run: ./scraper 51165977 1080 result.json
+
+      - name: Commit result
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add result.json
+          git commit -m "Update result.json" || exit 0
+          git push
