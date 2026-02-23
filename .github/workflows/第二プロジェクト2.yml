@@ -1,4 +1,4 @@
-name: 第二集計プロジェクト
+name: 第二集計プロジェクト2
 
 on:
   workflow_dispatch:       # 手動実行OK
