@@ -18,7 +18,7 @@ jobs:
         run: chmod +x ./scraper3
 
       - name: Run scraper
-        run: ./scraper3 32970524 1080 第二プロジェクト2.json
+        run: ./scraper3 32970524 5400 第二プロジェクト2.json
 
       - name: Commit result
         run: |
