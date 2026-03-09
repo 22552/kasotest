@@ -1,0 +1,31 @@
+name: genko
+
+on:
+  schedule:
+    - cron: "0 */8 * * *"  # 8時間ごと（UTC）
+  workflow_dispatch:       # 手動実行OK
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make executable
+        run: chmod +x ./scraper
+
+      - name: Run scraper
+        run: ./scraper 51396308 1080 genko.json
+
+      - name: Commit result
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add genko.json
+          git commit -m "Update genko.json" || exit 0
+          git push
