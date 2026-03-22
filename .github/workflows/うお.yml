@@ -55,7 +55,7 @@ jobs:
           echo "ARTIFACT_FILES=$ARTIFACT_FILES" >> $GITHUB_ENV
 
       - name: Upload CSS as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: css-artifacts
           path: ${{ env.ARTIFACT_FILES }}
