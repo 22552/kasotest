@@ -1,4 +1,4 @@
-name: Issue Image to CSS Bot
+name: Issue Image to CSS Bot (Artifact)
 
 on:
   issues:
@@ -20,39 +20,53 @@ jobs:
       - name: Install image-to-pure-css
         run: npm install @kongyo2/image-to-pure-css
 
-      - name: Process Issue
+      - name: Process Issue Images
+        id: process
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
-          
-          # 画像URLを抽出（単純なjpg/png/png?raw=true対応）
-          IMG_URL=$(echo "$ISSUE_BODY" | grep -oE 'https://[^ ]+\.(png|jpg|jpeg)')
-          if [ -z "$IMG_URL" ]; then
-            echo "No image found in the issue"
+
+          # Markdown画像 ![alt](url) と <img src="url"> の両方を抽出
+          IMG_URLS=$(echo "$ISSUE_BODY" | grep -oP '!\[[^]]*\]\(([^)]+)\)|<img[^>]+src="([^"]+)"' | sed -E 's/!\[[^]]*\]\(([^)]+)\)/\1/;s/.*src="([^"]+)".*/\1/')
+
+          if [ -z "$IMG_URLS" ]; then
+            echo "No images found in the issue"
             exit 0
           fi
 
-          # 画像ダウンロード
           mkdir -p tmp
-          IMAGE_PATH="tmp/$(basename $IMG_URL)"
-          curl -L "$IMG_URL" -o "$IMAGE_PATH"
 
-          # CSS変換
-          CSS_PATH="tmp/$(basename $IMG_URL).css"
-          npx @kongyo2/image-to-pure-css "$IMAGE_PATH" --width 100 > "$CSS_PATH"
+          ARTIFACT_FILES=""
 
-          # gistにアップロードしてURL取得
-          RESPONSE=$(curl -s -X POST \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "{\"description\":\"CSS generated from image\",\"public\":false,\"files\":{\"$(basename $CSS_PATH)\":{\"content\":\"$(cat $CSS_PATH)\"}}}" \
-            https://api.github.com/gists)
-          GIST_URL=$(echo "$RESPONSE" | grep -oE '"html_url": "[^"]+"' | sed 's/"html_url": "\(.*\)"/\1/')
+          for IMG_URL in $IMG_URLS; do
+            echo "Processing $IMG_URL ..."
+            IMAGE_PATH="tmp/$(basename $IMG_URL)"
+            CSS_PATH="tmp/$(basename $IMG_URL).css"
+            ARTIFACT_FILES="$ARTIFACT_FILES $CSS_PATH"
 
-          # Issueにコメント
+            # 画像をダウンロード
+            curl -L "$IMG_URL" -o "$IMAGE_PATH"
+
+            # CSSに変換（横幅100px）
+            npx @kongyo2/image-to-pure-css "$IMAGE_PATH" --width 100 > "$CSS_PATH"
+          done
+
+          echo "ARTIFACT_FILES=$ARTIFACT_FILES" >> $GITHUB_ENV
+
+      - name: Upload CSS as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: css-artifacts
+          path: ${{ env.ARTIFACT_FILES }}
+
+      - name: Comment on Issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ARTIFACT_URL="https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts"
           curl -s -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
-            -d "{\"body\":\"CSS に変換しました: $GIST_URL\"}" \
+            -d "{\"body\":\"CSS に変換しました。アーティファクトはこちらからダウンロード可能です: $ARTIFACT_URL\"}" \
             "${{ github.event.issue.url }}/comments"
