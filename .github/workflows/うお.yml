@@ -1,4 +1,4 @@
-name: Issue Image to CSS Bot (Artifact)
+name: Issue Image to CSS Bot (Artifact, No Extension)
 
 on:
   issues:
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -27,7 +27,7 @@ jobs:
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
 
-          # Markdown画像 ![alt](url) と <img src="url"> の両方を抽出
+          # <img> タグと Markdown ![alt](url) から URL 抽出
           IMG_URLS=$(echo "$ISSUE_BODY" | grep -oP '!\[[^]]*\]\(([^)]+)\)|<img[^>]+src="([^"]+)"' | sed -E 's/!\[[^]]*\]\(([^)]+)\)/\1/;s/.*src="([^"]+)".*/\1/')
 
           if [ -z "$IMG_URLS" ]; then
@@ -36,13 +36,16 @@ jobs:
           fi
 
           mkdir -p tmp
-
           ARTIFACT_FILES=""
 
           for IMG_URL in $IMG_URLS; do
             echo "Processing $IMG_URL ..."
-            IMAGE_PATH="tmp/$(basename $IMG_URL)"
-            CSS_PATH="tmp/$(basename $IMG_URL).css"
+            
+            # ファイル名は拡張子なし（UUIDなどそのまま）
+            FILE_NAME=$(basename "$IMG_URL")
+            IMAGE_PATH="tmp/$FILE_NAME"
+            CSS_PATH="tmp/$FILE_NAME.css"
+
             ARTIFACT_FILES="$ARTIFACT_FILES $CSS_PATH"
 
             # 画像をダウンロード
