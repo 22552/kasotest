@@ -1,4 +1,4 @@
-name: Issue Image to CSS Bot (Artifact, No Extension)
+name: Issue Image to CSS Bot (Artifact, Simple URL)
 
 on:
   issues:
@@ -27,8 +27,8 @@ jobs:
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
 
-          # <img> タグと Markdown 画像 ![alt](url) の両方から URL を抽出
-          IMG_URLS=$(echo "$ISSUE_BODY" | grep -oP '<img[^>]+src="\K[^"]+|!\[[^]]*\]\(\K[^)]+')
+          # 単純に URL を抽出（http/https の文字列）
+          IMG_URLS=$(echo "$ISSUE_BODY" | grep -oP 'https?://[^\s"'\''\)]+')
 
           if [ -z "$IMG_URLS" ]; then
             echo "No images found in the issue"
@@ -41,10 +41,10 @@ jobs:
           for IMG_URL in $IMG_URLS; do
             echo "Processing $IMG_URL ..."
 
-            # ファイル名は拡張子なし（GitHubアセットのUUIDなど）
+            # ファイル名は URL の basename（拡張子なしでもOK）
             FILE_NAME=$(basename "$IMG_URL")
             IMAGE_PATH="tmp/$FILE_NAME"
-            CSS_PATH="tmp/$FILE_NAME.css"  # CSSは区別用に拡張子をつける
+            CSS_PATH="tmp/$FILE_NAME.css"  # CSS用に拡張子を付ける
 
             ARTIFACT_FILES="$ARTIFACT_FILES $CSS_PATH"
 
@@ -68,7 +68,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 実行中のアクションスイートのアーティファクトページにリンク
           ARTIFACT_URL="https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts"
           curl -s -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
