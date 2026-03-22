@@ -1,4 +1,4 @@
-name: Issue Image to CSS Bot (Artifact, Simple URL)
+name: Issue Image to CSS Bot (Artifact)
 
 on:
   issues:
@@ -27,7 +27,7 @@ jobs:
         run: |
           ISSUE_BODY="${{ github.event.issue.body }}"
 
-          # 単純に URL を抽出（http/https の文字列）
+          # URL抽出（拡張子なしのGitHubアセットも含む）
           IMG_URLS=$(echo "$ISSUE_BODY" | grep -oP 'https?://[^\s"'\''\)]+')
 
           if [ -z "$IMG_URLS" ]; then
@@ -41,7 +41,7 @@ jobs:
           for IMG_URL in $IMG_URLS; do
             echo "Processing $IMG_URL ..."
 
-            # ファイル名は URL の basename（拡張子なしでもOK）
+            # ファイル名は URL の basename（UUIDなど拡張子なしでもOK）
             FILE_NAME=$(basename "$IMG_URL")
             IMAGE_PATH="tmp/$FILE_NAME"
             CSS_PATH="tmp/$FILE_NAME.css"  # CSS用に拡張子を付ける
@@ -51,14 +51,14 @@ jobs:
             # 画像をダウンロード
             curl -L "$IMG_URL" -o "$IMAGE_PATH"
 
-            # CSSに変換（横幅100px）
+            # CSSに変換してファイルに書き出す
             npx @kongyo2/image-to-pure-css "$IMAGE_PATH" --width 100 > "$CSS_PATH"
           done
 
           # 環境変数にアップロード対象を設定
           echo "ARTIFACT_FILES=$ARTIFACT_FILES" >> $GITHUB_ENV
 
-      - name: Upload CSS as artifact
+      - name: Upload CSS files as artifact
         uses: actions/upload-artifact@v4
         with:
           name: css-artifacts
