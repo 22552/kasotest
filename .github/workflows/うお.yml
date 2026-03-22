@@ -1,0 +1,58 @@
+name: Issue Image to CSS Bot
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install image-to-pure-css
+        run: npm install @kongyo2/image-to-pure-css
+
+      - name: Process Issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ISSUE_BODY="${{ github.event.issue.body }}"
+          
+          # 画像URLを抽出（単純なjpg/png/png?raw=true対応）
+          IMG_URL=$(echo "$ISSUE_BODY" | grep -oE 'https://[^ ]+\.(png|jpg|jpeg)')
+          if [ -z "$IMG_URL" ]; then
+            echo "No image found in the issue"
+            exit 0
+          fi
+
+          # 画像ダウンロード
+          mkdir -p tmp
+          IMAGE_PATH="tmp/$(basename $IMG_URL)"
+          curl -L "$IMG_URL" -o "$IMAGE_PATH"
+
+          # CSS変換
+          CSS_PATH="tmp/$(basename $IMG_URL).css"
+          npx @kongyo2/image-to-pure-css "$IMAGE_PATH" --width 100 > "$CSS_PATH"
+
+          # gistにアップロードしてURL取得
+          RESPONSE=$(curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"description\":\"CSS generated from image\",\"public\":false,\"files\":{\"$(basename $CSS_PATH)\":{\"content\":\"$(cat $CSS_PATH)\"}}}" \
+            https://api.github.com/gists)
+          GIST_URL=$(echo "$RESPONSE" | grep -oE '"html_url": "[^"]+"' | sed 's/"html_url": "\(.*\)"/\1/')
+
+          # Issueにコメント
+          curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"body\":\"CSS に変換しました: $GIST_URL\"}" \
+            "${{ github.event.issue.url }}/comments"
