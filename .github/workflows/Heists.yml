@@ -1,0 +1,29 @@
+name: heisuta
+
+on:
+  workflow_dispatch:       # 手動実行OK
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make executable
+        run: chmod +x ./scraper
+
+      - name: Run scraper
+        run: ./scraper 31925329 54000000 第heiプロジェクト.json
+
+      - name: Commit result
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add 第heiプロジェクト.json
+          git commit -m "Update result.json" || exit 0
+          git push
