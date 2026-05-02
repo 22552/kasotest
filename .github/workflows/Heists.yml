@@ -18,7 +18,7 @@ jobs:
         run: chmod +x ./scraper
 
       - name: Run scraper
-        run: ./scraper 31925329 54000000 第heiプロジェクト.json
+        run: ./scraper 31925329 5400 第heiプロジェクト.json
 
       - name: Commit result
         run: |
