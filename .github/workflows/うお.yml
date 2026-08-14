@@ -4,73 +4,79 @@ on:
   issues:
     types: [opened, edited]
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   convert:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '20'
 
       - name: Install image-to-pure-css
-        run: npm install @kongyo2/image-to-pure-css
+        run: npm install --ignore-scripts @kongyo2/image-to-pure-css
 
       - name: Process Issue Images
-        id: process
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Issue bodies are untrusted input. Pass them via env instead of
+          # interpolating the GitHub expression directly into the shell script.
+          ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
-          ISSUE_BODY="${{ github.event.issue.body }}"
+          set -euo pipefail
 
-          # URL抽出（拡張子なしのGitHubアセットも含む）
-          IMG_URLS=$(echo "$ISSUE_BODY" | grep -oP 'https?://[^\s"'\''\)]+')
+          URLS_FILE="$(mktemp)"
+          printf '%s\n' "$ISSUE_BODY" \
+            | grep -oE 'https://[^[:space:]"'"'"'()]+' \
+            | grep -E '^https://(github\.com/user-attachments/assets/|user-images\.githubusercontent\.com/)' \
+            > "$URLS_FILE" || true
 
-          if [ -z "$IMG_URLS" ]; then
-            echo "No images found in the issue"
+          URL_COUNT="$(wc -l < "$URLS_FILE" | tr -d ' ')"
+          if [ "$URL_COUNT" -eq 0 ]; then
+            echo "No supported GitHub-hosted images found in the issue"
             exit 0
+          fi
+          if [ "$URL_COUNT" -gt 10 ]; then
+            echo "Too many images; refusing to process more than 10"
+            exit 1
           fi
 
           mkdir -p tmp
-          ARTIFACT_FILES=""
+          INDEX=0
+          while IFS= read -r IMG_URL; do
+            INDEX=$((INDEX + 1))
+            IMAGE_PATH="tmp/image-$INDEX"
+            CSS_PATH="tmp/image-$INDEX.css"
 
-          for IMG_URL in $IMG_URLS; do
-            echo "Processing $IMG_URL ..."
+            echo "Processing GitHub-hosted image $INDEX/$URL_COUNT"
+            curl --fail --location --silent --show-error \
+              --proto '=https' --max-time 30 --max-filesize 10485760 \
+              "$IMG_URL" -o "$IMAGE_PATH"
 
-            # ファイル名は URL の basename（UUIDなど拡張子なしでもOK）
-            FILE_NAME=$(basename "$IMG_URL")
-            IMAGE_PATH="tmp/$FILE_NAME"
-            CSS_PATH="tmp/$FILE_NAME.css"  # CSS用に拡張子を付ける
-
-            ARTIFACT_FILES="$ARTIFACT_FILES $CSS_PATH"
-
-            # 画像をダウンロード
-            curl -L "$IMG_URL" -o "$IMAGE_PATH"
-
-            # CSSに変換してファイルに書き出す
-            npx @kongyo2/image-to-pure-css "$IMAGE_PATH" --width 100 > "$CSS_PATH"
-          done
-
-          # 環境変数にアップロード対象を設定
-          echo "ARTIFACT_FILES=$ARTIFACT_FILES" >> $GITHUB_ENV
+            npx --no-install image-to-pure-css "$IMAGE_PATH" --width 100 > "$CSS_PATH"
+          done < "$URLS_FILE"
 
       - name: Upload CSS files as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: css-artifacts
-          path: ${{ env.ARTIFACT_FILES }}
+          path: tmp/*.css
+          if-no-files-found: ignore
 
       - name: Comment on Issue
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
         run: |
-          ARTIFACT_URL="https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts"
-          curl -s -X POST \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d "{\"body\":\"CSS に変換しました。アーティファクトはこちらからダウンロード可能です: $ARTIFACT_URL\"}" \
-            "${{ github.event.issue.url }}/comments"
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPOSITORY" \
+            --body "CSS に変換しました。アーティファクト: https://github.com/$REPOSITORY/actions/runs/$RUN_ID"
