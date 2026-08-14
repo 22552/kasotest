@@ -22,7 +22,7 @@ jobs:
           node-version: '20'
 
       - name: Install image-to-pure-css
-        run: npm install --ignore-scripts @kongyo2/image-to-pure-css
+        run: npm install @kongyo2/image-to-pure-css@0.1.4
 
       - name: Process Issue Images
         env:
@@ -60,7 +60,7 @@ jobs:
               --proto '=https' --max-time 30 --max-filesize 10485760 \
               "$IMG_URL" -o "$IMAGE_PATH"
 
-            npx --no-install image-to-pure-css "$IMAGE_PATH" --width 100 > "$CSS_PATH"
+            npx --no-install kongyo-css "$IMAGE_PATH" --width 100 > "$CSS_PATH"
           done < "$URLS_FILE"
 
       - name: Upload CSS files as artifact
