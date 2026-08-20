@@ -1,16 +1,13 @@
 package main
 
 import (
-	"bufio"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
-	"net"
 	"net/http"
 	"net/url"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -19,18 +16,13 @@ import (
 )
 
 const (
-	apiBase             = "https://api.scratch.mit.edu"
-	proxyListURL        = "https://raw.githubusercontent.com/hproxy-com/free-proxy-list/main/https.txt"
-	pageLimit           = 40
-	pageConcurrency     = 9
-	replyConcurrency    = 24
-	maxAttempts         = 6
-	maxSafetyPages      = 100000
-	maxProxyRoutes      = 9
-	maxProxyTests       = 45
-	minHealthyForChoice = 12
-	progressEvery       = 100
-	routeFailThreshold  = 2
+	apiBase          = "https://api.scratch.mit.edu"
+	pageLimit        = 40
+	pageConcurrency  = 9
+	replyConcurrency = 24
+	maxAttempts      = 6
+	maxSafetyPages   = 100000
+	progressEvery    = 100
 )
 
 type apiAuthor struct {
@@ -55,272 +47,17 @@ type outComment struct {
 	Replies  []outComment `json:"replies"`
 }
 
-type route struct {
-	client  *http.Client
-	name    string
-	latency time.Duration
-}
-
-var (
-	routes        []route
-	spareRoutes   []route
-	directRoute   route
-	rr            atomic.Uint64
-	routeMu       sync.Mutex
-	routeFailures = map[string]int{}
-	routeBanned   = map[string]bool{}
-)
-
-func newTransport(proxyURL string) (*http.Transport, error) {
-	tr := &http.Transport{
+var directClient = &http.Client{
+	Timeout: 35 * time.Second,
+	Transport: &http.Transport{
 		MaxIdleConns:          128,
 		MaxIdleConnsPerHost:   64,
+		MaxConnsPerHost:       64,
 		IdleConnTimeout:       90 * time.Second,
 		TLSHandshakeTimeout:   8 * time.Second,
 		ResponseHeaderTimeout: 20 * time.Second,
 		ForceAttemptHTTP2:     true,
-	}
-	if proxyURL == "" {
-		return tr, nil
-	}
-	u, err := url.Parse(proxyURL)
-	if err != nil {
-		return nil, err
-	}
-	tr.Proxy = http.ProxyURL(u)
-	return tr, nil
-}
-
-func makeClient(proxyURL string, timeout time.Duration) (*http.Client, error) {
-	tr, err := newTransport(proxyURL)
-	if err != nil {
-		return nil, err
-	}
-	return &http.Client{Timeout: timeout, Transport: tr}, nil
-}
-
-func fetchProxyCandidates() ([]string, error) {
-	c, _ := makeClient("", 12*time.Second)
-	req, err := http.NewRequest(http.MethodGet, proxyListURL, nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("User-Agent", "kasotest-genko-proxy-discovery/2")
-	resp, err := c.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("proxy list: HTTP %d", resp.StatusCode)
-	}
-
-	var out []string
-	seen := map[string]struct{}{}
-	s := bufio.NewScanner(io.LimitReader(resp.Body, 2<<20))
-	for s.Scan() {
-		p := strings.TrimSpace(s.Text())
-		if p == "" {
-			continue
-		}
-		if _, _, err := net.SplitHostPort(p); err != nil {
-			continue
-		}
-		if _, ok := seen[p]; ok {
-			continue
-		}
-		seen[p] = struct{}{}
-		out = append(out, p)
-	}
-	return out, s.Err()
-}
-
-func probeProxy(addr string) (route, bool) {
-	proxyURL := "http://" + addr
-	c, err := makeClient(proxyURL, 4*time.Second)
-	if err != nil {
-		return route{}, false
-	}
-
-	testURL := apiBase + "/studios/51396308/comments?limit=1&offset=0"
-	req, err := http.NewRequest(http.MethodGet, testURL, nil)
-	if err != nil {
-		return route{}, false
-	}
-	req.Header.Set("Accept", "application/json")
-	req.Header.Set("User-Agent", "kasotest-genko-proxy-check/2")
-
-	started := time.Now()
-	resp, err := c.Do(req)
-	if err != nil {
-		return route{}, false
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return route{}, false
-	}
-
-	// A proxy returning HTML or a captive/MITM page with HTTP 200 is not healthy.
-	var sample []apiComment
-	if err := json.NewDecoder(io.LimitReader(resp.Body, 128<<10)).Decode(&sample); err != nil {
-		return route{}, false
-	}
-
-	return route{
-		client:  c,
-		name:    "proxy[" + addr + "]",
-		latency: time.Since(started),
-	}, true
-}
-
-func initRoutes() {
-	directClient, _ := makeClient("", 35*time.Second)
-	directRoute = route{client: directClient, name: "direct"}
-
-	fmt.Println("[proxy] fetching public proxy candidates...")
-	candidates, err := fetchProxyCandidates()
-	if err != nil {
-		fmt.Printf("[proxy] candidate fetch failed: %v\n", err)
-	}
-
-	var healthy []route
-	if err == nil && len(candidates) > 0 {
-		start := int(time.Now().UnixNano() % int64(len(candidates)))
-		ordered := append(append([]string{}, candidates[start:]...), candidates[:start]...)
-		if len(ordered) > maxProxyTests {
-			ordered = ordered[:maxProxyTests]
-		}
-		fmt.Printf("[proxy] candidates=%d; probing=%d; concurrency=%d; target=%d\n", len(candidates), len(ordered), maxProxyRoutes, maxProxyRoutes)
-
-		tested := 0
-		for i := 0; i < len(ordered); i += maxProxyRoutes {
-			end := i + maxProxyRoutes
-			if end > len(ordered) {
-				end = len(ordered)
-			}
-			type result struct {
-				r  route
-				ok bool
-			}
-			ch := make(chan result, end-i)
-			for _, p := range ordered[i:end] {
-				go func(addr string) {
-					r, ok := probeProxy(addr)
-					ch <- result{r: r, ok: ok}
-				}(p)
-			}
-			for j := i; j < end; j++ {
-				x := <-ch
-				tested++
-				if x.ok {
-					healthy = append(healthy, x.r)
-				}
-			}
-			fmt.Printf("[proxy] tested=%d/%d healthy=%d\n", tested, len(ordered), len(healthy))
-			if len(healthy) >= minHealthyForChoice {
-				break
-			}
-		}
-	}
-
-	if len(healthy) == 0 {
-		routes = nil
-		fmt.Println("[proxy] no healthy public proxies; using direct connection")
-		return
-	}
-
-	sort.Slice(healthy, func(i, j int) bool {
-		return healthy[i].latency < healthy[j].latency
-	})
-
-	active := maxProxyRoutes
-	if len(healthy) < active {
-		active = len(healthy)
-	}
-	routes = append(routes, healthy[:active]...)
-	if len(healthy) > active {
-		spareRoutes = append(spareRoutes, healthy[active:]...)
-	}
-
-	fmt.Printf("[proxy] ready: active=%d spares=%d fastest=%s slowest=%s\n",
-		len(routes), len(spareRoutes), routes[0].latency.Round(time.Millisecond), routes[len(routes)-1].latency.Round(time.Millisecond))
-}
-
-func nextRoute() route {
-	routeMu.Lock()
-	defer routeMu.Unlock()
-
-	if len(routes) == 0 {
-		return directRoute
-	}
-
-	start := int(rr.Add(1)-1) % len(routes)
-	for i := 0; i < len(routes); i++ {
-		r := routes[(start+i)%len(routes)]
-		if !routeBanned[r.name] {
-			return r
-		}
-	}
-	return directRoute
-}
-
-func markRouteSuccess(r route) {
-	if r.name == "direct" {
-		return
-	}
-	routeMu.Lock()
-	routeFailures[r.name] = 0
-	routeMu.Unlock()
-}
-
-func markRouteFailure(r route, hard bool, reason string) {
-	if r.name == "direct" {
-		return
-	}
-
-	routeMu.Lock()
-	if routeBanned[r.name] {
-		routeMu.Unlock()
-		return
-	}
-
-	if hard {
-		routeFailures[r.name] = routeFailThreshold
-	} else {
-		routeFailures[r.name]++
-	}
-	failures := routeFailures[r.name]
-	if failures < routeFailThreshold {
-		routeMu.Unlock()
-		return
-	}
-
-	routeBanned[r.name] = true
-	replacement := ""
-	if len(spareRoutes) > 0 {
-		next := spareRoutes[0]
-		spareRoutes = spareRoutes[1:]
-		routes = append(routes, next)
-		replacement = next.name
-	}
-	routeMu.Unlock()
-
-	if replacement != "" {
-		fmt.Printf("[proxy] BAN %s after %d failure(s): %s; replacement=%s\n", r.name, failures, reason, replacement)
-	} else {
-		fmt.Printf("[proxy] BAN %s after %d failure(s): %s; no spare left\n", r.name, failures, reason)
-	}
-}
-
-func isCertificateError(err error) bool {
-	if err == nil {
-		return false
-	}
-	s := strings.ToLower(err.Error())
-	return strings.Contains(s, "x509:") ||
-		strings.Contains(s, "failed to verify certificate") ||
-		strings.Contains(s, "certificate signed by unknown authority") ||
-		strings.Contains(s, "certificate relies on legacy common name")
+	},
 }
 
 func backoff(resp *http.Response, attempt int) time.Duration {
@@ -338,35 +75,21 @@ func backoff(resp *http.Response, attempt int) time.Duration {
 	return d
 }
 
-func fastRetry(attempt int) time.Duration {
-	d := time.Duration(attempt+1) * 150 * time.Millisecond
-	if d > 750*time.Millisecond {
-		d = 750 * time.Millisecond
-	}
-	return d
-}
-
 func getJSON(rawURL string, dst any) error {
 	var lastErr error
 	for attempt := 0; attempt < maxAttempts; attempt++ {
-		r := nextRoute()
 		req, err := http.NewRequest(http.MethodGet, rawURL, nil)
 		if err != nil {
 			return err
 		}
 		req.Header.Set("Accept", "application/json")
-		req.Header.Set("User-Agent", "kasotest-genko-scraper/7")
+		req.Header.Set("User-Agent", "kasotest-genko-scraper/8")
 
-		resp, err := r.client.Do(req)
+		resp, err := directClient.Do(req)
 		if err != nil {
-			hard := isCertificateError(err)
-			markRouteFailure(r, hard, err.Error())
-			lastErr = fmt.Errorf("%s: %w", r.name, err)
-			wait := fastRetry(attempt)
-			if r.name == "direct" {
-				wait = backoff(nil, attempt)
-			}
-			fmt.Printf("[http] %s attempt=%d/%d error; switch/retry in %s\n", r.name, attempt+1, maxAttempts, wait)
+			lastErr = err
+			wait := backoff(nil, attempt)
+			fmt.Printf("[http] direct attempt=%d/%d error=%v; retry in %s\n", attempt+1, maxAttempts, err, wait)
 			time.Sleep(wait)
 			continue
 		}
@@ -375,13 +98,11 @@ func getJSON(rawURL string, dst any) error {
 			err = json.NewDecoder(resp.Body).Decode(dst)
 			resp.Body.Close()
 			if err == nil {
-				markRouteSuccess(r)
 				return nil
 			}
-			lastErr = fmt.Errorf("%s decode: %w", r.name, err)
-			markRouteFailure(r, r.name != "direct", "invalid JSON response")
-			wait := fastRetry(attempt)
-			fmt.Printf("[http] %s invalid JSON attempt=%d/%d; switch/retry in %s\n", r.name, attempt+1, maxAttempts, wait)
+			lastErr = fmt.Errorf("decode: %w", err)
+			wait := backoff(resp, attempt)
+			fmt.Printf("[http] direct invalid JSON attempt=%d/%d; retry in %s\n", attempt+1, maxAttempts, wait)
 			time.Sleep(wait)
 			continue
 		}
@@ -389,24 +110,15 @@ func getJSON(rawURL string, dst any) error {
 		_, _ = io.Copy(io.Discard, io.LimitReader(resp.Body, 4096))
 		resp.Body.Close()
 
-		if resp.StatusCode == http.StatusTooManyRequests {
-			lastErr = fmt.Errorf("%s GET %s: HTTP 429", r.name, rawURL)
+		if resp.StatusCode == http.StatusTooManyRequests || resp.StatusCode >= 500 {
+			lastErr = fmt.Errorf("GET %s: HTTP %d", rawURL, resp.StatusCode)
 			wait := backoff(resp, attempt)
-			fmt.Printf("[http] HTTP 429; respecting Retry-After/backoff for %s\n", wait)
+			fmt.Printf("[http] direct HTTP %d attempt=%d/%d; retry in %s\n", resp.StatusCode, attempt+1, maxAttempts, wait)
 			time.Sleep(wait)
 			continue
 		}
 
-		if resp.StatusCode >= 500 {
-			lastErr = fmt.Errorf("%s GET %s: HTTP %d", r.name, rawURL, resp.StatusCode)
-			markRouteFailure(r, false, fmt.Sprintf("HTTP %d", resp.StatusCode))
-			wait := fastRetry(attempt)
-			fmt.Printf("[http] %s HTTP %d attempt=%d/%d; switch/retry in %s\n", r.name, resp.StatusCode, attempt+1, maxAttempts, wait)
-			time.Sleep(wait)
-			continue
-		}
-
-		return fmt.Errorf("%s GET %s: HTTP %d", r.name, rawURL, resp.StatusCode)
+		return fmt.Errorf("GET %s: HTTP %d", rawURL, resp.StatusCode)
 	}
 	if lastErr == nil {
 		lastErr = errors.New("request failed")
@@ -440,12 +152,13 @@ func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
 	seen := make(map[int64]struct{}, 8192)
 	started := time.Now()
 
-	fmt.Printf("[pages] start: concurrency=%d limit=%d cutoff=%s\n", pageConcurrency, pageLimit, cutoff.Format(time.RFC3339))
+	fmt.Printf("[pages] start: route=direct concurrency=%d limit=%d cutoff=%s\n", pageConcurrency, pageLimit, cutoff.Format(time.RFC3339))
 	for base := 0; base < maxSafetyPages; base += pageConcurrency {
 		end := base + pageConcurrency
 		if end > maxSafetyPages {
 			end = maxSafetyPages
 		}
+
 		ch := make(chan pageResult, end-base)
 		var wg sync.WaitGroup
 		for p := base; p < end; p++ {
@@ -470,8 +183,10 @@ func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
 
 		stop := false
 		oldest := ""
+		actualPages := base
 		for p := base; p < end; p++ {
 			data := pages[p]
+			actualPages = p + 1
 			if len(data) == 0 {
 				stop = true
 				break
@@ -497,9 +212,10 @@ func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
 				break
 			}
 		}
-		fmt.Printf("[pages] fetched=%d pages comments=%d oldest=%s elapsed=%s\n", end, len(all), oldest, time.Since(started).Round(time.Second))
+
+		fmt.Printf("[pages] fetched=%d pages comments=%d oldest=%s elapsed=%s\n", actualPages, len(all), oldest, time.Since(started).Round(time.Second))
 		if stop {
-			fmt.Printf("[pages] stop: reached cutoff/end after %d pages\n", end)
+			fmt.Printf("[pages] stop: reached cutoff/end after %d pages\n", actualPages)
 			break
 		}
 	}
@@ -611,7 +327,7 @@ func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]o
 	started := time.Now()
 	total := int64(len(top))
 
-	fmt.Printf("[replies] start: comments=%d workers=%d\n", total, replyConcurrency)
+	fmt.Printf("[replies] start: route=direct comments=%d workers=%d\n", total, replyConcurrency)
 	worker := func() {
 		defer wg.Done()
 		for i := range jobs {
@@ -637,8 +353,7 @@ func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]o
 
 			done := processed.Add(1)
 			if done%progressEvery == 0 || done == total {
-				fmt.Printf("[replies] processed=%d/%d reused=%d refreshed=%d elapsed=%s\n",
-					done, total, reused.Load(), fetched.Load(), time.Since(started).Round(time.Second))
+				fmt.Printf("[replies] processed=%d/%d reused=%d refreshed=%d elapsed=%s\n", done, total, reused.Load(), fetched.Load(), time.Since(started).Round(time.Second))
 			}
 		}
 	}
@@ -702,7 +417,7 @@ func main() {
 
 	started := time.Now()
 	fmt.Printf("[start] studio=%s days=%d output=%s\n", studio, days, output)
-	initRoutes()
+	fmt.Printf("[network] direct only; page_concurrency=%d reply_workers=%d\n", pageConcurrency, replyConcurrency)
 	cutoff := time.Now().UTC().AddDate(0, 0, -days)
 
 	old, cacheFormat, cacheErr := loadOld(output)
@@ -728,6 +443,5 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("[done] reused=%d refreshed=%d total_elapsed=%s\n",
-		reused, fetched, time.Since(started).Round(time.Millisecond))
+	fmt.Printf("[done] reused=%d refreshed=%d total_elapsed=%s\n", reused, fetched, time.Since(started).Round(time.Millisecond))
 }
