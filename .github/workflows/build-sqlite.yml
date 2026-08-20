@@ -2,12 +2,6 @@ name: Build indexed SQLite dataset
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '第二プロジェクト.json.gz'
-      - 'tools/json_to_sqlite.py'
-      - '.github/workflows/build-sqlite.yml'
 
 permissions:
   contents: write
@@ -86,16 +80,6 @@ jobs:
             exit 0
           fi
 
-          git commit -m 'Update indexed SQLite dataset'
-
-          for i in 1 2 3 4 5; do
-            git pull --rebase origin main
-            if git push origin HEAD:main; then
-              exit 0
-            fi
-            echo "Push raced with another writer; retrying ($i/5)"
-            sleep $((i * 2))
-          done
-
-          echo 'Push failed after 5 retries'
-          exit 1
+          git commit -m 'Add indexed SQLite dataset'
+          git pull --rebase origin main
+          git push origin HEAD:main
