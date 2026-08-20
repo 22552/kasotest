@@ -25,7 +25,7 @@ const (
 	replyConcurrency = 24
 	maxAttempts      = 6
 	maxSafetyPages   = 100000
-	maxProxyRoutes   = 3
+	maxProxyRoutes   = 9
 	maxProxyTests    = 45
 	progressEvery    = 100
 )
