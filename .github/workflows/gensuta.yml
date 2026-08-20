@@ -3,7 +3,7 @@ name: genko
 on:
   schedule:
     - cron: "0 */8 * * *"  # 8時間ごと（UTC）
-  workflow_dispatch:       # 手動実行OK
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -22,6 +22,10 @@ jobs:
 
       - name: Run fast Go scraper
         shell: bash
+        env:
+          SCRAPER_PROXY_URL_1: ${{ secrets.SCRAPER_PROXY_URL_1 }}
+          SCRAPER_PROXY_URL_2: ${{ secrets.SCRAPER_PROXY_URL_2 }}
+          SCRAPER_PROXY_URL_3: ${{ secrets.SCRAPER_PROXY_URL_3 }}
         run: |
           set -euo pipefail
 
@@ -46,9 +50,10 @@ jobs:
           const (
               apiBase          = "https://api.scratch.mit.edu"
               pageLimit        = 40
-              pageConcurrency  = 6
-              replyConcurrency = 16
+              pageConcurrency  = 9
+              replyConcurrency = 24
               maxAttempts      = 6
+              maxSafetyPages   = 100000
           )
 
           type apiAuthor struct {
@@ -64,7 +69,6 @@ jobs:
               ReplyCount      int       `json:"reply_count"`
           }
 
-          // Keep the old output shape and add user_id.
           type outComment struct {
               ID       int64        `json:"id"`
               User     string       `json:"user"`
@@ -74,16 +78,75 @@ jobs:
               Replies  []outComment `json:"replies"`
           }
 
-          var client = &http.Client{
-              Timeout: 35 * time.Second,
-              Transport: &http.Transport{
-                  Proxy:                 http.ProxyFromEnvironment,
-                  MaxIdleConns:          64,
-                  MaxIdleConnsPerHost:   32,
+          type route struct {
+              client *http.Client
+              name   string
+          }
+
+          var (
+              routes []route
+              rr     atomic.Uint64
+          )
+
+          func newTransport(proxyURL string) (*http.Transport, error) {
+              tr := &http.Transport{
+                  MaxIdleConns:          128,
+                  MaxIdleConnsPerHost:   64,
                   IdleConnTimeout:       90 * time.Second,
                   TLSHandshakeTimeout:   10 * time.Second,
                   ResponseHeaderTimeout: 25 * time.Second,
-              },
+                  ForceAttemptHTTP2:     true,
+              }
+              if strings.TrimSpace(proxyURL) == "" {
+                  return tr, nil
+              }
+              u, err := url.Parse(proxyURL)
+              if err != nil {
+                  return nil, err
+              }
+              tr.Proxy = http.ProxyURL(u)
+              return tr, nil
+          }
+
+          func initRoutes() error {
+              proxyURLs := []string{
+                  os.Getenv("SCRAPER_PROXY_URL_1"),
+                  os.Getenv("SCRAPER_PROXY_URL_2"),
+                  os.Getenv("SCRAPER_PROXY_URL_3"),
+              }
+
+              for i, p := range proxyURLs {
+                  if strings.TrimSpace(p) == "" {
+                      continue
+                  }
+                  tr, err := newTransport(p)
+                  if err != nil {
+                      return fmt.Errorf("proxy %d: %w", i+1, err)
+                  }
+                  routes = append(routes, route{
+                      client: &http.Client{Timeout: 35 * time.Second, Transport: tr},
+                      name:   fmt.Sprintf("proxy-%d", i+1),
+                  })
+              }
+
+              if len(routes) == 0 {
+                  tr, err := newTransport("")
+                  if err != nil {
+                      return err
+                  }
+                  routes = append(routes, route{
+                      client: &http.Client{Timeout: 35 * time.Second, Transport: tr},
+                      name:   "direct",
+                  })
+              }
+
+              fmt.Printf("HTTP routes: %d\n", len(routes))
+              return nil
+          }
+
+          func nextRoute() route {
+              n := rr.Add(1)
+              return routes[(n-1)%uint64(len(routes))]
           }
 
           func backoff(resp *http.Response, attempt int) time.Duration {
@@ -94,26 +157,29 @@ jobs:
                       }
                   }
               }
-              d := 500 * time.Millisecond * time.Duration(1<<attempt)
-              if d > 16*time.Second {
-                  d = 16 * time.Second
+              d := 400 * time.Millisecond * time.Duration(1<<attempt)
+              if d > 12*time.Second {
+                  d = 12 * time.Second
               }
               return d
           }
 
           func getJSON(rawURL string, dst any) error {
+              // Pick one route per request. Concurrent requests are spread over up to 3 routes.
+              r := nextRoute()
               var lastErr error
+
               for attempt := 0; attempt < maxAttempts; attempt++ {
                   req, err := http.NewRequest(http.MethodGet, rawURL, nil)
                   if err != nil {
                       return err
                   }
                   req.Header.Set("Accept", "application/json")
-                  req.Header.Set("User-Agent", "kasotest-genko-scraper/2")
+                  req.Header.Set("User-Agent", "kasotest-genko-scraper/4")
 
-                  resp, err := client.Do(req)
+                  resp, err := r.client.Do(req)
                   if err != nil {
-                      lastErr = err
+                      lastErr = fmt.Errorf("%s: %w", r.name, err)
                       time.Sleep(backoff(nil, attempt))
                       continue
                   }
@@ -124,7 +190,7 @@ jobs:
                       if err == nil {
                           return nil
                       }
-                      lastErr = err
+                      lastErr = fmt.Errorf("%s decode: %w", r.name, err)
                       time.Sleep(backoff(resp, attempt))
                       continue
                   }
@@ -133,12 +199,13 @@ jobs:
                   resp.Body.Close()
 
                   if resp.StatusCode == http.StatusTooManyRequests || resp.StatusCode >= 500 {
-                      lastErr = fmt.Errorf("GET %s: HTTP %d", rawURL, resp.StatusCode)
+                      lastErr = fmt.Errorf("%s GET %s: HTTP %d", r.name, rawURL, resp.StatusCode)
                       time.Sleep(backoff(resp, attempt))
                       continue
                   }
-                  return fmt.Errorf("GET %s: HTTP %d", rawURL, resp.StatusCode)
+                  return fmt.Errorf("%s GET %s: HTTP %d", r.name, rawURL, resp.StatusCode)
               }
+
               if lastErr == nil {
                   lastErr = errors.New("request failed")
               }
@@ -155,22 +222,27 @@ jobs:
                   apiBase, url.PathEscape(studio), parentID, pageLimit, offset)
           }
 
+          func parseCommentTime(s string) (time.Time, error) {
+              if t, err := time.Parse(time.RFC3339Nano, s); err == nil {
+                  return t, nil
+              }
+              return time.Parse(time.RFC3339, s)
+          }
+
           type pageResult struct {
               page int
               data []apiComment
               err  error
           }
 
-          // Fetch top-level comments in small parallel batches. A short page marks EOF.
-          // The second CLI argument remains the safety cap on the number of pages.
-          func fetchTopLevel(studio string, maxPages int) ([]apiComment, error) {
-              all := make([]apiComment, 0, maxPages*pageLimit)
-              seen := make(map[int64]struct{}, maxPages*pageLimit)
+          func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
+              all := make([]apiComment, 0, 8192)
+              seen := make(map[int64]struct{}, 8192)
 
-              for base := 0; base < maxPages; base += pageConcurrency {
+              for base := 0; base < maxSafetyPages; base += pageConcurrency {
                   end := base + pageConcurrency
-                  if end > maxPages {
-                      end = maxPages
+                  if end > maxSafetyPages {
+                      end = maxSafetyPages
                   }
 
                   ch := make(chan pageResult, end-base)
@@ -198,15 +270,28 @@ jobs:
                   stop := false
                   for p := base; p < end; p++ {
                       data := pages[p]
+                      if len(data) == 0 {
+                          stop = true
+                          break
+                      }
+
                       for _, c := range data {
-                          // Offset pagination can overlap if a new comment arrives mid-run.
+                          created, err := parseCommentTime(c.DatetimeCreated)
+                          if err != nil {
+                              return nil, fmt.Errorf("comment %d time %q: %w", c.ID, c.DatetimeCreated, err)
+                          }
+                          if created.Before(cutoff) {
+                              stop = true
+                              break
+                          }
                           if _, ok := seen[c.ID]; ok {
                               continue
                           }
                           seen[c.ID] = struct{}{}
                           all = append(all, c)
                       }
-                      if len(data) < pageLimit {
+
+                      if stop || len(data) < pageLimit {
                           stop = true
                           break
                       }
@@ -296,8 +381,6 @@ jobs:
                       c := top[i]
                       item := asOut(c)
 
-                      // Fast path for later runs: unchanged reply count + already migrated IDs.
-                      // New/deleted replies change reply_count and force a refresh.
                       if prev, ok := old[c.ID]; ok && len(prev.Replies) == c.ReplyCount && repliesHaveIDs(prev.Replies) {
                           item.Replies = prev.Replies
                           out[i] = item
@@ -359,27 +442,36 @@ jobs:
 
           func main() {
               if len(os.Args) != 4 {
-                  fmt.Fprintf(os.Stderr, "usage: %s <studio-id> <max-pages> <output.json>\n", os.Args[0])
+                  fmt.Fprintf(os.Stderr, "usage: %s <studio-id> <days> <output.json>\n", os.Args[0])
                   os.Exit(2)
               }
+
               studio := os.Args[1]
-              maxPages, err := strconv.Atoi(os.Args[2])
-              if err != nil || maxPages <= 0 {
-                  fmt.Fprintln(os.Stderr, "max-pages must be a positive integer")
+              days, err := strconv.Atoi(os.Args[2])
+              if err != nil || days <= 0 {
+                  fmt.Fprintln(os.Stderr, "days must be a positive integer")
                   os.Exit(2)
               }
               output := os.Args[3]
 
+              if err := initRoutes(); err != nil {
+                  fmt.Fprintln(os.Stderr, err)
+                  os.Exit(1)
+              }
+
               started := time.Now()
+              cutoff := time.Now().UTC().AddDate(0, 0, -days)
               old := loadOld(output)
+
+              fmt.Printf("cutoff: %s (%d days)\n", cutoff.Format(time.RFC3339), days)
               fmt.Printf("existing comments cached: %d\n", len(old))
 
-              top, err := fetchTopLevel(studio, maxPages)
+              top, err := fetchTopLevel(studio, cutoff)
               if err != nil {
                   fmt.Fprintln(os.Stderr, err)
                   os.Exit(1)
               }
-              fmt.Printf("top-level comments: %d\n", len(top))
+              fmt.Printf("top-level comments in range: %d\n", len(top))
 
               data, reused, fetched, err := buildOutput(studio, top, old)
               if err != nil {
