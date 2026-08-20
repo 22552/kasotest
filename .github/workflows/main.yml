@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: result-writer
+  cancel-in-progress: false
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -27,5 +31,24 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add result.json
-          git commit -m "Update result.json" || exit 0
-          git push
+
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+
+          git commit -m "Update result.json"
+
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main
+
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Push raced with another writer; retrying ($i/5)"
+            sleep $((i * 2))
+          done
+
+          echo "Push failed after 5 retries"
+          exit 1
