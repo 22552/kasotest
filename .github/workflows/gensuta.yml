@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "0 */8 * * *"  # 8時間ごと（UTC）
   workflow_dispatch:
+  push:
+    branches:
+      - run-genko-now-20260820
 
 permissions:
   contents: write
