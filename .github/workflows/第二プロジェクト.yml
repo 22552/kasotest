@@ -1,6 +1,7 @@
 name: 第二集計プロジェクト
 
 on:
+  push:
   workflow_dispatch:
 
 permissions:
@@ -23,22 +24,39 @@ jobs:
       - name: Install Git LFS
         run: git lfs install
 
-      - name: Make executable
-        run: chmod +x ./scraper
+      - name: Restore compressed cache
+        run: |
+          if [ -f 第二プロジェクト.json.gz ]; then
+            gzip -dc 第二プロジェクト.json.gz > 第二プロジェクト.json
+          fi
 
-      - name: Run scraper
-        run: ./scraper 32970524 1080 第二プロジェクト.json
+      - name: Run scraper4
+        run: go run ./scraper4.go 32970524 1080 第二プロジェクト.json
 
       - name: Compress JSON
-        run: |
-          gzip -f 第二プロジェクト.json
+        run: gzip -f 第二プロジェクト.json
 
       - name: Commit & Push
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-
           git add 第二プロジェクト.json.gz
-          git commit -m "Update compressed data" || echo "No changes"
 
-          git push
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+
+          git commit -m "Update compressed data"
+
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push raced with another writer; retrying ($i/5)"
+            sleep $((i * 2))
+          done
+
+          echo "Push failed after 5 retries"
+          exit 1
