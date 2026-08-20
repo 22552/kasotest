@@ -1,0 +1,508 @@
+package main
+
+import (
+	"bufio"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"net"
+	"net/http"
+	"net/url"
+	"os"
+	"strconv"
+	"strings"
+	"sync"
+	"sync/atomic"
+	"time"
+)
+
+const (
+	apiBase          = "https://api.scratch.mit.edu"
+	proxyListURL     = "https://raw.githubusercontent.com/hproxy-com/free-proxy-list/main/https.txt"
+	pageLimit        = 40
+	pageConcurrency  = 9
+	replyConcurrency = 24
+	maxAttempts      = 6
+	maxSafetyPages   = 100000
+	maxProxyRoutes   = 3
+	maxProxyTests    = 45
+)
+
+type apiAuthor struct {
+	ID       int64  `json:"id"`
+	Username string `json:"username"`
+}
+
+type apiComment struct {
+	ID              int64     `json:"id"`
+	Content         string    `json:"content"`
+	DatetimeCreated string    `json:"datetime_created"`
+	Author          apiAuthor `json:"author"`
+	ReplyCount      int       `json:"reply_count"`
+}
+
+type outComment struct {
+	ID       int64        `json:"id"`
+	User     string       `json:"user"`
+	UserID   int64        `json:"user_id"`
+	Datetime string       `json:"datetime"`
+	Content  string       `json:"content"`
+	Replies  []outComment `json:"replies"`
+}
+
+type route struct {
+	client *http.Client
+	name   string
+}
+
+var (
+	routes []route
+	rr     atomic.Uint64
+)
+
+func newTransport(proxyURL string) (*http.Transport, error) {
+	tr := &http.Transport{
+		MaxIdleConns:          128,
+		MaxIdleConnsPerHost:   64,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   8 * time.Second,
+		ResponseHeaderTimeout: 20 * time.Second,
+		ForceAttemptHTTP2:     true,
+	}
+	if proxyURL == "" {
+		return tr, nil
+	}
+	u, err := url.Parse(proxyURL)
+	if err != nil {
+		return nil, err
+	}
+	tr.Proxy = http.ProxyURL(u)
+	return tr, nil
+}
+
+func makeClient(proxyURL string, timeout time.Duration) (*http.Client, error) {
+	tr, err := newTransport(proxyURL)
+	if err != nil {
+		return nil, err
+	}
+	return &http.Client{Timeout: timeout, Transport: tr}, nil
+}
+
+func fetchProxyCandidates() ([]string, error) {
+	c, _ := makeClient("", 12*time.Second)
+	req, err := http.NewRequest(http.MethodGet, proxyListURL, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("User-Agent", "kasotest-genko-proxy-discovery/1")
+	resp, err := c.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("proxy list: HTTP %d", resp.StatusCode)
+	}
+
+	var out []string
+	seen := map[string]struct{}{}
+	s := bufio.NewScanner(io.LimitReader(resp.Body, 2<<20))
+	for s.Scan() {
+		p := strings.TrimSpace(s.Text())
+		if p == "" {
+			continue
+		}
+		if _, _, err := net.SplitHostPort(p); err != nil {
+			continue
+		}
+		if _, ok := seen[p]; ok {
+			continue
+		}
+		seen[p] = struct{}{}
+		out = append(out, p)
+	}
+	return out, s.Err()
+}
+
+func probeProxy(addr string) (route, bool) {
+	proxyURL := "http://" + addr
+	c, err := makeClient(proxyURL, 4*time.Second)
+	if err != nil {
+		return route{}, false
+	}
+	testURL := apiBase + "/studios/51396308/comments?limit=1&offset=0"
+	req, err := http.NewRequest(http.MethodGet, testURL, nil)
+	if err != nil {
+		return route{}, false
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("User-Agent", "kasotest-genko-proxy-check/1")
+	resp, err := c.Do(req)
+	if err != nil {
+		return route{}, false
+	}
+	_, _ = io.Copy(io.Discard, io.LimitReader(resp.Body, 2048))
+	resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return route{}, false
+	}
+	return route{client: c, name: "public-proxy"}, true
+}
+
+func initRoutes() {
+	candidates, err := fetchProxyCandidates()
+	if err == nil && len(candidates) > 0 {
+		// Rotate the starting point so every run does not hammer the same first proxies.
+		start := int(time.Now().UnixNano() % int64(len(candidates)))
+		ordered := append(append([]string{}, candidates[start:]...), candidates[:start]...)
+		if len(ordered) > maxProxyTests {
+			ordered = ordered[:maxProxyTests]
+		}
+
+		for i := 0; i < len(ordered) && len(routes) < maxProxyRoutes; i += maxProxyRoutes {
+			end := i + maxProxyRoutes
+			if end > len(ordered) {
+				end = len(ordered)
+			}
+			type result struct {
+				r  route
+				ok bool
+			}
+			ch := make(chan result, end-i)
+			for _, p := range ordered[i:end] {
+				go func(addr string) {
+					r, ok := probeProxy(addr)
+					ch <- result{r: r, ok: ok}
+				}(p)
+			}
+			for j := i; j < end; j++ {
+				x := <-ch
+				if x.ok && len(routes) < maxProxyRoutes {
+					routes = append(routes, x.r)
+				}
+			}
+		}
+	}
+
+	if len(routes) == 0 {
+		c, _ := makeClient("", 35*time.Second)
+		routes = []route{{client: c, name: "direct"}}
+		fmt.Println("public proxies unavailable; using direct connection")
+	} else {
+		fmt.Printf("healthy public proxy routes: %d\n", len(routes))
+	}
+}
+
+func nextRoute() route {
+	n := rr.Add(1)
+	return routes[(n-1)%uint64(len(routes))]
+}
+
+func backoff(resp *http.Response, attempt int) time.Duration {
+	if resp != nil {
+		if v := strings.TrimSpace(resp.Header.Get("Retry-After")); v != "" {
+			if sec, err := strconv.Atoi(v); err == nil && sec > 0 && sec <= 60 {
+				return time.Duration(sec) * time.Second
+			}
+		}
+	}
+	d := 400 * time.Millisecond * time.Duration(1<<attempt)
+	if d > 12*time.Second {
+		d = 12 * time.Second
+	}
+	return d
+}
+
+func getJSON(rawURL string, dst any) error {
+	var lastErr error
+	for attempt := 0; attempt < maxAttempts; attempt++ {
+		r := nextRoute()
+		req, err := http.NewRequest(http.MethodGet, rawURL, nil)
+		if err != nil {
+			return err
+		}
+		req.Header.Set("Accept", "application/json")
+		req.Header.Set("User-Agent", "kasotest-genko-scraper/5")
+
+		resp, err := r.client.Do(req)
+		if err != nil {
+			lastErr = fmt.Errorf("%s: %w", r.name, err)
+			time.Sleep(backoff(nil, attempt))
+			continue
+		}
+
+		if resp.StatusCode == http.StatusOK {
+			err = json.NewDecoder(resp.Body).Decode(dst)
+			resp.Body.Close()
+			if err == nil {
+				return nil
+			}
+			lastErr = fmt.Errorf("%s decode: %w", r.name, err)
+			time.Sleep(backoff(resp, attempt))
+			continue
+		}
+
+		_, _ = io.Copy(io.Discard, io.LimitReader(resp.Body, 4096))
+		resp.Body.Close()
+		if resp.StatusCode == http.StatusTooManyRequests || resp.StatusCode >= 500 {
+			lastErr = fmt.Errorf("%s GET %s: HTTP %d", r.name, rawURL, resp.StatusCode)
+			time.Sleep(backoff(resp, attempt))
+			continue
+		}
+		return fmt.Errorf("%s GET %s: HTTP %d", r.name, rawURL, resp.StatusCode)
+	}
+	if lastErr == nil {
+		lastErr = errors.New("request failed")
+	}
+	return lastErr
+}
+
+func commentsURL(studio string, offset int) string {
+	return fmt.Sprintf("%s/studios/%s/comments?limit=%d&offset=%d", apiBase, url.PathEscape(studio), pageLimit, offset)
+}
+
+func repliesURL(studio string, parentID int64, offset int) string {
+	return fmt.Sprintf("%s/studios/%s/comments/%d/replies?limit=%d&offset=%d", apiBase, url.PathEscape(studio), parentID, pageLimit, offset)
+}
+
+func parseCommentTime(s string) (time.Time, error) {
+	if t, err := time.Parse(time.RFC3339Nano, s); err == nil {
+		return t, nil
+	}
+	return time.Parse(time.RFC3339, s)
+}
+
+type pageResult struct {
+	page int
+	data []apiComment
+	err  error
+}
+
+func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
+	all := make([]apiComment, 0, 8192)
+	seen := make(map[int64]struct{}, 8192)
+
+	for base := 0; base < maxSafetyPages; base += pageConcurrency {
+		end := base + pageConcurrency
+		if end > maxSafetyPages {
+			end = maxSafetyPages
+		}
+		ch := make(chan pageResult, end-base)
+		var wg sync.WaitGroup
+		for p := base; p < end; p++ {
+			wg.Add(1)
+			go func(page int) {
+				defer wg.Done()
+				var data []apiComment
+				err := getJSON(commentsURL(studio, page*pageLimit), &data)
+				ch <- pageResult{page: page, data: data, err: err}
+			}(p)
+		}
+		wg.Wait()
+		close(ch)
+
+		pages := make(map[int][]apiComment, end-base)
+		for r := range ch {
+			if r.err != nil {
+				return nil, fmt.Errorf("comments page %d: %w", r.page, r.err)
+			}
+			pages[r.page] = r.data
+		}
+
+		stop := false
+		for p := base; p < end; p++ {
+			data := pages[p]
+			if len(data) == 0 {
+				stop = true
+				break
+			}
+			for _, c := range data {
+				created, err := parseCommentTime(c.DatetimeCreated)
+				if err != nil {
+					return nil, fmt.Errorf("comment %d time %q: %w", c.ID, c.DatetimeCreated, err)
+				}
+				if created.Before(cutoff) {
+					stop = true
+					break
+				}
+				if _, ok := seen[c.ID]; ok {
+					continue
+				}
+				seen[c.ID] = struct{}{}
+				all = append(all, c)
+			}
+			if stop || len(data) < pageLimit {
+				stop = true
+				break
+			}
+		}
+		if stop {
+			break
+		}
+	}
+	return all, nil
+}
+
+func asOut(c apiComment) outComment {
+	return outComment{ID: c.ID, User: c.Author.Username, UserID: c.Author.ID, Datetime: c.DatetimeCreated, Content: c.Content, Replies: []outComment{}}
+}
+
+func fetchReplies(studio string, parent apiComment) ([]outComment, error) {
+	if parent.ReplyCount <= 0 {
+		return []outComment{}, nil
+	}
+	out := make([]outComment, 0, parent.ReplyCount)
+	seen := make(map[int64]struct{}, parent.ReplyCount)
+	for offset := 0; offset < parent.ReplyCount; offset += pageLimit {
+		var data []apiComment
+		if err := getJSON(repliesURL(studio, parent.ID, offset), &data); err != nil {
+			return nil, err
+		}
+		for _, r := range data {
+			if _, ok := seen[r.ID]; ok {
+				continue
+			}
+			seen[r.ID] = struct{}{}
+			out = append(out, asOut(r))
+		}
+		if len(data) < pageLimit {
+			break
+		}
+	}
+	return out, nil
+}
+
+func loadOld(path string) map[int64]outComment {
+	f, err := os.Open(path)
+	if err != nil {
+		return map[int64]outComment{}
+	}
+	defer f.Close()
+	var old []outComment
+	if err := json.NewDecoder(f).Decode(&old); err != nil {
+		return map[int64]outComment{}
+	}
+	m := make(map[int64]outComment, len(old))
+	for _, c := range old {
+		m[c.ID] = c
+	}
+	return m
+}
+
+func repliesHaveIDs(replies []outComment) bool {
+	for _, r := range replies {
+		if r.User != "" && r.UserID == 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]outComment, int64, int64, error) {
+	out := make([]outComment, len(top))
+	jobs := make(chan int)
+	errCh := make(chan error, 1)
+	var reused, fetched atomic.Int64
+	var wg sync.WaitGroup
+
+	worker := func() {
+		defer wg.Done()
+		for i := range jobs {
+			c := top[i]
+			item := asOut(c)
+			if prev, ok := old[c.ID]; ok && len(prev.Replies) == c.ReplyCount && repliesHaveIDs(prev.Replies) {
+				item.Replies = prev.Replies
+				out[i] = item
+				reused.Add(1)
+				continue
+			}
+			replies, err := fetchReplies(studio, c)
+			if err != nil {
+				select {
+				case errCh <- fmt.Errorf("replies for comment %d: %w", c.ID, err):
+				default:
+				}
+				continue
+			}
+			item.Replies = replies
+			out[i] = item
+			fetched.Add(1)
+		}
+	}
+
+	for i := 0; i < replyConcurrency; i++ {
+		wg.Add(1)
+		go worker()
+	}
+	for i := range top {
+		jobs <- i
+	}
+	close(jobs)
+	wg.Wait()
+	select {
+	case err := <-errCh:
+		return nil, reused.Load(), fetched.Load(), err
+	default:
+	}
+	return out, reused.Load(), fetched.Load(), nil
+}
+
+func writeJSON(path string, data []outComment) error {
+	tmp := path + ".tmp"
+	f, err := os.Create(tmp)
+	if err != nil {
+		return err
+	}
+	enc := json.NewEncoder(f)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(data); err != nil {
+		f.Close()
+		_ = os.Remove(tmp)
+		return err
+	}
+	if err := f.Close(); err != nil {
+		_ = os.Remove(tmp)
+		return err
+	}
+	return os.Rename(tmp, path)
+}
+
+func main() {
+	if len(os.Args) != 4 {
+		fmt.Fprintf(os.Stderr, "usage: %s <studio-id> <days> <output.json>\n", os.Args[0])
+		os.Exit(2)
+	}
+	studio := os.Args[1]
+	days, err := strconv.Atoi(os.Args[2])
+	if err != nil || days <= 0 {
+		fmt.Fprintln(os.Stderr, "days must be a positive integer")
+		os.Exit(2)
+	}
+	output := os.Args[3]
+
+	initRoutes()
+	started := time.Now()
+	cutoff := time.Now().UTC().AddDate(0, 0, -days)
+	old := loadOld(output)
+	fmt.Printf("cutoff: %s (%d days)\n", cutoff.Format(time.RFC3339), days)
+	fmt.Printf("existing comments cached: %d\n", len(old))
+
+	top, err := fetchTopLevel(studio, cutoff)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	fmt.Printf("top-level comments in range: %d\n", len(top))
+
+	data, reused, fetched, err := buildOutput(studio, top, old)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	if err := writeJSON(output, data); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	fmt.Printf("reply lists reused: %d; refreshed: %d; elapsed: %s\n", reused, fetched, time.Since(started).Round(time.Millisecond))
+}
