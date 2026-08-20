@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "0 */8 * * *"  # 8時間ごと（UTC）
   workflow_dispatch:       # 手動実行OK
+  push:
+    paths:
+      - ".github/workflows/gensuta.yml"
 
 permissions:
   contents: write
@@ -13,7 +16,27 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  inspect:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Inspect Go binary
+        run: |
+          set -euo pipefail
+          echo '=== file ==='
+          file ./scraper || true
+          echo '=== go version -m ==='
+          go version -m ./scraper || true
+          echo '=== main-ish symbols ==='
+          go tool nm ./scraper 2>/dev/null | grep -Ei 'main\.|scrap|comment|repl|studio|page|offset|limit' | head -n 300 || true
+          echo '=== useful strings ==='
+          strings -n 5 ./scraper | grep -Ei 'api\.scratch|scratch\.mit|usage|offset|limit|datetime|username|user_id|replies|reply_count|429|retry|page|hour|minute|second|json' | head -n 500 || true
+
   run:
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
 
     steps:
