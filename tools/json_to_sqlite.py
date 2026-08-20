@@ -30,7 +30,6 @@ INDEXES = r'''
 CREATE INDEX idx_comments_user ON comments(user COLLATE NOCASE);
 CREATE INDEX idx_comments_user_id ON comments(user_id);
 CREATE INDEX idx_comments_datetime ON comments(datetime DESC);
-CREATE INDEX idx_comments_parent_id ON comments(parent_id);
 CREATE INDEX idx_comments_parent_datetime ON comments(parent_id, datetime);
 CREATE INDEX idx_comments_is_reply_datetime ON comments(is_reply, datetime DESC);
 
@@ -209,13 +208,17 @@ def main():
             'input_item_count': str(total),
             'stored_row_count': str(db.execute('SELECT COUNT(*) FROM comments').fetchone()[0]),
             'duplicate_id_count': str(duplicate_count),
-            'schema_version': '1',
+            'schema_version': '2',
         }
         db.executemany('INSERT INTO meta(key, value) VALUES (?, ?)', meta.items())
-        db.execute('PRAGMA user_version=1')
+        db.execute('PRAGMA user_version=2')
         db.execute('ANALYZE')
         db.execute('PRAGMA optimize')
         db.commit()
+
+        print('[shrink] VACUUM...', flush=True)
+        db.execute('VACUUM')
+        db.execute('PRAGMA optimize')
 
         print('[check] quick_check:', db.execute('PRAGMA quick_check').fetchone()[0])
         print('[check] rows:', db.execute('SELECT COUNT(*) FROM comments').fetchone()[0])
