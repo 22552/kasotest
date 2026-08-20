@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -16,13 +17,14 @@ import (
 )
 
 const (
-	apiBase          = "https://api.scratch.mit.edu"
-	pageLimit        = 40
-	pageConcurrency  = 9
-	replyConcurrency = 24
-	maxAttempts      = 6
-	maxSafetyPages   = 100000
-	progressEvery    = 100
+	apiBase            = "https://api.scratch.mit.edu"
+	pageLimit          = 40
+	pageConcurrency    = 9
+	replyConcurrency   = 24
+	maxAttempts        = 6
+	maxSafetyPages     = 100000
+	progressEvery      = 100
+	incrementalOverlap = 400
 )
 
 type apiAuthor struct {
@@ -45,6 +47,12 @@ type outComment struct {
 	Datetime string       `json:"datetime"`
 	Content  string       `json:"content"`
 	Replies  []outComment `json:"replies"`
+}
+
+type pageResult struct {
+	page int
+	data []apiComment
+	err  error
 }
 
 var directClient = &http.Client{
@@ -83,7 +91,7 @@ func getJSON(rawURL string, dst any) error {
 			return err
 		}
 		req.Header.Set("Accept", "application/json")
-		req.Header.Set("User-Agent", "kasotest-genko-scraper/8")
+		req.Header.Set("User-Agent", "kasotest-genko-scraper/9")
 
 		resp, err := directClient.Do(req)
 		if err != nil {
@@ -141,18 +149,20 @@ func parseCommentTime(s string) (time.Time, error) {
 	return time.Parse(time.RFC3339, s)
 }
 
-type pageResult struct {
-	page int
-	data []apiComment
-	err  error
-}
-
-func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
+func fetchTopLevel(studio string, cutoff time.Time, old map[int64]outComment, incremental bool) ([]apiComment, bool, time.Time, error) {
 	all := make([]apiComment, 0, 8192)
 	seen := make(map[int64]struct{}, 8192)
 	started := time.Now()
+	consecutiveKnown := 0
+	cacheBoundary := false
+	var oldestFetched time.Time
 
-	fmt.Printf("[pages] start: route=direct concurrency=%d limit=%d cutoff=%s\n", pageConcurrency, pageLimit, cutoff.Format(time.RFC3339))
+	mode := "full"
+	if incremental {
+		mode = "incremental"
+	}
+	fmt.Printf("[pages] start: route=direct mode=%s concurrency=%d limit=%d cutoff=%s\n", mode, pageConcurrency, pageLimit, cutoff.Format(time.RFC3339))
+
 	for base := 0; base < maxSafetyPages; base += pageConcurrency {
 		end := base + pageConcurrency
 		if end > maxSafetyPages {
@@ -176,7 +186,7 @@ func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
 		pages := make(map[int][]apiComment, end-base)
 		for r := range ch {
 			if r.err != nil {
-				return nil, fmt.Errorf("comments page %d: %w", r.page, r.err)
+				return nil, false, time.Time{}, fmt.Errorf("comments page %d: %w", r.page, r.err)
 			}
 			pages[r.page] = r.data
 		}
@@ -191,11 +201,13 @@ func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
 				stop = true
 				break
 			}
+
 			for _, c := range data {
 				created, err := parseCommentTime(c.DatetimeCreated)
 				if err != nil {
-					return nil, fmt.Errorf("comment %d time %q: %w", c.ID, c.DatetimeCreated, err)
+					return nil, false, time.Time{}, fmt.Errorf("comment %d time %q: %w", c.ID, c.DatetimeCreated, err)
 				}
+				oldestFetched = created
 				oldest = created.UTC().Format(time.RFC3339)
 				if created.Before(cutoff) {
 					stop = true
@@ -206,20 +218,40 @@ func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
 				}
 				seen[c.ID] = struct{}{}
 				all = append(all, c)
+
+				if incremental {
+					if _, ok := old[c.ID]; ok {
+						consecutiveKnown++
+					} else {
+						consecutiveKnown = 0
+					}
+					if consecutiveKnown >= incrementalOverlap {
+						cacheBoundary = true
+						stop = true
+						break
+					}
+				}
 			}
+
 			if stop || len(data) < pageLimit {
 				stop = true
 				break
 			}
 		}
 
-		fmt.Printf("[pages] fetched=%d pages comments=%d oldest=%s elapsed=%s\n", actualPages, len(all), oldest, time.Since(started).Round(time.Second))
+		fmt.Printf("[pages] fetched=%d pages comments=%d oldest=%s cache_streak=%d elapsed=%s\n",
+			actualPages, len(all), oldest, consecutiveKnown, time.Since(started).Round(time.Second))
 		if stop {
-			fmt.Printf("[pages] stop: reached cutoff/end after %d pages\n", actualPages)
+			if cacheBoundary {
+				fmt.Printf("[cache] incremental boundary: %d consecutive cached IDs; stopping deep pagination\n", incrementalOverlap)
+			} else {
+				fmt.Printf("[pages] stop: reached cutoff/end after %d pages\n", actualPages)
+			}
 			break
 		}
 	}
-	return all, nil
+
+	return all, cacheBoundary, oldestFetched, nil
 }
 
 func asOut(c apiComment) outComment {
@@ -266,52 +298,65 @@ func commentsToMap(old []outComment) map[int64]outComment {
 	return m
 }
 
-func loadOld(path string) (map[int64]outComment, string, error) {
+func loadOld(path string) ([]outComment, map[int64]outComment, string, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		if os.IsNotExist(err) {
-			return map[int64]outComment{}, "none", nil
+			return nil, map[int64]outComment{}, "none", nil
 		}
-		return map[int64]outComment{}, "none", err
+		return nil, map[int64]outComment{}, "none", err
 	}
 	defer f.Close()
 
 	var asArray []outComment
 	arrayErr := json.NewDecoder(f).Decode(&asArray)
 	if arrayErr == nil {
-		return commentsToMap(asArray), "array", nil
+		return asArray, commentsToMap(asArray), "array", nil
 	}
 
 	if _, err := f.Seek(0, io.SeekStart); err != nil {
-		return map[int64]outComment{}, "none", err
+		return nil, map[int64]outComment{}, "none", err
 	}
 	var asMap map[string]outComment
 	mapErr := json.NewDecoder(f).Decode(&asMap)
 	if mapErr == nil {
-		m := make(map[int64]outComment, len(asMap))
+		items := make([]outComment, 0, len(asMap))
 		for _, c := range asMap {
-			m[c.ID] = c
+			items = append(items, c)
 		}
-		return m, "object", nil
+		sortOutComments(items)
+		return items, commentsToMap(items), "object", nil
 	}
 
 	if _, err := f.Seek(0, io.SeekStart); err != nil {
-		return map[int64]outComment{}, "none", err
+		return nil, map[int64]outComment{}, "none", err
 	}
 	var wrapper struct {
 		Comments []outComment `json:"comments"`
 	}
 	wrapperErr := json.NewDecoder(f).Decode(&wrapper)
 	if wrapperErr == nil && wrapper.Comments != nil {
-		return commentsToMap(wrapper.Comments), "comments-wrapper", nil
+		return wrapper.Comments, commentsToMap(wrapper.Comments), "comments-wrapper", nil
 	}
 
-	return map[int64]outComment{}, "none", fmt.Errorf("cache decode failed: array=%v; object=%v; wrapper=%v", arrayErr, mapErr, wrapperErr)
+	return nil, map[int64]outComment{}, "none", fmt.Errorf("cache decode failed: array=%v; object=%v; wrapper=%v", arrayErr, mapErr, wrapperErr)
 }
 
 func repliesHaveIDs(replies []outComment) bool {
 	for _, r := range replies {
 		if r.User != "" && r.UserID == 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func cacheHasIDs(items []outComment) bool {
+	for _, c := range items {
+		if c.User != "" && c.UserID == 0 {
+			return false
+		}
+		if !repliesHaveIDs(c.Replies) {
 			return false
 		}
 	}
@@ -353,7 +398,8 @@ func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]o
 
 			done := processed.Add(1)
 			if done%progressEvery == 0 || done == total {
-				fmt.Printf("[replies] processed=%d/%d reused=%d refreshed=%d elapsed=%s\n", done, total, reused.Load(), fetched.Load(), time.Since(started).Round(time.Second))
+				fmt.Printf("[replies] processed=%d/%d reused=%d refreshed=%d elapsed=%s\n",
+					done, total, reused.Load(), fetched.Load(), time.Since(started).Round(time.Second))
 			}
 		}
 	}
@@ -374,6 +420,49 @@ func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]o
 	default:
 	}
 	return out, reused.Load(), fetched.Load(), nil
+}
+
+func sortOutComments(items []outComment) {
+	sort.SliceStable(items, func(i, j int) bool {
+		ti, errI := parseCommentTime(items[i].Datetime)
+		tj, errJ := parseCommentTime(items[j].Datetime)
+		if errI != nil || errJ != nil {
+			return items[i].Datetime > items[j].Datetime
+		}
+		return ti.After(tj)
+	})
+}
+
+func mergeCachedTail(fresh, old []outComment, cutoff, boundary time.Time) ([]outComment, int, error) {
+	merged := make([]outComment, 0, len(old)+len(fresh))
+	seen := make(map[int64]struct{}, len(old)+len(fresh))
+	merged = append(merged, fresh...)
+	for _, c := range fresh {
+		seen[c.ID] = struct{}{}
+	}
+
+	added := 0
+	for _, c := range old {
+		if _, ok := seen[c.ID]; ok {
+			continue
+		}
+		created, err := parseCommentTime(c.Datetime)
+		if err != nil {
+			return nil, 0, fmt.Errorf("cached comment %d time %q: %w", c.ID, c.Datetime, err)
+		}
+		if created.Before(cutoff) {
+			continue
+		}
+		if created.After(boundary) {
+			continue
+		}
+		seen[c.ID] = struct{}{}
+		merged = append(merged, c)
+		added++
+	}
+
+	sortOutComments(merged)
+	return merged, added, nil
 }
 
 func writeJSON(path string, data []outComment) error {
@@ -420,28 +509,53 @@ func main() {
 	fmt.Printf("[network] direct only; page_concurrency=%d reply_workers=%d\n", pageConcurrency, replyConcurrency)
 	cutoff := time.Now().UTC().AddDate(0, 0, -days)
 
-	old, cacheFormat, cacheErr := loadOld(output)
+	oldItems, old, cacheFormat, cacheErr := loadOld(output)
 	if cacheErr != nil {
 		fmt.Printf("[cache] unusable: %v\n", cacheErr)
 	} else {
 		fmt.Printf("[cache] format=%s existing comments=%d\n", cacheFormat, len(old))
 	}
 
-	top, err := fetchTopLevel(studio, cutoff)
+	forceFull := os.Getenv("FULL_SCAN") == "1"
+	cacheIDsOK := cacheErr == nil && cacheHasIDs(oldItems)
+	incremental := cacheErr == nil && len(old) >= incrementalOverlap && cacheIDsOK && !forceFull
+	if forceFull {
+		fmt.Println("[cache] FULL_SCAN=1; incremental mode disabled")
+	} else if len(old) < incrementalOverlap {
+		fmt.Printf("[cache] too small for incremental mode (<%d comments); full scan\n", incrementalOverlap)
+	} else if cacheErr == nil && !cacheIDsOK {
+		fmt.Println("[cache] missing user_id in cache; full scan required before incremental mode")
+	} else if incremental {
+		fmt.Printf("[cache] incremental mode enabled; overlap=%d consecutive cached IDs\n", incrementalOverlap)
+	}
+
+	top, cacheBoundary, boundaryTime, err := fetchTopLevel(studio, cutoff, old, incremental)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("[pages] complete: top-level comments in range=%d\n", len(top))
+	fmt.Printf("[pages] complete: fetched top-level comments=%d\n", len(top))
 
 	data, reused, fetched, err := buildOutput(studio, top, old)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+
+	cachedTail := 0
+	if cacheBoundary {
+		data, cachedTail, err = mergeCachedTail(data, oldItems, cutoff, boundaryTime)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		fmt.Printf("[cache] merged cached tail=%d final_comments=%d\n", cachedTail, len(data))
+	}
+
 	if err := writeJSON(output, data); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("[done] reused=%d refreshed=%d total_elapsed=%s\n", reused, fetched, time.Since(started).Round(time.Millisecond))
+	fmt.Printf("[done] reused=%d refreshed=%d cached_tail=%d total_elapsed=%s\n",
+		reused, fetched, cachedTail, time.Since(started).Round(time.Millisecond))
 }
