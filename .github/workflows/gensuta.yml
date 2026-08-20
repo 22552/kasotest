@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "0 */8 * * *"  # 8時間ごと（UTC）
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/gensuta.yml"
 
 permissions:
   contents: write
