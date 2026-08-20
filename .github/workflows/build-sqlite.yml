@@ -47,27 +47,30 @@ jobs:
           db.close()
           PY
 
-      - name: Compress SQLite
-        run: gzip -9 -f -k 第二プロジェクト.sqlite
+      - name: Install zstd
+        run: sudo apt-get update && sudo apt-get install -y zstd
+
+      - name: Compress SQLite with maximum zstd level
+        run: zstd --ultra -22 -T0 -f -k 第二プロジェクト.sqlite -o 第二プロジェクト.sqlite.zst
 
       - name: Upload SQLite artifact
         uses: actions/upload-artifact@v4
         with:
-          name: 第二プロジェクト-sqlite
-          path: 第二プロジェクト.sqlite.gz
+          name: 第二プロジェクト-sqlite-zstd
+          path: 第二プロジェクト.sqlite.zst
           compression-level: 0
           retention-days: 90
 
       - name: Commit compressed SQLite when it fits GitHub's normal file limit
         run: |
           set -e
-          FILE='第二プロジェクト.sqlite.gz'
+          FILE='第二プロジェクト.sqlite.zst'
           SIZE=$(stat -c%s "$FILE")
           LIMIT=$((95 * 1024 * 1024))
-          echo "compressed_bytes=$SIZE"
+          echo "zstd_bytes=$SIZE"
 
           if [ "$SIZE" -gt "$LIMIT" ]; then
-            echo "Compressed DB is >95 MiB; leaving it as an Actions artifact only."
+            echo "Zstd-compressed DB is >95 MiB; leaving it as an Actions artifact only."
             exit 0
           fi
 
@@ -80,6 +83,6 @@ jobs:
             exit 0
           fi
 
-          git commit -m 'Add indexed SQLite dataset'
+          git commit -m 'Add zstd-compressed indexed SQLite dataset'
           git pull --rebase origin main
           git push origin HEAD:main
