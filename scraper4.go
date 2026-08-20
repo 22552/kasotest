@@ -27,6 +27,7 @@ const (
 	maxSafetyPages   = 100000
 	maxProxyRoutes   = 3
 	maxProxyTests    = 45
+	progressEvery    = 100
 )
 
 type apiAuthor struct {
@@ -151,15 +152,21 @@ func probeProxy(addr string) (route, bool) {
 }
 
 func initRoutes() {
+	fmt.Println("[proxy] fetching public proxy candidates...")
 	candidates, err := fetchProxyCandidates()
+	if err != nil {
+		fmt.Printf("[proxy] candidate fetch failed: %v\n", err)
+	}
+
 	if err == nil && len(candidates) > 0 {
-		// Rotate the starting point so every run does not hammer the same first proxies.
 		start := int(time.Now().UnixNano() % int64(len(candidates)))
 		ordered := append(append([]string{}, candidates[start:]...), candidates[:start]...)
 		if len(ordered) > maxProxyTests {
 			ordered = ordered[:maxProxyTests]
 		}
+		fmt.Printf("[proxy] candidates=%d; probing=%d; concurrency=%d; target=%d\n", len(candidates), len(ordered), maxProxyRoutes, maxProxyRoutes)
 
+		tested := 0
 		for i := 0; i < len(ordered) && len(routes) < maxProxyRoutes; i += maxProxyRoutes {
 			end := i + maxProxyRoutes
 			if end > len(ordered) {
@@ -178,19 +185,21 @@ func initRoutes() {
 			}
 			for j := i; j < end; j++ {
 				x := <-ch
+				tested++
 				if x.ok && len(routes) < maxProxyRoutes {
 					routes = append(routes, x.r)
 				}
 			}
+			fmt.Printf("[proxy] tested=%d/%d healthy=%d/%d\n", tested, len(ordered), len(routes), maxProxyRoutes)
 		}
 	}
 
 	if len(routes) == 0 {
 		c, _ := makeClient("", 35*time.Second)
 		routes = []route{{client: c, name: "direct"}}
-		fmt.Println("public proxies unavailable; using direct connection")
+		fmt.Println("[proxy] no healthy public proxies; using direct connection")
 	} else {
-		fmt.Printf("healthy public proxy routes: %d\n", len(routes))
+		fmt.Printf("[proxy] ready: %d healthy public proxy route(s)\n", len(routes))
 	}
 }
 
@@ -223,12 +232,16 @@ func getJSON(rawURL string, dst any) error {
 			return err
 		}
 		req.Header.Set("Accept", "application/json")
-		req.Header.Set("User-Agent", "kasotest-genko-scraper/5")
+		req.Header.Set("User-Agent", "kasotest-genko-scraper/6")
 
 		resp, err := r.client.Do(req)
 		if err != nil {
 			lastErr = fmt.Errorf("%s: %w", r.name, err)
-			time.Sleep(backoff(nil, attempt))
+			wait := backoff(nil, attempt)
+			if attempt > 0 {
+				fmt.Printf("[http] %s attempt=%d/%d error; retry in %s\n", r.name, attempt+1, maxAttempts, wait)
+			}
+			time.Sleep(wait)
 			continue
 		}
 
@@ -239,7 +252,9 @@ func getJSON(rawURL string, dst any) error {
 				return nil
 			}
 			lastErr = fmt.Errorf("%s decode: %w", r.name, err)
-			time.Sleep(backoff(resp, attempt))
+			wait := backoff(resp, attempt)
+			fmt.Printf("[http] %s decode error attempt=%d/%d; retry in %s\n", r.name, attempt+1, maxAttempts, wait)
+			time.Sleep(wait)
 			continue
 		}
 
@@ -247,7 +262,9 @@ func getJSON(rawURL string, dst any) error {
 		resp.Body.Close()
 		if resp.StatusCode == http.StatusTooManyRequests || resp.StatusCode >= 500 {
 			lastErr = fmt.Errorf("%s GET %s: HTTP %d", r.name, rawURL, resp.StatusCode)
-			time.Sleep(backoff(resp, attempt))
+			wait := backoff(resp, attempt)
+			fmt.Printf("[http] %s HTTP %d attempt=%d/%d; retry in %s\n", r.name, resp.StatusCode, attempt+1, maxAttempts, wait)
+			time.Sleep(wait)
 			continue
 		}
 		return fmt.Errorf("%s GET %s: HTTP %d", r.name, rawURL, resp.StatusCode)
@@ -282,7 +299,9 @@ type pageResult struct {
 func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
 	all := make([]apiComment, 0, 8192)
 	seen := make(map[int64]struct{}, 8192)
+	started := time.Now()
 
+	fmt.Printf("[pages] start: concurrency=%d limit=%d cutoff=%s\n", pageConcurrency, pageLimit, cutoff.Format(time.RFC3339))
 	for base := 0; base < maxSafetyPages; base += pageConcurrency {
 		end := base + pageConcurrency
 		if end > maxSafetyPages {
@@ -311,6 +330,7 @@ func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
 		}
 
 		stop := false
+		oldest := ""
 		for p := base; p < end; p++ {
 			data := pages[p]
 			if len(data) == 0 {
@@ -322,6 +342,7 @@ func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
 				if err != nil {
 					return nil, fmt.Errorf("comment %d time %q: %w", c.ID, c.DatetimeCreated, err)
 				}
+				oldest = created.UTC().Format(time.RFC3339)
 				if created.Before(cutoff) {
 					stop = true
 					break
@@ -337,7 +358,9 @@ func fetchTopLevel(studio string, cutoff time.Time) ([]apiComment, error) {
 				break
 			}
 		}
+		fmt.Printf("[pages] fetched=%d pages comments=%d oldest=%s elapsed=%s\n", end, len(all), oldest, time.Since(started).Round(time.Second))
 		if stop {
+			fmt.Printf("[pages] stop: reached cutoff/end after %d pages\n", end)
 			break
 		}
 	}
@@ -403,9 +426,12 @@ func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]o
 	out := make([]outComment, len(top))
 	jobs := make(chan int)
 	errCh := make(chan error, 1)
-	var reused, fetched atomic.Int64
+	var reused, fetched, processed atomic.Int64
 	var wg sync.WaitGroup
+	started := time.Now()
+	total := int64(len(top))
 
+	fmt.Printf("[replies] start: comments=%d workers=%d\n", total, replyConcurrency)
 	worker := func() {
 		defer wg.Done()
 		for i := range jobs {
@@ -415,19 +441,24 @@ func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]o
 				item.Replies = prev.Replies
 				out[i] = item
 				reused.Add(1)
-				continue
-			}
-			replies, err := fetchReplies(studio, c)
-			if err != nil {
-				select {
-				case errCh <- fmt.Errorf("replies for comment %d: %w", c.ID, err):
-				default:
+			} else {
+				replies, err := fetchReplies(studio, c)
+				if err != nil {
+					select {
+					case errCh <- fmt.Errorf("replies for comment %d: %w", c.ID, err):
+					default:
+					}
+					continue
 				}
-				continue
+				item.Replies = replies
+				out[i] = item
+				fetched.Add(1)
 			}
-			item.Replies = replies
-			out[i] = item
-			fetched.Add(1)
+
+			done := processed.Add(1)
+			if done%progressEvery == 0 || done == total {
+				fmt.Printf("[replies] processed=%d/%d reused=%d refreshed=%d elapsed=%s\n", done, total, reused.Load(), fetched.Load(), time.Since(started).Round(time.Second))
+			}
 		}
 	}
 
@@ -449,6 +480,8 @@ func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]o
 }
 
 func writeJSON(path string, data []outComment) error {
+	fmt.Printf("[write] writing %d comments to %s...\n", len(data), path)
+	started := time.Now()
 	tmp := path + ".tmp"
 	f, err := os.Create(tmp)
 	if err != nil {
@@ -465,7 +498,11 @@ func writeJSON(path string, data []outComment) error {
 		_ = os.Remove(tmp)
 		return err
 	}
-	return os.Rename(tmp, path)
+	if err := os.Rename(tmp, path); err != nil {
+		return err
+	}
+	fmt.Printf("[write] done in %s\n", time.Since(started).Round(time.Millisecond))
+	return nil
 }
 
 func main() {
@@ -481,19 +518,19 @@ func main() {
 	}
 	output := os.Args[3]
 
-	initRoutes()
 	started := time.Now()
+	fmt.Printf("[start] studio=%s days=%d output=%s\n", studio, days, output)
+	initRoutes()
 	cutoff := time.Now().UTC().AddDate(0, 0, -days)
 	old := loadOld(output)
-	fmt.Printf("cutoff: %s (%d days)\n", cutoff.Format(time.RFC3339), days)
-	fmt.Printf("existing comments cached: %d\n", len(old))
+	fmt.Printf("[cache] existing comments=%d\n", len(old))
 
 	top, err := fetchTopLevel(studio, cutoff)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("top-level comments in range: %d\n", len(top))
+	fmt.Printf("[pages] complete: top-level comments in range=%d\n", len(top))
 
 	data, reused, fetched, err := buildOutput(studio, top, old)
 	if err != nil {
@@ -504,5 +541,5 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("reply lists reused: %d; refreshed: %d; elapsed: %s\n", reused, fetched, time.Since(started).Round(time.Millisecond))
+	fmt.Printf("[done] reused=%d refreshed=%d total_elapsed=%s\n", reused, fetched, time.Since(started).Round(time.Millisecond))
 }
