@@ -106,3 +106,5 @@ jobs:
           done
 
           exit 1
+
+# trigger: 2026-08-21T12:00+09:00
