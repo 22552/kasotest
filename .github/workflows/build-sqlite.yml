@@ -63,6 +63,26 @@ jobs:
           stat -c 'zstd_bytes=%s' db.zst
           du -h db.zst
 
+      - name: Split db.zst into exactly two parts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          src = Path('db.zst')
+          size = src.stat().st_size
+          cut = (size + 1) // 2
+
+          with src.open('rb') as f:
+              Path('db.zst.part0').write_bytes(f.read(cut))
+              Path('db.zst.part1').write_bytes(f.read())
+
+          limit = 100 * 1024 * 1024
+          for p in (Path('db.zst.part0'), Path('db.zst.part1')):
+              print(p.name, p.stat().st_size)
+              if p.stat().st_size >= limit:
+                  raise SystemExit(f'{p} is still >=100 MiB')
+          PY
+
       - name: Upload db.zst artifact
         uses: actions/upload-artifact@v4
         with:
@@ -71,29 +91,26 @@ jobs:
           compression-level: 0
           retention-days: 90
 
-      - name: Commit db.zst when it fits GitHub's 100 MiB limit
+      - name: Commit split db.zst
         run: |
           set -e
-          FILE='db.zst'
-          SIZE=$(stat -c%s "$FILE")
-          LIMIT=$((100 * 1024 * 1024))
-          echo "zstd_bytes=$SIZE"
-          echo "github_limit_bytes=$LIMIT"
-
-          if [ "$SIZE" -ge "$LIMIT" ]; then
-            echo "db.zst is >=100 MiB; keeping it as an Actions artifact only."
-            exit 0
-          fi
-
           git config user.name 'github-actions'
           git config user.email 'actions@github.com'
-          git add -f "$FILE"
+          git add -f db.zst.part0 db.zst.part1
 
           if git diff --cached --quiet; then
-            echo 'No db.zst changes'
+            echo 'No split DB changes'
             exit 0
           fi
 
-          git commit -m 'Build indexed db.zst'
-          git pull --rebase origin main
-          git push origin HEAD:main
+          git commit -m 'Update split indexed db.zst'
+
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((i * 2))
+          done
+
+          exit 1
