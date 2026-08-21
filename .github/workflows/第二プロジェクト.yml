@@ -30,7 +30,7 @@ jobs:
           fi
 
       - name: Run scraper4
-        run: go run ./scraper4.go 32970524 1080 第二プロジェクト.json
+        run: go run ./scraper4.go 32970524 2000 第二プロジェクト.json
 
       - name: Compress JSON
         run: gzip -f 第二プロジェクト.json
