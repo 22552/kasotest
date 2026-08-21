@@ -1,0 +1,108 @@
+name: Split existing db.zst artifact
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/split-db-artifact.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  split:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download latest db-zstd artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          gh api \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/artifacts?name=db-zstd&per_page=100" \
+            > artifacts.json
+
+          ARTIFACT_ID=$(python - <<'PY'
+          import json
+
+          with open('artifacts.json', encoding='utf-8') as f:
+              artifacts = json.load(f)['artifacts']
+
+          artifacts = [a for a in artifacts if not a.get('expired')]
+          if not artifacts:
+              raise SystemExit('No non-expired db-zstd artifact found')
+
+          artifacts.sort(key=lambda a: a['created_at'], reverse=True)
+          a = artifacts[0]
+          print(a['id'])
+          print(f"using artifact id={a['id']} size={a['size_in_bytes']} created={a['created_at']}", file=__import__('sys').stderr)
+          PY
+          )
+
+          gh api \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/actions/artifacts/$ARTIFACT_ID/zip" \
+            > db-zstd.zip
+
+          unzip -o db-zstd.zip
+          test -f db.zst
+          stat -c 'db.zst bytes=%s' db.zst
+
+      - name: Split into exactly two parts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          src = Path('db.zst')
+          size = src.stat().st_size
+          cut = (size + 1) // 2
+
+          with src.open('rb') as f:
+              Path('db.zst.part0').write_bytes(f.read(cut))
+              Path('db.zst.part1').write_bytes(f.read())
+
+          limit = 100 * 1024 * 1024
+          for p in (Path('db.zst.part0'), Path('db.zst.part1')):
+              n = p.stat().st_size
+              print(f'{p.name}: {n} bytes ({n / 1024 / 1024:.2f} MiB)')
+              if n >= limit:
+                  raise SystemExit(f'{p.name} is still >=100 MiB')
+          PY
+
+      - name: Verify reconstruction
+        run: |
+          cat db.zst.part0 db.zst.part1 > reconstructed.zst
+          cmp db.zst reconstructed.zst
+          echo 'reconstruction OK'
+
+      - name: Commit split files
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions'
+          git config user.email 'actions@github.com'
+          git add -f db.zst.part0 db.zst.part1
+
+          if git diff --cached --quiet; then
+            echo 'No split DB changes'
+            exit 0
+          fi
+
+          git commit -m 'Add split db.zst artifact'
+
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((i * 2))
+          done
+
+          exit 1
