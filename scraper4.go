@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -19,7 +20,8 @@ import (
 const (
 	apiBase            = "https://api.scratch.mit.edu"
 	pageLimit          = 40
-	pageConcurrency    = 9
+	pageConcurrency    = 16
+	pageLookahead      = pageConcurrency * 4
 	replyConcurrency   = 24
 	maxAttempts        = 6
 	maxSafetyPages     = 100000
@@ -50,9 +52,10 @@ type outComment struct {
 }
 
 type pageResult struct {
-	page int
-	data []apiComment
-	err  error
+	page    int
+	data    []apiComment
+	err     error
+	elapsed time.Duration
 }
 
 var directClient = &http.Client{
@@ -83,22 +86,45 @@ func backoff(resp *http.Response, attempt int) time.Duration {
 	return d
 }
 
+func sleepContext(ctx context.Context, d time.Duration) error {
+	t := time.NewTimer(d)
+	defer t.Stop()
+	select {
+	case <-t.C:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
 func getJSON(rawURL string, dst any) error {
+	return getJSONContext(context.Background(), rawURL, dst)
+}
+
+func getJSONContext(ctx context.Context, rawURL string, dst any) error {
 	var lastErr error
 	for attempt := 0; attempt < maxAttempts; attempt++ {
-		req, err := http.NewRequest(http.MethodGet, rawURL, nil)
+		req, err := http.NewRequestWithContext(ctx, http.MethodGet, rawURL, nil)
 		if err != nil {
 			return err
 		}
 		req.Header.Set("Accept", "application/json")
-		req.Header.Set("User-Agent", "kasotest-genko-scraper/9")
+		req.Header.Set("User-Agent", "kasotest-genko-scraper/10")
 
 		resp, err := directClient.Do(req)
 		if err != nil {
+			if ctx.Err() != nil {
+				return ctx.Err()
+			}
 			lastErr = err
+			if attempt+1 >= maxAttempts {
+				break
+			}
 			wait := backoff(nil, attempt)
 			fmt.Printf("[http] direct attempt=%d/%d error=%v; retry in %s\n", attempt+1, maxAttempts, err, wait)
-			time.Sleep(wait)
+			if err := sleepContext(ctx, wait); err != nil {
+				return err
+			}
 			continue
 		}
 
@@ -109,9 +135,14 @@ func getJSON(rawURL string, dst any) error {
 				return nil
 			}
 			lastErr = fmt.Errorf("decode: %w", err)
+			if attempt+1 >= maxAttempts {
+				break
+			}
 			wait := backoff(resp, attempt)
 			fmt.Printf("[http] direct invalid JSON attempt=%d/%d; retry in %s\n", attempt+1, maxAttempts, wait)
-			time.Sleep(wait)
+			if err := sleepContext(ctx, wait); err != nil {
+				return err
+			}
 			continue
 		}
 
@@ -120,9 +151,14 @@ func getJSON(rawURL string, dst any) error {
 
 		if resp.StatusCode == http.StatusTooManyRequests || resp.StatusCode >= 500 {
 			lastErr = fmt.Errorf("GET %s: HTTP %d", rawURL, resp.StatusCode)
+			if attempt+1 >= maxAttempts {
+				break
+			}
 			wait := backoff(resp, attempt)
 			fmt.Printf("[http] direct HTTP %d attempt=%d/%d; retry in %s\n", resp.StatusCode, attempt+1, maxAttempts, wait)
-			time.Sleep(wait)
+			if err := sleepContext(ctx, wait); err != nil {
+				return err
+			}
 			continue
 		}
 
@@ -161,56 +197,99 @@ func fetchTopLevel(studio string, cutoff time.Time, old map[int64]outComment, in
 	if incremental {
 		mode = "incremental"
 	}
-	fmt.Printf("[pages] start: route=direct mode=%s concurrency=%d limit=%d cutoff=%s\n", mode, pageConcurrency, pageLimit, cutoff.Format(time.RFC3339))
+	fmt.Printf("[pages] start: route=direct mode=%s concurrency=%d lookahead=%d limit=%d cutoff=%s\n",
+		mode, pageConcurrency, pageLookahead, pageLimit, cutoff.Format(time.RFC3339))
 
-	for base := 0; base < maxSafetyPages; base += pageConcurrency {
-		end := base + pageConcurrency
-		if end > maxSafetyPages {
-			end = maxSafetyPages
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	jobs := make(chan int, pageConcurrency)
+	results := make(chan pageResult, pageLookahead)
+	var wg sync.WaitGroup
+
+	worker := func() {
+		defer wg.Done()
+		for page := range jobs {
+			t0 := time.Now()
+			var data []apiComment
+			err := getJSONContext(ctx, commentsURL(studio, page*pageLimit), &data)
+			results <- pageResult{page: page, data: data, err: err, elapsed: time.Since(t0)}
 		}
+	}
+	for i := 0; i < pageConcurrency; i++ {
+		wg.Add(1)
+		go worker()
+	}
 
-		ch := make(chan pageResult, end-base)
-		var wg sync.WaitGroup
-		for p := base; p < end; p++ {
-			wg.Add(1)
-			go func(page int) {
-				defer wg.Done()
-				var data []apiComment
-				err := getJSON(commentsURL(studio, page*pageLimit), &data)
-				ch <- pageResult{page: page, data: data, err: err}
-			}(p)
+	nextSchedule := 0
+	nextProcess := 0
+	inFlight := 0
+	pending := make(map[int]pageResult, pageLookahead)
+	stopping := false
+	var firstErr error
+	var requestCount int64
+	var totalRequestTime time.Duration
+
+	fill := func() {
+		for !stopping && inFlight < pageConcurrency && nextSchedule < maxSafetyPages && nextSchedule < nextProcess+pageLookahead {
+			jobs <- nextSchedule
+			nextSchedule++
+			inFlight++
 		}
-		wg.Wait()
-		close(ch)
+	}
+	fill()
 
-		pages := make(map[int][]apiComment, end-base)
-		for r := range ch {
-			if r.err != nil {
-				return nil, false, time.Time{}, fmt.Errorf("comments page %d: %w", r.page, r.err)
+	lastLoggedPages := 0
+	oldest := ""
+	actualPages := 0
+
+	for inFlight > 0 {
+		r := <-results
+		inFlight--
+		requestCount++
+		totalRequestTime += r.elapsed
+
+		if stopping {
+			fill()
+			continue
+		}
+		if r.err != nil {
+			firstErr = fmt.Errorf("comments page %d: %w", r.page, r.err)
+			stopping = true
+			cancel()
+			continue
+		}
+		pending[r.page] = r
+
+		for !stopping {
+			cur, ok := pending[nextProcess]
+			if !ok {
+				break
 			}
-			pages[r.page] = r.data
-		}
+			delete(pending, nextProcess)
+			actualPages = nextProcess + 1
+			data := cur.data
+			nextProcess++
 
-		stop := false
-		oldest := ""
-		actualPages := base
-		for p := base; p < end; p++ {
-			data := pages[p]
-			actualPages = p + 1
 			if len(data) == 0 {
-				stop = true
+				stopping = true
+				cancel()
 				break
 			}
 
 			for _, c := range data {
 				created, err := parseCommentTime(c.DatetimeCreated)
 				if err != nil {
-					return nil, false, time.Time{}, fmt.Errorf("comment %d time %q: %w", c.ID, c.DatetimeCreated, err)
+					firstErr = fmt.Errorf("comment %d time %q: %w", c.ID, c.DatetimeCreated, err)
+					stopping = true
+					cancel()
+					break
 				}
 				oldestFetched = created
 				oldest = created.UTC().Format(time.RFC3339)
 				if created.Before(cutoff) {
-					stop = true
+					stopping = true
+					cancel()
 					break
 				}
 				if _, ok := seen[c.ID]; ok {
@@ -227,30 +306,49 @@ func fetchTopLevel(studio string, cutoff time.Time, old map[int64]outComment, in
 					}
 					if consecutiveKnown >= incrementalOverlap {
 						cacheBoundary = true
-						stop = true
+						stopping = true
+						cancel()
 						break
 					}
 				}
 			}
-
-			if stop || len(data) < pageLimit {
-				stop = true
+			if stopping || len(data) < pageLimit {
+				if len(data) < pageLimit && !stopping {
+					stopping = true
+					cancel()
+				}
 				break
 			}
 		}
 
-		fmt.Printf("[pages] fetched=%d pages comments=%d oldest=%s cache_streak=%d elapsed=%s\n",
-			actualPages, len(all), oldest, consecutiveKnown, time.Since(started).Round(time.Second))
-		if stop {
-			if cacheBoundary {
-				fmt.Printf("[cache] incremental boundary: %d consecutive cached IDs; stopping deep pagination\n", incrementalOverlap)
-			} else {
-				fmt.Printf("[pages] stop: reached cutoff/end after %d pages\n", actualPages)
+		if actualPages-lastLoggedPages >= pageConcurrency || stopping {
+			secs := time.Since(started).Seconds()
+			rate := 0.0
+			if secs > 0 {
+				rate = float64(actualPages) / secs
 			}
-			break
+			avgReq := time.Duration(0)
+			if requestCount > 0 {
+				avgReq = totalRequestTime / time.Duration(requestCount)
+			}
+			fmt.Printf("[pages] fetched=%d pages comments=%d oldest=%s cache_streak=%d rate=%.2f pages/s avg_req=%s elapsed=%s\n",
+				actualPages, len(all), oldest, consecutiveKnown, rate, avgReq.Round(time.Millisecond), time.Since(started).Round(time.Second))
+			lastLoggedPages = actualPages
 		}
+		fill()
 	}
 
+	close(jobs)
+	wg.Wait()
+
+	if firstErr != nil {
+		return nil, false, time.Time{}, firstErr
+	}
+	if cacheBoundary {
+		fmt.Printf("[cache] incremental boundary: %d consecutive cached IDs; stopping deep pagination\n", incrementalOverlap)
+	} else {
+		fmt.Printf("[pages] stop: reached cutoff/end after %d pages\n", actualPages)
+	}
 	return all, cacheBoundary, oldestFetched, nil
 }
 
@@ -365,12 +463,20 @@ func cacheHasIDs(items []outComment) bool {
 
 func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]outComment, int64, int64, error) {
 	out := make([]outComment, len(top))
-	jobs := make(chan int)
+	jobs := make(chan int, replyConcurrency*4)
 	errCh := make(chan error, 1)
 	var reused, fetched, processed atomic.Int64
 	var wg sync.WaitGroup
 	started := time.Now()
 	total := int64(len(top))
+
+	logDone := func() {
+		done := processed.Add(1)
+		if done%progressEvery == 0 || done == total {
+			fmt.Printf("[replies] processed=%d/%d reused=%d refreshed=%d elapsed=%s\n",
+				done, total, reused.Load(), fetched.Load(), time.Since(started).Round(time.Second))
+		}
+	}
 
 	fmt.Printf("[replies] start: route=direct comments=%d workers=%d\n", total, replyConcurrency)
 	worker := func() {
@@ -378,29 +484,19 @@ func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]o
 		for i := range jobs {
 			c := top[i]
 			item := asOut(c)
-			if prev, ok := old[c.ID]; ok && len(prev.Replies) == c.ReplyCount && repliesHaveIDs(prev.Replies) {
-				item.Replies = prev.Replies
-				out[i] = item
-				reused.Add(1)
-			} else {
-				replies, err := fetchReplies(studio, c)
-				if err != nil {
-					select {
-					case errCh <- fmt.Errorf("replies for comment %d: %w", c.ID, err):
-					default:
-					}
-					continue
+			replies, err := fetchReplies(studio, c)
+			if err != nil {
+				select {
+				case errCh <- fmt.Errorf("replies for comment %d: %w", c.ID, err):
+				default:
 				}
-				item.Replies = replies
-				out[i] = item
-				fetched.Add(1)
+				logDone()
+				continue
 			}
-
-			done := processed.Add(1)
-			if done%progressEvery == 0 || done == total {
-				fmt.Printf("[replies] processed=%d/%d reused=%d refreshed=%d elapsed=%s\n",
-					done, total, reused.Load(), fetched.Load(), time.Since(started).Round(time.Second))
-			}
+			item.Replies = replies
+			out[i] = item
+			fetched.Add(1)
+			logDone()
 		}
 	}
 
@@ -408,7 +504,22 @@ func buildOutput(studio string, top []apiComment, old map[int64]outComment) ([]o
 		wg.Add(1)
 		go worker()
 	}
-	for i := range top {
+
+	for i, c := range top {
+		item := asOut(c)
+		if prev, ok := old[c.ID]; ok && len(prev.Replies) == c.ReplyCount && repliesHaveIDs(prev.Replies) {
+			item.Replies = prev.Replies
+			out[i] = item
+			reused.Add(1)
+			logDone()
+			continue
+		}
+		if c.ReplyCount <= 0 {
+			out[i] = item
+			fetched.Add(1)
+			logDone()
+			continue
+		}
 		jobs <- i
 	}
 	close(jobs)
@@ -506,7 +617,7 @@ func main() {
 
 	started := time.Now()
 	fmt.Printf("[start] studio=%s days=%d output=%s\n", studio, days, output)
-	fmt.Printf("[network] direct only; page_concurrency=%d reply_workers=%d\n", pageConcurrency, replyConcurrency)
+	fmt.Printf("[network] direct only; page_concurrency=%d page_lookahead=%d reply_workers=%d\n", pageConcurrency, pageLookahead, replyConcurrency)
 	cutoff := time.Now().UTC().AddDate(0, 0, -days)
 
 	oldItems, old, cacheFormat, cacheErr := loadOld(output)
