@@ -1,0 +1,36 @@
+name: Probe indexed DB build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/probe-build.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Fetch latest build run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/build-sqlite.yml/runs?per_page=1" \
+            | python -c 'import json,sys; r=json.load(sys.stdin)["workflow_runs"][0]; print(json.dumps({k:r.get(k) for k in ("id","status","conclusion","head_sha","html_url","created_at","updated_at")}, indent=2))' \
+            > build-sqlite-live.json
+          cat build-sqlite-live.json
+          git config user.name github-actions
+          git config user.email actions@github.com
+          git add build-sqlite-live.json
+          git commit -m 'Record live indexed DB build status' || exit 0
+          git push origin HEAD:main
