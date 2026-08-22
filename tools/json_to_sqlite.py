@@ -42,17 +42,31 @@ CREATE VIRTUAL TABLE comments_fts USING fts5(
 );
 INSERT INTO comments_fts(comments_fts) VALUES('rebuild');
 
+CREATE VIRTUAL TABLE comments_trigram USING fts5(
+    content,
+    content='comments',
+    content_rowid='id',
+    tokenize='trigram'
+);
+INSERT INTO comments_trigram(comments_trigram) VALUES('rebuild');
+
 CREATE TRIGGER comments_ai AFTER INSERT ON comments BEGIN
   INSERT INTO comments_fts(rowid, content, user) VALUES (new.id, new.content, new.user);
+  INSERT INTO comments_trigram(rowid, content) VALUES (new.id, new.content);
 END;
 CREATE TRIGGER comments_ad AFTER DELETE ON comments BEGIN
   INSERT INTO comments_fts(comments_fts, rowid, content, user)
   VALUES('delete', old.id, old.content, old.user);
+  INSERT INTO comments_trigram(comments_trigram, rowid, content)
+  VALUES('delete', old.id, old.content);
 END;
 CREATE TRIGGER comments_au AFTER UPDATE ON comments BEGIN
   INSERT INTO comments_fts(comments_fts, rowid, content, user)
   VALUES('delete', old.id, old.content, old.user);
   INSERT INTO comments_fts(rowid, content, user) VALUES (new.id, new.content, new.user);
+  INSERT INTO comments_trigram(comments_trigram, rowid, content)
+  VALUES('delete', old.id, old.content);
+  INSERT INTO comments_trigram(rowid, content) VALUES (new.id, new.content);
 END;
 
 CREATE TABLE meta (
@@ -197,7 +211,7 @@ def main():
 
         total = top_count + reply_count
         print(f'[load] done top={top_count:,} replies={reply_count:,} total={total:,} duplicates={duplicate_count:,}', flush=True)
-        print('[index] building B-tree indexes + FTS5...', flush=True)
+        print('[index] building B-tree indexes + FTS5 + trigram...', flush=True)
         db.executescript(INDEXES)
 
         meta = {
@@ -208,10 +222,10 @@ def main():
             'input_item_count': str(total),
             'stored_row_count': str(db.execute('SELECT COUNT(*) FROM comments').fetchone()[0]),
             'duplicate_id_count': str(duplicate_count),
-            'schema_version': '2',
+            'schema_version': '3',
         }
         db.executemany('INSERT INTO meta(key, value) VALUES (?, ?)', meta.items())
-        db.execute('PRAGMA user_version=2')
+        db.execute('PRAGMA user_version=3')
         db.execute('ANALYZE')
         db.execute('PRAGMA optimize')
         db.commit()
@@ -223,6 +237,7 @@ def main():
         print('[check] quick_check:', db.execute('PRAGMA quick_check').fetchone()[0])
         print('[check] rows:', db.execute('SELECT COUNT(*) FROM comments').fetchone()[0])
         print('[check] fts rows:', db.execute('SELECT COUNT(*) FROM comments_fts').fetchone()[0])
+        print('[check] trigram rows:', db.execute('SELECT COUNT(*) FROM comments_trigram').fetchone()[0])
     finally:
         db.close()
 
