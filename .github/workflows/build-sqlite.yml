@@ -57,11 +57,23 @@ jobs:
       - name: Install zstd
         run: sudo apt-get update && sudo apt-get install -y zstd
 
-      - name: Compress database
+      - name: Compress database for two GitHub-sized parts
         run: |
-          zstd --ultra -20 --long=31 -T0 -f \
-            db.sqlite \
-            -o db.zst
+          set -e
+          limit=$((200 * 1024 * 1024))
+
+          compress() {
+            level="$1"
+            threads="$2"
+            rm -f db.zst
+            echo "[zstd] trying level=$level threads=$threads"
+            zstd --ultra "-$level" --long=31 "-T$threads" -f db.sqlite -o db.zst
+            size=$(stat -c %s db.zst)
+            echo "[zstd] bytes=$size"
+            test "$size" -lt "$limit"
+          }
+
+          compress 18 0 || compress 20 0 || compress 22 1
           stat -c 'zstd_bytes=%s' db.zst
           du -h db.zst
 
