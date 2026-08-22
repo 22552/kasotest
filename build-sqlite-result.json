@@ -1,6 +1,6 @@
 {
-  "conclusion": "cancelled",
-  "run_id": 32567385689,
-  "head_sha": "7a03ac6462b0946937f4f885c3916cf73dca2276",
-  "run_url": "https://github.com/22552/kasotest/actions/runs/32567385689"
+  "conclusion": "failure",
+  "run_id": 32567510271,
+  "head_sha": "5b7e0280566e1e3f8530599b317adc08985dea53",
+  "run_url": "https://github.com/22552/kasotest/actions/runs/32567510271"
 }
