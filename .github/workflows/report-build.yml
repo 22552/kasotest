@@ -1,0 +1,39 @@
+name: Report indexed DB build result
+
+on:
+  workflow_run:
+    workflows: ["Build indexed SQLite dataset"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Record result
+        env:
+          CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          Path('build-sqlite-result.json').write_text(json.dumps({
+              'conclusion': os.environ['CONCLUSION'],
+              'run_id': int(os.environ['RUN_ID']),
+              'head_sha': os.environ['HEAD_SHA'],
+              'run_url': os.environ['RUN_URL'],
+          }, ensure_ascii=False, indent=2) + '\n')
+          PY
+          git config user.name 'github-actions'
+          git config user.email 'actions@github.com'
+          git add build-sqlite-result.json
+          git commit -m "Record indexed DB build result: $CONCLUSION" || exit 0
+          git push origin HEAD:main
