@@ -57,9 +57,9 @@ jobs:
       - name: Install zstd
         run: sudo apt-get update && sudo apt-get install -y zstd
 
-      - name: Compress database as hard as possible
+      - name: Compress database
         run: |
-          zstd --ultra -22 --long=31 -T1 -f \
+          zstd --ultra -20 --long=31 -T0 -f \
             db.sqlite \
             -o db.zst
           stat -c 'zstd_bytes=%s' db.zst
