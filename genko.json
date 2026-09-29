@@ -1,5 +1,558 @@
 [
   {
+    "id": 333545496,
+    "user": "scratch-cody",
+    "user_id": 162272323,
+    "datetime": "2026-09-29T17:53:54.000Z",
+    "content": "私が日本で知られるほど人気が\u0026NegativeMediumSpace;\u0026NegativeMediumSpace;あるなんて\u0026hellip;\u0026hellip;。だって、私はウクライナ出身なんですよ\u0026hellip;\u0026hellip;。",
+    "replies": []
+  },
+  {
+    "id": 333537185,
+    "user": "atarasiimahoroa",
+    "user_id": 161148181,
+    "datetime": "2026-09-29T15:12:20.000Z",
+    "content": "どうも、結構遅れてVIVANT見てる遥斗です。まぁまだ第6だっけ\u0026hellip;？そこらまでですよ\u0026hellip;。",
+    "replies": []
+  },
+  {
+    "id": 333537172,
+    "user": "donarudo_4892",
+    "user_id": 177426005,
+    "datetime": "2026-09-29T15:12:09.000Z",
+    "content": "ここオススメされるの不名誉？",
+    "replies": []
+  },
+  {
+    "id": 333536892,
+    "user": "emining",
+    "user_id": 163843859,
+    "datetime": "2026-09-29T15:07:59.000Z",
+    "content": "7時までこっち\nhttps://scratch.mit.edu/studios/51165977/comments",
+    "replies": []
+  },
+  {
+    "id": 333536623,
+    "user": "sin-aki-to",
+    "user_id": 175868796,
+    "datetime": "2026-09-29T15:03:49.000Z",
+    "content": "はいおれVIVANT見てないですぅ",
+    "replies": []
+  },
+  {
+    "id": 333536373,
+    "user": "_moeP_",
+    "user_id": 174216498,
+    "datetime": "2026-09-29T15:00:19.000Z",
+    "content": "あ、読んでなかったこっちなの⁉️",
+    "replies": []
+  },
+  {
+    "id": 333536370,
+    "user": "k1mns",
+    "user_id": 174771563,
+    "datetime": "2026-09-29T15:00:16.000Z",
+    "content": "最近はよく「えっまだVIVANT見てないの？」とハラスメントを受けている",
+    "replies": [
+      {
+        "id": 333536396,
+        "user": "pann01",
+        "user_id": 133287665,
+        "datetime": "2026-09-29T15:00:33.000Z",
+        "content": "わかる",
+        "replies": []
+      },
+      {
+        "id": 333536413,
+        "user": "emining",
+        "user_id": 163843859,
+        "datetime": "2026-09-29T15:00:48.000Z",
+        "content": "えっまだVIVANT見てないの",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 333536360,
+    "user": "Gemini97",
+    "user_id": 167017720,
+    "datetime": "2026-09-29T15:00:09.000Z",
+    "content": "深夜\nhttps://scratch.mit.edu/studios/51165977/comments",
+    "replies": []
+  },
+  {
+    "id": 333536293,
+    "user": "x_Aya-ka_x",
+    "user_id": 174898311,
+    "datetime": "2026-09-29T14:59:08.000Z",
+    "content": "にゅーすくいやや～",
+    "replies": [
+      {
+        "id": 333536329,
+        "user": "x_Aya-ka_x",
+        "user_id": 174898311,
+        "datetime": "2026-09-29T14:59:39.000Z",
+        "content": "あっあやかだよよろしくね",
+        "replies": []
+      },
+      {
+        "id": 333536349,
+        "user": "BY75715",
+        "user_id": 169780984,
+        "datetime": "2026-09-29T15:00:01.000Z",
+        "content": "よろしく　新規かな",
+        "replies": []
+      },
+      {
+        "id": 333536368,
+        "user": "emining",
+        "user_id": 163843859,
+        "datetime": "2026-09-29T15:00:15.000Z",
+        "content": "あらあやかさんか",
+        "replies": []
+      },
+      {
+        "id": 333536392,
+        "user": "x_Aya-ka_x",
+        "user_id": 174898311,
+        "datetime": "2026-09-29T15:00:31.000Z",
+        "content": "過疎スタ聞いてはいたけど初めてきた",
+        "replies": []
+      },
+      {
+        "id": 333536437,
+        "user": "x_Aya-ka_x",
+        "user_id": 174898311,
+        "datetime": "2026-09-29T15:01:11.000Z",
+        "content": "多分えみさんが知ってるあやかじゃない",
+        "replies": []
+      },
+      {
+        "id": 333536448,
+        "user": "emining",
+        "user_id": 163843859,
+        "datetime": "2026-09-29T15:01:22.000Z",
+        "content": "あ、違う人っぽいごめんね",
+        "replies": []
+      },
+      {
+        "id": 333536538,
+        "user": "BY75715",
+        "user_id": 169780984,
+        "datetime": "2026-09-29T15:02:34.000Z",
+        "content": "新規のでどころわかんなすぎる　謎に知名度あるんだなぁ",
+        "replies": []
+      },
+      {
+        "id": 333536875,
+        "user": "x_Aya-ka_x",
+        "user_id": 174898311,
+        "datetime": "2026-09-29T15:07:46.000Z",
+        "content": "そんなに知名度ない～別のあやかだよぅ",
+        "replies": []
+      },
+      {
+        "id": 333537096,
+        "user": "BY75715",
+        "user_id": 169780984,
+        "datetime": "2026-09-29T15:11:03.000Z",
+        "content": "なんかぼんやりおもいだしてきたなぁ　あやかっていう仲の良い人がいたような気がする　おれはこのあいだその人と海岸沿いのハイウェイを爆走したんだ",
+        "replies": []
+      },
+      {
+        "id": 333537202,
+        "user": "x_Aya-ka_x",
+        "user_id": 174898311,
+        "datetime": "2026-09-29T15:12:33.000Z",
+        "content": "生き別れの妹かもしれない",
+        "replies": []
+      },
+      {
+        "id": 333537247,
+        "user": "x_Aya-ka_x",
+        "user_id": 174898311,
+        "datetime": "2026-09-29T15:13:03.000Z",
+        "content": "お姉ちゃんが迎えに行かなければ",
+        "replies": []
+      },
+      {
+        "id": 333537391,
+        "user": "BY75715",
+        "user_id": 169780984,
+        "datetime": "2026-09-29T15:15:10.000Z",
+        "content": "その人はいろいろ辛いことを経験して、いまはミュージシャンを目指して頑張ってるらしいんだ　君も応援してやってくれ",
+        "replies": []
+      },
+      {
+        "id": 333537875,
+        "user": "x_Aya-ka_x",
+        "user_id": 174898311,
+        "datetime": "2026-09-29T15:23:12.000Z",
+        "content": "思ったより話が壮大だった...",
+        "replies": []
+      },
+      {
+        "id": 333538209,
+        "user": "BY75715",
+        "user_id": 169780984,
+        "datetime": "2026-09-29T15:28:27.000Z",
+        "content": "だろ　ぜったいうまくいくよ",
+        "replies": []
+      },
+      {
+        "id": 333538242,
+        "user": "x_Aya-ka_x",
+        "user_id": 174898311,
+        "datetime": "2026-09-29T15:28:52.000Z",
+        "content": "ありがとう...？",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 333536288,
+    "user": "tapiokamirukuteli",
+    "user_id": 116614654,
+    "datetime": "2026-09-29T14:59:04.000Z",
+    "content": "今日偏頭痛でﾀﾋぬかと思った",
+    "replies": [
+      {
+        "id": 333536316,
+        "user": "nekomikan2744",
+        "user_id": 98594807,
+        "datetime": "2026-09-29T14:59:28.000Z",
+        "content": "ご自愛ください\u0026hellip;\u0026hellip;(\u0026acute;；\u0026omega;；`)",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 333536269,
+    "user": "HI_brand993",
+    "user_id": 158727683,
+    "datetime": "2026-09-29T14:58:47.000Z",
+    "content": "べつにてぃれじあはほぼ荒らしだったやん❓",
+    "replies": []
+  },
+  {
+    "id": 333536266,
+    "user": "BY75715",
+    "user_id": 169780984,
+    "datetime": "2026-09-29T14:58:45.000Z",
+    "content": "てぃれじあは誰よりも過疎スタのお笑いに真剣なので、マネとかそういう次元にいない",
+    "replies": []
+  },
+  {
+    "id": 333536237,
+    "user": "nekomikan2744",
+    "user_id": 98594807,
+    "datetime": "2026-09-29T14:58:19.000Z",
+    "content": "37.6℃はさすがに発熱判定でよろしい\u0026hellip;\u0026hellip;？",
+    "replies": [
+      {
+        "id": 333536271,
+        "user": "pann01",
+        "user_id": 133287665,
+        "datetime": "2026-09-29T14:58:47.000Z",
+        "content": "ギリ熱",
+        "replies": []
+      },
+      {
+        "id": 333536295,
+        "user": "emining",
+        "user_id": 163843859,
+        "datetime": "2026-09-29T14:59:10.000Z",
+        "content": "熱",
+        "replies": []
+      },
+      {
+        "id": 333536339,
+        "user": "nekomikan2744",
+        "user_id": 98594807,
+        "datetime": "2026-09-29T14:59:46.000Z",
+        "content": "そうですよね\u0026hellip;\u0026hellip;(\u0026acute;；\u0026omega;；`)",
+        "replies": []
+      },
+      {
+        "id": 333536374,
+        "user": "nekomikan2744",
+        "user_id": 98594807,
+        "datetime": "2026-09-29T15:00:19.000Z",
+        "content": "(\u0026acute;\u0026deg;̥̥̥̥̥̥̥̥\u0026omega;\u0026deg;̥̥̥̥̥̥̥̥｀)",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 333536232,
+    "user": "NekketuMan",
+    "user_id": 173258032,
+    "datetime": "2026-09-29T14:58:16.000Z",
+    "content": "インフル冤罪",
+    "replies": [
+      {
+        "id": 333536267,
+        "user": "nekomikan2744",
+        "user_id": 98594807,
+        "datetime": "2026-09-29T14:58:44.000Z",
+        "content": "(\u0026acute;；\u0026omega;；`)",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 333536219,
+    "user": "_trj",
+    "user_id": 161368976,
+    "datetime": "2026-09-29T14:58:01.000Z",
+    "content": "非難だけして自分は動かないのほんま",
+    "replies": []
+  },
+  {
+    "id": 333536189,
+    "user": "pann01",
+    "user_id": 133287665,
+    "datetime": "2026-09-29T14:57:38.000Z",
+    "content": "Hurry UP",
+    "replies": []
+  },
+  {
+    "id": 333536098,
+    "user": "GYOZA_AZOYG",
+    "user_id": 122204778,
+    "datetime": "2026-09-29T14:56:31.000Z",
+    "content": "変わったんだ",
+    "replies": []
+  },
+  {
+    "id": 333535922,
+    "user": "BY75715",
+    "user_id": 169780984,
+    "datetime": "2026-09-29T14:54:08.000Z",
+    "content": "本格浮上し始めて一ヶ月の新規をマネにするくせに、あれだけキャラの完成度が高いてぃれじあは落とす、猫人の判断基準わかりません",
+    "replies": [
+      {
+        "id": 333535990,
+        "user": "_trj",
+        "user_id": 161368976,
+        "datetime": "2026-09-29T14:54:57.000Z",
+        "content": "猫人いわく「もうちょい間空けてから」らしい",
+        "replies": []
+      },
+      {
+        "id": 333536007,
+        "user": "1BlockThreeA1",
+        "user_id": 169023226,
+        "datetime": "2026-09-29T14:55:20.000Z",
+        "content": "昇格したら一部のマネから激烈なファンメを貰いまして",
+        "replies": []
+      },
+      {
+        "id": 333536056,
+        "user": "BY75715",
+        "user_id": 169780984,
+        "datetime": "2026-09-29T14:56:01.000Z",
+        "content": "草",
+        "replies": []
+      },
+      {
+        "id": 333536202,
+        "user": "_trj",
+        "user_id": 161368976,
+        "datetime": "2026-09-29T14:57:47.000Z",
+        "content": "これおかしいよな",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 333535804,
+    "user": "nekomikan2744",
+    "user_id": 98594807,
+    "datetime": "2026-09-29T14:52:38.000Z",
+    "content": "こんばんは〜",
+    "replies": [
+      {
+        "id": 333535836,
+        "user": "HI_brand993",
+        "user_id": 158727683,
+        "datetime": "2026-09-29T14:53:01.000Z",
+        "content": "ねこみかんだ‼️",
+        "replies": []
+      },
+      {
+        "id": 333535852,
+        "user": "1BlockThreeA1",
+        "user_id": 169023226,
+        "datetime": "2026-09-29T14:53:16.000Z",
+        "content": "やほー！",
+        "replies": []
+      },
+      {
+        "id": 333535873,
+        "user": "pitapitapitapita",
+        "user_id": 177035090,
+        "datetime": "2026-09-29T14:53:30.000Z",
+        "content": "ばんわんこ",
+        "replies": []
+      },
+      {
+        "id": 333535937,
+        "user": "Gemini97",
+        "user_id": 167017720,
+        "datetime": "2026-09-29T14:54:13.000Z",
+        "content": "ฅ^\u0026bull;\u0026omega;\u0026bull;^ฅ\u0026lt;こんばんは",
+        "replies": []
+      },
+      {
+        "id": 333535964,
+        "user": "BY75715",
+        "user_id": 169780984,
+        "datetime": "2026-09-29T14:54:38.000Z",
+        "content": "！！！！！！",
+        "replies": []
+      },
+      {
+        "id": 333536081,
+        "user": "nekomikan2744",
+        "user_id": 98594807,
+        "datetime": "2026-09-29T14:56:18.000Z",
+        "content": "(* \u0026acute; ꒳ ` *)",
+        "replies": []
+      },
+      {
+        "id": 333536094,
+        "user": "nekomikan2744",
+        "user_id": 98594807,
+        "datetime": "2026-09-29T14:56:29.000Z",
+        "content": "(ฅ ̳\u0026bull; \u0026centerdot;̫ \u0026bull; ̳)ノ",
+        "replies": []
+      },
+      {
+        "id": 333536109,
+        "user": "emining",
+        "user_id": 163843859,
+        "datetime": "2026-09-29T14:56:37.000Z",
+        "content": "あらおひさ",
+        "replies": []
+      },
+      {
+        "id": 333536118,
+        "user": "nekomikan2744",
+        "user_id": 98594807,
+        "datetime": "2026-09-29T14:56:41.000Z",
+        "content": "ばんฅ^・ﻌ・^ฅ",
+        "replies": []
+      },
+      {
+        "id": 333536135,
+        "user": "nekomikan2744",
+        "user_id": 98594807,
+        "datetime": "2026-09-29T14:56:54.000Z",
+        "content": "(ฅ ̳\u0026bull; \u0026centerdot;̫ \u0026bull; ̳)ฅ\u0026lt;こんばんは！",
+        "replies": []
+      },
+      {
+        "id": 333536149,
+        "user": "nekomikan2744",
+        "user_id": 98594807,
+        "datetime": "2026-09-29T14:57:05.000Z",
+        "content": "！？！？！？",
+        "replies": []
+      },
+      {
+        "id": 333536201,
+        "user": "nekomikan2744",
+        "user_id": 98594807,
+        "datetime": "2026-09-29T14:57:46.000Z",
+        "content": "ひさしぶり〜",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 333535782,
+    "user": "_trj",
+    "user_id": 161368976,
+    "datetime": "2026-09-29T14:52:21.000Z",
+    "content": "お風呂行ってた",
+    "replies": []
+  },
+  {
+    "id": 333535583,
+    "user": "emining",
+    "user_id": 163843859,
+    "datetime": "2026-09-29T14:49:41.000Z",
+    "content": "やっぱジャン声優さんめっちゃ良いな",
+    "replies": [
+      {
+        "id": 333535814,
+        "user": "HI_brand993",
+        "user_id": 158727683,
+        "datetime": "2026-09-29T14:52:46.000Z",
+        "content": "ありがとう",
+        "replies": []
+      },
+      {
+        "id": 333536138,
+        "user": "emining",
+        "user_id": 163843859,
+        "datetime": "2026-09-29T14:56:56.000Z",
+        "content": "お前ちゃうわ",
+        "replies": []
+      },
+      {
+        "id": 333536230,
+        "user": "HI_brand993",
+        "user_id": 158727683,
+        "datetime": "2026-09-29T14:58:11.000Z",
+        "content": "エッ！なにが起こったというの",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 333535581,
+    "user": "467___",
+    "user_id": 123560468,
+    "datetime": "2026-09-29T14:49:38.000Z",
+    "content": "おやさみ",
+    "replies": [
+      {
+        "id": 333535602,
+        "user": "467___",
+        "user_id": 123560468,
+        "datetime": "2026-09-29T14:49:54.000Z",
+        "content": "なんで毎回おやすみを誤字るの\u0026hellip;\u0026hellip;！",
+        "replies": []
+      },
+      {
+        "id": 333535726,
+        "user": "HI_brand993",
+        "user_id": 158727683,
+        "datetime": "2026-09-29T14:51:40.000Z",
+        "content": "おやすみ",
+        "replies": []
+      },
+      {
+        "id": 333535727,
+        "user": "HI_brand993",
+        "user_id": 158727683,
+        "datetime": "2026-09-29T14:51:40.000Z",
+        "content": "おやすみ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 333535472,
+    "user": "pann01",
+    "user_id": 133287665,
+    "datetime": "2026-09-29T14:48:05.000Z",
+    "content": "組音ツハ",
+    "replies": []
+  },
+  {
     "id": 333535197,
     "user": "BY75715",
     "user_id": 169780984,
@@ -593,6 +1146,14 @@
         "user_id": 173990224,
         "datetime": "2026-09-29T14:23:19.000Z",
         "content": "かいめんとあわせて両方いかれたね　手で歩くの❓️",
+        "replies": []
+      },
+      {
+        "id": 333536051,
+        "user": "_trj",
+        "user_id": 161368976,
+        "datetime": "2026-09-29T14:55:56.000Z",
+        "content": "5時間かけて再生する",
         "replies": []
       }
     ]
@@ -2502,39 +3063,6 @@
     ]
   },
   {
-    "id": 333528211,
-    "user": "ScratchTeam_Hi",
-    "user_id": 177500047,
-    "datetime": "2026-09-29T13:16:56.000Z",
-    "content": "Username @_trj\n\nIt seems like you kept sending comments even though you were blocked. If this kind of thing happens again, you might get a heavier block.\n\nBlock lift date: September 30, 2026, 10:16 PM",
-    "replies": [
-      {
-        "id": 333528234,
-        "user": "-_AWAKE_-",
-        "user_id": 149941132,
-        "datetime": "2026-09-29T13:17:10.000Z",
-        "content": "かわいそう",
-        "replies": []
-      },
-      {
-        "id": 333528346,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T13:18:20.000Z",
-        "content": "We want friendly comments. Please don\u0026apos;t bring up issues that are too harsh.",
-        "replies": []
-      },
-      {
-        "id": 333528565,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T13:20:32.000Z",
-        "content": "I\u0026apos;m using a translator. There might be parts that are hard to understand.",
-        "replies": []
-      }
-    ]
-  },
-  {
     "id": 333528193,
     "user": "emining",
     "user_id": 163843859,
@@ -2867,14 +3395,6 @@
         "datetime": "2026-09-29T13:14:25.000Z",
         "content": "さあ",
         "replies": []
-      },
-      {
-        "id": 333528058,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T13:15:08.000Z",
-        "content": "Your behavior was too problematic, so we\u0026rsquo;ve blocked your account for 10 minutes. Please leave a positive comment September 29, 2026 Scratch Team",
-        "replies": []
       }
     ]
   },
@@ -2885,14 +3405,6 @@
     "datetime": "2026-09-29T13:13:40.000Z",
     "content": "田中くんのお兄ちゃんは田中くんを置いていって時速25kmでスーパーにいきました。その後、田中くんが10分遅れて時速2000000000kmで家を出ました。\n果たして田中くんがお兄ちゃんに追いつくのは何分後でしょうか？",
     "replies": [
-      {
-        "id": 333527934,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T13:13:56.000Z",
-        "content": "Your behavior was too problematic, so we\u0026rsquo;ve blocked your account for 10 minutes. Please leave a positive comment. September 29, 2026 Scratch Team",
-        "replies": []
-      },
       {
         "id": 333527999,
         "user": "1BlockThreeA1",
@@ -2990,14 +3502,6 @@
         "datetime": "2026-09-29T13:12:22.000Z",
         "content": "ドラクエ5の主人公",
         "replies": []
-      },
-      {
-        "id": 333527794,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T13:12:32.000Z",
-        "content": "Your behavior was too problematic, so we\u0026rsquo;ve blocked your account for 10 minutes. Please leave a positive comment. September 29, 2026 Scratch Team",
-        "replies": []
       }
     ]
   },
@@ -3054,14 +3558,6 @@
         "user_id": 129885901,
         "datetime": "2026-09-29T13:10:20.000Z",
         "content": "発達障害の間違い",
-        "replies": []
-      },
-      {
-        "id": 333527581,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T13:10:26.000Z",
-        "content": "Your behavior was too problematic, so we\u0026rsquo;ve blocked your account for 10 minutes. Please leave a positive comment. September 29, 2026 Scratch Team",
         "replies": []
       },
       {
@@ -3135,14 +3631,6 @@
         "user_id": 173552306,
         "datetime": "2026-09-29T13:09:20.000Z",
         "content": "あ",
-        "replies": []
-      },
-      {
-        "id": 333527462,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T13:09:25.000Z",
-        "content": ":D",
         "replies": []
       },
       {
@@ -3524,14 +4012,6 @@
         "user_id": 127187668,
         "datetime": "2026-09-29T13:06:21.000Z",
         "content": "鳥葬",
-        "replies": []
-      },
-      {
-        "id": 333527274,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T13:07:26.000Z",
-        "content": "Your behavior was too problematic, so we\u0026rsquo;ve blocked your account for 10 minutes. Please leave a positive comment.\n\nSeptember 29, 2026  Scratch Team",
         "replies": []
       }
     ]
@@ -4267,14 +4747,6 @@
         "datetime": "2026-09-29T12:56:16.000Z",
         "content": "確かに",
         "replies": []
-      },
-      {
-        "id": 333526302,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T12:57:20.000Z",
-        "content": "Hello",
-        "replies": []
       }
     ]
   },
@@ -4566,14 +5038,6 @@
         "replies": []
       },
       {
-        "id": 333526052,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T12:54:27.000Z",
-        "content": "Nice to meet you.",
-        "replies": []
-      },
-      {
         "id": 333526136,
         "user": "Oo-mili-oO",
         "user_id": 174359308,
@@ -4649,14 +5113,6 @@
         "replies": []
       },
       {
-        "id": 333525890,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T12:52:37.000Z",
-        "content": "Hi there. Let\u0026apos;s have fun chatting while following the rules.",
-        "replies": []
-      },
-      {
         "id": 333525919,
         "user": "K-Dryu",
         "user_id": 167829331,
@@ -4678,14 +5134,6 @@
         "user_id": 158068824,
         "datetime": "2026-09-29T12:53:49.000Z",
         "content": "だれ尊師",
-        "replies": []
-      },
-      {
-        "id": 333526177,
-        "user": "ScratchTeam_Hi",
-        "user_id": 177500047,
-        "datetime": "2026-09-29T12:55:51.000Z",
-        "content": "I don\u0026apos;t understand what you\u0026apos;re saying",
         "replies": []
       }
     ]
@@ -5353,14 +5801,6 @@
         "replies": []
       }
     ]
-  },
-  {
-    "id": 333525296,
-    "user": "ScratchTeam_Hi",
-    "user_id": 177500047,
-    "datetime": "2026-09-29T12:46:20.000Z",
-    "content": "Repeatedly sending indiscriminate invitations to the studio violates the community guidelines. \n\nThank you.",
-    "replies": []
   },
   {
     "id": 333525289,
