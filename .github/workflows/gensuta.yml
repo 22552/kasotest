@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Run scraper4
-        run: go run ./scraper4.go 51396308 1080 genko.json
+        run: go run ./scraper4.go 51980154 1080 genko.json
 
       - name: Commit result
         run: |
