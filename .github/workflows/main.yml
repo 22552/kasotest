@@ -2,7 +2,7 @@ name: Run Scraper
 
 on:
   schedule:
-    - cron: "0 */8 * * *"  # 8時間ごと（UTC）
+    - cron: "0 */6 * * *"  # 8時間ごと（UTC）
   workflow_dispatch:       # 手動実行OK
 
 permissions:
