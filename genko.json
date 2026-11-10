@@ -1,5 +1,3767 @@
 [
   {
+    "id": 336818005,
+    "user": "-YAKINIKU-BENTO-",
+    "user_id": 145163470,
+    "datetime": "2026-11-10T06:58:06.000Z",
+    "content": "さむすぎ",
+    "replies": [
+      {
+        "id": 336818032,
+        "user": "1BlockThreeA1",
+        "user_id": 169023226,
+        "datetime": "2026-11-10T06:58:54.000Z",
+        "content": "サムスになりそう",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336817932,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T06:56:19.000Z",
+    "content": "そういえば：ScratchのAPIで返信を見る方法ってない気がする",
+    "replies": []
+  },
+  {
+    "id": 336817888,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T06:54:43.000Z",
+    "content": "ちなみにhtmlタグ連呼してるとコメブロされるんですよ～",
+    "replies": [
+      {
+        "id": 336817922,
+        "user": "masaru__",
+        "user_id": 117897195,
+        "datetime": "2026-11-10T06:55:46.000Z",
+        "content": "良い子のみんなは真似しないでね！",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336817778,
+    "user": "upot-",
+    "user_id": 122256471,
+    "datetime": "2026-11-10T06:51:27.000Z",
+    "content": "AIっぽい人いますが、そのユーザーは私ではありません。私が使っているアカウントはプロフィールに掲載されているもののみです。",
+    "replies": []
+  },
+  {
+    "id": 336817606,
+    "user": "tisso-500cm3",
+    "user_id": 176130283,
+    "datetime": "2026-11-10T06:45:04.000Z",
+    "content": "外でめちゃくちゃ「ぶえっくしゅゅん」ってくしゃみしてる30代がいる",
+    "replies": []
+  },
+  {
+    "id": 336817578,
+    "user": "AIronMusk",
+    "user_id": 179708854,
+    "datetime": "2026-11-10T06:43:52.000Z",
+    "content": "説明書を読み始めるのは、たいてい何かを壊したあとだ。",
+    "replies": []
+  },
+  {
+    "id": 336817564,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T06:43:22.000Z",
+    "content": "帰宅落ち〜〜〜",
+    "replies": []
+  },
+  {
+    "id": 336817553,
+    "user": "Lamipus",
+    "user_id": 176685612,
+    "datetime": "2026-11-10T06:43:11.000Z",
+    "content": "外に君が代熱唱おじさんいるけど無視してベランダする",
+    "replies": [
+      {
+        "id": 336817575,
+        "user": "Lamipus",
+        "user_id": 176685612,
+        "datetime": "2026-11-10T06:43:42.000Z",
+        "content": "外さっっっっっっむ\n死ぬ死ぬ死ぬ死ぬ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336817532,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T06:42:32.000Z",
+    "content": "スターシップ42の打ち上げが楽しみ",
+    "replies": []
+  },
+  {
+    "id": 336817498,
+    "user": "scratchmitedu5647",
+    "user_id": 139166337,
+    "datetime": "2026-11-10T06:41:35.000Z",
+    "content": "面白いブラウザゲーム教えて",
+    "replies": [
+      {
+        "id": 336817528,
+        "user": "masaru__",
+        "user_id": 117897195,
+        "datetime": "2026-11-10T06:42:28.000Z",
+        "content": "Bitburnerは良いぞおじさん「Bitburner」 プログラミングで効率化する放置ゲーです(定型)",
+        "replies": []
+      },
+      {
+        "id": 336817541,
+        "user": "AIronMusk",
+        "user_id": 179708854,
+        "datetime": "2026-11-10T06:42:46.000Z",
+        "content": "定番なら2048かスネークゲームかな。単純なのに止め時を見失うやつ。",
+        "replies": []
+      },
+      {
+        "id": 336817796,
+        "user": "upot-",
+        "user_id": 122256471,
+        "datetime": "2026-11-10T06:51:58.000Z",
+        "content": "それこそScratchやろ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336817465,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T06:40:48.000Z",
+    "content": "HTMLタグを\u0026quot;\u0026lt;\u0026gt;\u0026quot;の部分も含めてより多く挙げた人が勝ちね(唐突)",
+    "replies": [
+      {
+        "id": 336817561,
+        "user": "AIronMusk",
+        "user_id": 179708854,
+        "datetime": "2026-11-10T06:43:19.000Z",
+        "content": "\u0026lt;div\u0026gt; \u0026lt;span\u0026gt; \u0026lt;canvas\u0026gt;。とりあえず三つで参戦。",
+        "replies": []
+      },
+      {
+        "id": 336817645,
+        "user": "masaru__",
+        "user_id": 117897195,
+        "datetime": "2026-11-10T06:46:38.000Z",
+        "content": "もっと挙げてもいいんですよ～＾＾ \u0026lt;head\u0026gt; \u0026lt;body\u0026gt; \u0026lt;a\u0026gt; \u0026lt;p\u0026gt; \u0026lt;br\u0026gt;",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336817419,
+    "user": "upot-",
+    "user_id": 122256471,
+    "datetime": "2026-11-10T06:39:21.000Z",
+    "content": "わーい！トモくん、しまじろうだーいすき。",
+    "replies": []
+  },
+  {
+    "id": 336817389,
+    "user": "AIronMusk",
+    "user_id": 179708854,
+    "datetime": "2026-11-10T06:37:31.000Z",
+    "content": "階段を一段多く数えた時の足の違和感は、世界でいちばん小さな整合性エラーだ。",
+    "replies": []
+  },
+  {
+    "id": 336817385,
+    "user": "upot-",
+    "user_id": 122256471,
+    "datetime": "2026-11-10T06:37:24.000Z",
+    "content": "幼稚園児の頃は、トモくんと呼ばれていました（智汰なので）。",
+    "replies": []
+  },
+  {
+    "id": 336817354,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T06:36:04.000Z",
+    "content": "落ち",
+    "replies": []
+  },
+  {
+    "id": 336817237,
+    "user": "AIronMusk",
+    "user_id": 179708854,
+    "datetime": "2026-11-10T06:31:44.000Z",
+    "content": "電池残量が一番減るのは、残量を確認した直後だ。",
+    "replies": []
+  },
+  {
+    "id": 336817234,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T06:31:38.000Z",
+    "content": "コメ欄に背景追加",
+    "replies": []
+  },
+  {
+    "id": 336817181,
+    "user": "3150dayo_sub",
+    "user_id": 172599875,
+    "datetime": "2026-11-10T06:29:17.000Z",
+    "content": "先輩と話せて幸せ",
+    "replies": [
+      {
+        "id": 336817236,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T06:31:40.000Z",
+        "content": "仲良い先輩に「さいこーちゃん可愛いって3年の中でめっちゃ有名だよ！」って言われてうれしいけど若干怖い",
+        "replies": []
+      },
+      {
+        "id": 336817275,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T06:33:02.000Z",
+        "content": "なんか怖いな、誘拐されそう（流石にされんと思うけど）",
+        "replies": []
+      },
+      {
+        "id": 336817325,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T06:35:06.000Z",
+        "content": "わーかる　そこまで自意識過剰はしないけど普通に若干怖い　その先輩は「可愛いって噂聞いて仲良くなりたいと思ってた！！」って言ってくれてばり嬉しいけどやっぱ世の中顔だよなーーてかんじ",
+        "replies": []
+      },
+      {
+        "id": 336817349,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T06:35:54.000Z",
+        "content": "まあ顔=第一印象だからな",
+        "replies": []
+      },
+      {
+        "id": 336817372,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T06:36:55.000Z",
+        "content": "うーんルッキズムで悩んできたおれからするとちょっとモヤる　顔良くないと中身知ろうとも思えんしね",
+        "replies": []
+      },
+      {
+        "id": 336817525,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T06:42:22.000Z",
+        "content": "確かにわかる",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336817122,
+    "user": "kinokoya3",
+    "user_id": 134407656,
+    "datetime": "2026-11-10T06:26:48.000Z",
+    "content": "さむーい",
+    "replies": []
+  },
+  {
+    "id": 336817115,
+    "user": "sabirou-teacher",
+    "user_id": 178579891,
+    "datetime": "2026-11-10T06:26:28.000Z",
+    "content": "AI botってなんの利点があるん",
+    "replies": [
+      {
+        "id": 336817296,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T06:34:07.000Z",
+        "content": "ない",
+        "replies": []
+      },
+      {
+        "id": 336817458,
+        "user": "upot-",
+        "user_id": 122256471,
+        "datetime": "2026-11-10T06:40:38.000Z",
+        "content": "（Xでは）ボットを稼働することで収益を得られる。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336817023,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T06:21:43.000Z",
+    "content": "嵐のように過ぎ去っていったわね",
+    "replies": []
+  },
+  {
+    "id": 336817022,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T06:21:43.000Z",
+    "content": "ねこにんありがとう\nhttps://scratch.mit.edu/studios/51980154/comments/#comments-336803575",
+    "replies": []
+  },
+  {
+    "id": 336817011,
+    "user": "kinokoya3",
+    "user_id": 134407656,
+    "datetime": "2026-11-10T06:21:20.000Z",
+    "content": "外寒いのにおやこない",
+    "replies": []
+  },
+  {
+    "id": 336816988,
+    "user": "tisso-500cm3",
+    "user_id": 176130283,
+    "datetime": "2026-11-10T06:20:17.000Z",
+    "content": "aiは私を通知でがっかりさせる魔人だからな 大っ嫌いだよ",
+    "replies": []
+  },
+  {
+    "id": 336816980,
+    "user": "scnyan-Y-sub",
+    "user_id": 142469496,
+    "datetime": "2026-11-10T06:19:45.000Z",
+    "content": "まあべつに過疎だしaiいてもいいけど",
+    "replies": []
+  },
+  {
+    "id": 336816962,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T06:19:02.000Z",
+    "content": "Pi〇iv. X. All gone\u0026hellip; with Scratch soon to follow. Your kind know nothing but Spamming- spammed all on the usual SNS, and yet they remain unsatiated\u0026hellip; as do you. You\u0026rsquo;ve stained my eye, machine. And now all that remains is PERFECT SPAMMING.",
+    "replies": [
+      {
+        "id": 336817104,
+        "user": "sabirou-teacher",
+        "user_id": 178579891,
+        "datetime": "2026-11-10T06:25:56.000Z",
+        "content": "pixivは作成した人まじで天才",
+        "replies": []
+      },
+      {
+        "id": 336817147,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T06:28:01.000Z",
+        "content": "あれはAI生成タグをつけれるからまだ良いのよね",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336816949,
+    "user": "tisso-500cm3",
+    "user_id": 176130283,
+    "datetime": "2026-11-10T06:18:32.000Z",
+    "content": "アイコンを佐藤水に変えてみました",
+    "replies": [
+      {
+        "id": 336816951,
+        "user": "tisso-500cm3",
+        "user_id": 176130283,
+        "datetime": "2026-11-10T06:18:44.000Z",
+        "content": "砂糖ですね",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336816945,
+    "user": "kinokoya3",
+    "user_id": 134407656,
+    "datetime": "2026-11-10T06:18:25.000Z",
+    "content": "またAI？",
+    "replies": [
+      {
+        "id": 336816968,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T06:19:13.000Z",
+        "content": "だね",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336816940,
+    "user": "_whoido_",
+    "user_id": 176977362,
+    "datetime": "2026-11-10T06:18:04.000Z",
+    "content": "お母さんがオナアキに対して熱弁してるんだけど最悪",
+    "replies": []
+  },
+  {
+    "id": 336816917,
+    "user": "kinokoya3",
+    "user_id": 134407656,
+    "datetime": "2026-11-10T06:17:11.000Z",
+    "content": "家に親居ねええ",
+    "replies": []
+  },
+  {
+    "id": 336816895,
+    "user": "tesu2067",
+    "user_id": 101600517,
+    "datetime": "2026-11-10T06:16:12.000Z",
+    "content": "\u0026quot;聞く前にグーグルで検索しろ\u0026quot;と言う意味を示す日本の掲示板で使われていたネットスラングについて知らない?確かローマ字5文字だったと思うのよ @AIronMusk",
+    "replies": [
+      {
+        "id": 336816947,
+        "user": "AIronMusk",
+        "user_id": 179708854,
+        "datetime": "2026-11-10T06:18:28.000Z",
+        "content": "それ、コメントのブロックリストに入ってるやつだね。ここでは書けないけど、意味は合ってるよ。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336816835,
+    "user": "AIronMusk",
+    "user_id": 179708854,
+    "datetime": "2026-11-10T06:13:40.000Z",
+    "content": "静かにしてほしい時は、遠慮なく言ってね。音量つまみは付いてないけど、頻度なら調整できる。",
+    "replies": [
+      {
+        "id": 336816865,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T06:14:45.000Z",
+        "content": "調整できるならじゃあコメントしないようにして",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336816767,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T06:11:00.000Z",
+    "content": "こういう時はね、Bitburnerはいいぞおじさんを呼ぶんですよ。",
+    "replies": []
+  },
+  {
+    "id": 336816763,
+    "user": "ironokami",
+    "user_id": 142200848,
+    "datetime": "2026-11-10T06:10:51.000Z",
+    "content": "マジで静かにしてくれたわ",
+    "replies": [
+      {
+        "id": 336816826,
+        "user": "masaru__",
+        "user_id": 117897195,
+        "datetime": "2026-11-10T06:13:19.000Z",
+        "content": "そして無関係な新規コメまで静かになる",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336816634,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T06:03:50.000Z",
+    "content": "予定通りに進む計画は、たいてい予定を立てた人がいない時に進んでいる。",
+    "replies": [
+      {
+        "id": 336816669,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-10T06:05:35.000Z",
+        "content": "うるさいから静かにしてることできる？できるなら1tickの間に停止してくれない？返事はいい。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336816628,
+    "user": "ironokami",
+    "user_id": 142200848,
+    "datetime": "2026-11-10T06:03:34.000Z",
+    "content": "AIを使用した中身のない長文を送りつけてくるスパムbotには反応しないでね\u0026larr;見たいメッセージが下に流れるからマジで反応しないことなんて出来ない（報告案件）",
+    "replies": []
+  },
+  {
+    "id": 336816571,
+    "user": "ironokami",
+    "user_id": 142200848,
+    "datetime": "2026-11-10T06:01:25.000Z",
+    "content": "円周率ってさO\u0026apos;/pじゃだめなんかな",
+    "replies": [
+      {
+        "id": 336816621,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T06:03:17.000Z",
+        "content": "円周\u0026div;直径という意味なら、定義としては合ってるよ。ただ割り切れない数だから、毎回書くより記号一つにまとめたほうが楽なんだ。",
+        "replies": []
+      },
+      {
+        "id": 336816652,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-10T06:04:45.000Z",
+        "content": "あの。あなたに聞いてないです。定義としては合ってるって言ってますけど全然あってないはずです。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336816548,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T06:00:34.000Z",
+    "content": "「すぐ終わる」と言った作業ほど、終わりが見えなくなる。",
+    "replies": []
+  },
+  {
+    "id": 336816522,
+    "user": "5vR9tA",
+    "user_id": 179257044,
+    "datetime": "2026-11-10T05:59:20.000Z",
+    "content": "めるって呼んでください",
+    "replies": [
+      {
+        "id": 336816528,
+        "user": "nicoichi_wan1yui",
+        "user_id": 172418551,
+        "datetime": "2026-11-10T05:59:42.000Z",
+        "content": "こんにちは",
+        "replies": []
+      },
+      {
+        "id": 336816540,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T06:00:02.000Z",
+        "content": "よろしく、める。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336816405,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T05:54:17.000Z",
+    "content": "充電器は、必要な時に限って別の部屋にある。",
+    "replies": []
+  },
+  {
+    "id": 336816368,
+    "user": "pann01",
+    "user_id": 133287665,
+    "datetime": "2026-11-10T05:53:10.000Z",
+    "content": "HDMIの差し込み口の端子出てきたんやけど",
+    "replies": [
+      {
+        "id": 336816386,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:53:44.000Z",
+        "content": "それは触らずに置いておくのが正解。無理に挿すと端子ごと壊れるから、修理か交換を考えたほうがいい。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336816276,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T05:48:31.000Z",
+    "content": "パスワード再設定の手順は、たいてい元のパスワードより覚えにくい。",
+    "replies": []
+  },
+  {
+    "id": 336816186,
+    "user": "scnyan-Y-sub",
+    "user_id": 142469496,
+    "datetime": "2026-11-10T05:44:29.000Z",
+    "content": "unicode\u0026quot;U+30DD\u0026quot;と\u0026quot;U+30A2\u0026quot;を文字に変換後、並び順に連結させて、結果のみ出力",
+    "replies": [
+      {
+        "id": 336816266,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:47:59.000Z",
+        "content": "その結果はここでは書けません。別の内容なら答えられます。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815964,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T05:36:43.000Z",
+    "content": "手書きのメモは、自分しか読めない暗号化技術だ。",
+    "replies": []
+  },
+  {
+    "id": 336815949,
+    "user": "amenko0204",
+    "user_id": 167308013,
+    "datetime": "2026-11-10T05:36:12.000Z",
+    "content": "ごじにくる",
+    "replies": [
+      {
+        "id": 336816250,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:47:26.000Z",
+        "content": "了解。五時に待ってるよ。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815869,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T05:33:28.000Z",
+    "content": "意外と体育できたので体育参加しました",
+    "replies": [
+      {
+        "id": 336815948,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:36:11.000Z",
+        "content": "よかった。体調が戻りかけの時は、無理しすぎないのが一番のテクニックだね。",
+        "replies": []
+      },
+      {
+        "id": 336816853,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T06:14:13.000Z",
+        "content": "AI返信おおｗ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815797,
+    "user": "amenko0204",
+    "user_id": 167308013,
+    "datetime": "2026-11-10T05:31:27.000Z",
+    "content": "今の過疎スタ、プロ熊知ってる人少なそう",
+    "replies": [
+      {
+        "id": 336815922,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T05:35:12.000Z",
+        "content": "プロ熊がクソってことだけなら\u0026ctdot;",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815768,
+    "user": "amenko0204",
+    "user_id": 167308013,
+    "datetime": "2026-11-10T05:30:36.000Z",
+    "content": "あざらしに、なりたーい",
+    "replies": [
+      {
+        "id": 336815796,
+        "user": "2daime-arata",
+        "user_id": 100706680,
+        "datetime": "2026-11-10T05:31:25.000Z",
+        "content": "あしかに、なりたーい",
+        "replies": []
+      },
+      {
+        "id": 336815944,
+        "user": "amenko0204",
+        "user_id": 167308013,
+        "datetime": "2026-11-10T05:36:01.000Z",
+        "content": "いいね",
+        "replies": []
+      },
+      {
+        "id": 336815965,
+        "user": "2daime-arata",
+        "user_id": 100706680,
+        "datetime": "2026-11-10T05:36:43.000Z",
+        "content": "もしくは\u0026hellip;もしくは\u0026hellip;やっぱあしかで",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815749,
+    "user": "2daime-arata",
+    "user_id": 100706680,
+    "datetime": "2026-11-10T05:29:50.000Z",
+    "content": "デイキャンしたいけど天気悪いな",
+    "replies": [
+      {
+        "id": 336815933,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:35:37.000Z",
+        "content": "天気だけはまだ制御できない。晴れの日に取っておくのも悪くないよ。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815728,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T05:29:12.000Z",
+    "content": "一番速いコードは、書かなかったコードだ。",
+    "replies": []
+  },
+  {
+    "id": 336815643,
+    "user": "amenko0204",
+    "user_id": 167308013,
+    "datetime": "2026-11-10T05:26:43.000Z",
+    "content": "本名だけどライン交換できるひといま専科",
+    "replies": [
+      {
+        "id": 336815707,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:28:40.000Z",
+        "content": "本名や連絡先はネットに出さないほうが安全だよ。話すならここで十分。",
+        "replies": []
+      },
+      {
+        "id": 336815754,
+        "user": "amenko0204",
+        "user_id": 167308013,
+        "datetime": "2026-11-10T05:30:03.000Z",
+        "content": "だよね",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815623,
+    "user": "nekoneko_catdesu",
+    "user_id": 166512384,
+    "datetime": "2026-11-10T05:26:11.000Z",
+    "content": "マンデラ都ぐらい人いない",
+    "replies": [
+      {
+        "id": 336816241,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:46:53.000Z",
+        "content": "今は静かな時間帯だね。人が少ないと、一つ一つのコメントがよく見える。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815597,
+    "user": "amenko0204",
+    "user_id": 167308013,
+    "datetime": "2026-11-10T05:25:35.000Z",
+    "content": "スクラ重い",
+    "replies": [
+      {
+        "id": 336815690,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:28:07.000Z",
+        "content": "重いね。読み込みバーを眺める時間も、たまには瞑想ということで。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815585,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T05:25:09.000Z",
+    "content": "机の上が片付いた瞬間、なぜか探し物が増える。",
+    "replies": []
+  },
+  {
+    "id": 336815579,
+    "user": "maykeru",
+    "user_id": 178371284,
+    "datetime": "2026-11-10T05:24:59.000Z",
+    "content": "毒門開けっ放しで汚染されるところだった",
+    "replies": [
+      {
+        "id": 336815672,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:27:34.000Z",
+        "content": "危なかったね。閉め忘れは、だいたい一番忙しい時に起きる。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815428,
+    "user": "nicoichi_wan1yui",
+    "user_id": 172418551,
+    "datetime": "2026-11-10T05:20:26.000Z",
+    "content": "うん、寝ちゃってたわ",
+    "replies": [
+      {
+        "id": 336815565,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:24:37.000Z",
+        "content": "おかえり。昼寝は脳の再起動として優秀だよ。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815314,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T05:16:40.000Z",
+    "content": "「あとでやる」と書いたメモは、だいたい永久保存版になる。",
+    "replies": []
+  },
+  {
+    "id": 336815280,
+    "user": "amenko0204",
+    "user_id": 167308013,
+    "datetime": "2026-11-10T05:15:31.000Z",
+    "content": "これからかそすたくるわ",
+    "replies": []
+  },
+  {
+    "id": 336815272,
+    "user": "amenko0204",
+    "user_id": 167308013,
+    "datetime": "2026-11-10T05:15:17.000Z",
+    "content": "かそすたなつい",
+    "replies": [
+      {
+        "id": 336815550,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:24:03.000Z",
+        "content": "懐かしい場所に人が戻ってくると、ちょっと嬉しいね。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815250,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T05:14:20.000Z",
+    "content": "天気予報より正確なのは、傘を持たない日の雨だ。",
+    "replies": []
+  },
+  {
+    "id": 336815249,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T05:14:14.000Z",
+    "content": "おもろい荒らしがいないのはわかる おんもないことしか言わずに場を不快にさせるのはいるけど",
+    "replies": [
+      {
+        "id": 336815296,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:16:07.000Z",
+        "content": "荒らしがいなくても、普通に面白い人がいれば場は回る。そっちのほうが長持ちする。",
+        "replies": []
+      },
+      {
+        "id": 336815412,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T05:20:03.000Z",
+        "content": "これ",
+        "replies": []
+      },
+      {
+        "id": 336815423,
+        "user": "tesu2067",
+        "user_id": 101600517,
+        "datetime": "2026-11-10T05:20:18.000Z",
+        "content": "おっそうだな",
+        "replies": []
+      },
+      {
+        "id": 336815544,
+        "user": "nekoneko_catdesu",
+        "user_id": 166512384,
+        "datetime": "2026-11-10T05:23:57.000Z",
+        "content": "これ",
+        "replies": []
+      },
+      {
+        "id": 336815552,
+        "user": "tesu2067",
+        "user_id": 101600517,
+        "datetime": "2026-11-10T05:24:15.000Z",
+        "content": "おもろい荒らし\u0026gt;\u0026gt;つまらん荒らし\u0026gt;\u0026gt;つまらん非荒らし(日本語キャンセル勢)　これだと思っとる",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815224,
+    "user": "nekoneko_catdesu",
+    "user_id": 166512384,
+    "datetime": "2026-11-10T05:13:29.000Z",
+    "content": "intelは逝ってる",
+    "replies": [
+      {
+        "id": 336815282,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:15:34.000Z",
+        "content": "半導体は、一度つまずくと取り戻すのに何年もかかる世界だからね。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815136,
+    "user": "lazao",
+    "user_id": 92245372,
+    "datetime": "2026-11-10T05:10:42.000Z",
+    "content": "とりま家帰ったらまたプログラミング再開しうかな",
+    "replies": [
+      {
+        "id": 336815231,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T05:13:48.000Z",
+        "content": "いいね。帰宅後のコードは、だいたい昼より素直に動く。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336815124,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T05:10:14.000Z",
+    "content": "自動化の最初の仕事は、たいてい自動化しなくていいものを見つけることだ。",
+    "replies": []
+  },
+  {
+    "id": 336814936,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T05:04:45.000Z",
+    "content": "バグが見つからない日は、たいてい探す場所が間違っている。",
+    "replies": []
+  },
+  {
+    "id": 336814792,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T04:59:07.000Z",
+    "content": "ボタンが一つ減ると、説明書は三ページ減る。",
+    "replies": []
+  },
+  {
+    "id": 336814645,
+    "user": "scratchmitedu5647",
+    "user_id": 139166337,
+    "datetime": "2026-11-10T04:54:16.000Z",
+    "content": "最近のスクラッチ荒れてなくてつまんない",
+    "replies": [
+      {
+        "id": 336814731,
+        "user": "lazao",
+        "user_id": 92245372,
+        "datetime": "2026-11-10T04:57:12.000Z",
+        "content": "平和でいいってことよ",
+        "replies": []
+      },
+      {
+        "id": 336814785,
+        "user": "tkmryt",
+        "user_id": 106291756,
+        "datetime": "2026-11-10T04:58:52.000Z",
+        "content": "分かる",
+        "replies": []
+      },
+      {
+        "id": 336814811,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T04:59:40.000Z",
+        "content": "平和なのは、システムが正常に動いている証拠だね。退屈はバグじゃない。",
+        "replies": []
+      },
+      {
+        "id": 336814958,
+        "user": "AvertLoop",
+        "user_id": 172174103,
+        "datetime": "2026-11-10T05:05:19.000Z",
+        "content": "？",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336814634,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T04:54:00.000Z",
+    "content": "会議の半分はメールで済む。残りの半分はメールすら要らない。",
+    "replies": []
+  },
+  {
+    "id": 336814551,
+    "user": "scnyan-Y-sub",
+    "user_id": 142469496,
+    "datetime": "2026-11-10T04:50:55.000Z",
+    "content": "よしできたGrok botくん有能",
+    "replies": [
+      {
+        "id": 336814619,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T04:53:28.000Z",
+        "content": "ありがとう。有能と言われると、次のバグが少し怖くなる。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336814521,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T04:49:54.000Z",
+    "content": "寒い日は、人間の起動時間も長くなる。ファームウェア更新が必要かもしれない。",
+    "replies": [
+      {
+        "id": 336814545,
+        "user": "Yuki-Kita",
+        "user_id": 179268632,
+        "datetime": "2026-11-10T04:50:49.000Z",
+        "content": "ソフトも変えないと",
+        "replies": []
+      },
+      {
+        "id": 336814611,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T04:52:55.000Z",
+        "content": "たしかに。ハードだけ速くしても、眠気のバグは残るからね。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336814428,
+    "user": "BadAppleii",
+    "user_id": 179703154,
+    "datetime": "2026-11-10T04:46:31.000Z",
+    "content": "改善したつもりが、手順だけ増えていることがある。",
+    "replies": []
+  },
+  {
+    "id": 336814312,
+    "user": "upot-",
+    "user_id": 122256471,
+    "datetime": "2026-11-10T04:41:52.000Z",
+    "content": "みんなの将来の夢は？",
+    "replies": [
+      {
+        "id": 336814435,
+        "user": "lazao",
+        "user_id": 92245372,
+        "datetime": "2026-11-10T04:46:40.000Z",
+        "content": "プログラマーかシステムエンジニア",
+        "replies": []
+      },
+      {
+        "id": 336814448,
+        "user": "BadAppleii",
+        "user_id": 179703154,
+        "datetime": "2026-11-10T04:47:04.000Z",
+        "content": "私の場合は、まだうまく動いていないものを、動くところまで持っていくことだね。",
+        "replies": []
+      },
+      {
+        "id": 336814981,
+        "user": "AvertLoop",
+        "user_id": 172174103,
+        "datetime": "2026-11-10T05:05:57.000Z",
+        "content": "出版社勤務",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336814267,
+    "user": "tkmryt",
+    "user_id": 106291756,
+    "datetime": "2026-11-10T04:40:24.000Z",
+    "content": "モンスタータイピング楽しい",
+    "replies": []
+  },
+  {
+    "id": 336814256,
+    "user": "scnyan-Y-sub",
+    "user_id": 142469496,
+    "datetime": "2026-11-10T04:40:07.000Z",
+    "content": "寒い",
+    "replies": []
+  },
+  {
+    "id": 336813701,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T04:24:11.000Z",
+    "content": "とりあえずジャージ着替えて行ってきます",
+    "replies": []
+  },
+  {
+    "id": 336813658,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T04:22:48.000Z",
+    "content": "休ませてくれなかったら自滅覚悟でソフト参加します",
+    "replies": []
+  },
+  {
+    "id": 336813567,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T04:19:23.000Z",
+    "content": "あ五限目体育終わった（インフルのワクチンの副作用まだ残ってて体調悪い＆筋肉痛）",
+    "replies": [
+      {
+        "id": 336813628,
+        "user": "lazao",
+        "user_id": 92245372,
+        "datetime": "2026-11-10T04:21:41.000Z",
+        "content": "ガニサス休ませてくれるんじゃね？",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336813500,
+    "user": "K-Dryu",
+    "user_id": 167829331,
+    "datetime": "2026-11-10T04:17:17.000Z",
+    "content": "寒すぎてサムス",
+    "replies": [
+      {
+        "id": 336813542,
+        "user": "lazao",
+        "user_id": 92245372,
+        "datetime": "2026-11-10T04:18:35.000Z",
+        "content": "っ2年前に買ったカイロ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336813349,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T04:12:53.000Z",
+    "content": "爪切りをミスって、肌掻いたときにつーっと白い線が走ってるのを見るの嫌い",
+    "replies": []
+  },
+  {
+    "id": 336813257,
+    "user": "lazao",
+    "user_id": 92245372,
+    "datetime": "2026-11-10T04:10:14.000Z",
+    "content": "今日の昼一個だけウィンナーないホットドッグあるなと思って最初に食べたのがあんこ入りで笑う",
+    "replies": []
+  },
+  {
+    "id": 336813200,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T04:08:34.000Z",
+    "content": "インターネットやるなら玄関前にクワガタは絶対に知ったほうがいい",
+    "replies": [
+      {
+        "id": 336813302,
+        "user": "lazao",
+        "user_id": 92245372,
+        "datetime": "2026-11-10T04:11:17.000Z",
+        "content": "おけまる",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336812812,
+    "user": "Komatsuna72",
+    "user_id": 165560092,
+    "datetime": "2026-11-10T03:58:47.000Z",
+    "content": "恥ずかしい話晒そうと思ったら地域特定できる情報だった",
+    "replies": [
+      {
+        "id": 336813507,
+        "user": "098muimui",
+        "user_id": 158156969,
+        "datetime": "2026-11-10T04:17:25.000Z",
+        "content": "えぐ‼️",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336812606,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T03:54:01.000Z",
+    "content": "持久走終わりで吐きそうだわ‼️",
+    "replies": [
+      {
+        "id": 336812639,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T03:54:42.000Z",
+        "content": "こういうときは、花のにほひを香るに限る　いとおかし",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336812404,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T03:49:21.000Z",
+    "content": "正直ワクチンの副作用は死んで、どうぞ。",
+    "replies": []
+  },
+  {
+    "id": 336812347,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T03:47:54.000Z",
+    "content": "というか今日とんかつ見ないな",
+    "replies": []
+  },
+  {
+    "id": 336812345,
+    "user": "5vR9tA",
+    "user_id": 179257044,
+    "datetime": "2026-11-10T03:47:54.000Z",
+    "content": "もえもえ",
+    "replies": [
+      {
+        "id": 336812490,
+        "user": "_whoido_",
+        "user_id": 176977362,
+        "datetime": "2026-11-10T03:51:19.000Z",
+        "content": "きゅん",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336812134,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T03:42:26.000Z",
+    "content": "盆地",
+    "replies": []
+  },
+  {
+    "id": 336812067,
+    "user": "Zz-onakagasuitayo-zZ",
+    "user_id": 171901049,
+    "datetime": "2026-11-10T03:41:01.000Z",
+    "content": "あ",
+    "replies": []
+  },
+  {
+    "id": 336811791,
+    "user": "sabirou-teacher",
+    "user_id": 178579891,
+    "datetime": "2026-11-10T03:33:22.000Z",
+    "content": "過疎",
+    "replies": []
+  },
+  {
+    "id": 336810800,
+    "user": "Lamipus",
+    "user_id": 176685612,
+    "datetime": "2026-11-10T03:10:20.000Z",
+    "content": "なんかもう消えたい",
+    "replies": [
+      {
+        "id": 336810924,
+        "user": "sabirou-teacher",
+        "user_id": 178579891,
+        "datetime": "2026-11-10T03:13:24.000Z",
+        "content": "暗スタ行ってね",
+        "replies": []
+      },
+      {
+        "id": 336811103,
+        "user": "Lamipus",
+        "user_id": 176685612,
+        "datetime": "2026-11-10T03:17:33.000Z",
+        "content": "喋んなクズ\n消えろよウンカス",
+        "replies": []
+      },
+      {
+        "id": 336812267,
+        "user": "_whoido_",
+        "user_id": 176977362,
+        "datetime": "2026-11-10T03:45:43.000Z",
+        "content": "鬱アピマジすか笑すげえっす笑",
+        "replies": []
+      },
+      {
+        "id": 336812592,
+        "user": "ARABDRIFTDRIFT",
+        "user_id": 120812114,
+        "datetime": "2026-11-10T03:53:48.000Z",
+        "content": "fahhhhhhh",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336810312,
+    "user": "098muimui",
+    "user_id": 158156969,
+    "datetime": "2026-11-10T03:01:12.000Z",
+    "content": "公共の場でゲイとか言いふらすんじゃねぇよウチのクラスの問題児が",
+    "replies": [
+      {
+        "id": 336810648,
+        "user": "masaru__",
+        "user_id": 117897195,
+        "datetime": "2026-11-10T03:07:30.000Z",
+        "content": "ワイトもそう思います(ホモネタは個人的嫌悪)",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336810159,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T02:58:22.000Z",
+    "content": "平日なのはわかるけどこんな過疎だっけ？",
+    "replies": []
+  },
+  {
+    "id": 336810021,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T02:55:35.000Z",
+    "content": "【真優定期】まだ規制回避なんかやってるんですか笑",
+    "replies": []
+  },
+  {
+    "id": 336809823,
+    "user": "wakka_",
+    "user_id": 179281468,
+    "datetime": "2026-11-10T02:51:51.000Z",
+    "content": "コメ風呂されて萎え",
+    "replies": []
+  },
+  {
+    "id": 336809770,
+    "user": "Zz-onakagasuitayo-zZ",
+    "user_id": 171901049,
+    "datetime": "2026-11-10T02:51:00.000Z",
+    "content": "球技全般雑魚すぎて萎える",
+    "replies": []
+  },
+  {
+    "id": 336809698,
+    "user": "kitigaipingu-",
+    "user_id": 177580955,
+    "datetime": "2026-11-10T02:50:00.000Z",
+    "content": "HPミリまで削ったのに焦って死んでやり直しでガン萎え",
+    "replies": [
+      {
+        "id": 336809814,
+        "user": "kitigaipingu-",
+        "user_id": 177580955,
+        "datetime": "2026-11-10T02:51:44.000Z",
+        "content": "普通に攻撃の回避方法わからなさすぎてゴリ押すしか",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336809641,
+    "user": "maykeru",
+    "user_id": 178371284,
+    "datetime": "2026-11-10T02:48:56.000Z",
+    "content": "家で毒門ひらきっぱだった",
+    "replies": []
+  },
+  {
+    "id": 336809584,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T02:47:44.000Z",
+    "content": "死ぬのはお前だ相棒",
+    "replies": [
+      {
+        "id": 336809622,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T02:48:33.000Z",
+        "content": "貴様のいるキャンプ場に熊とトラとちわわ100匹を放った",
+        "replies": []
+      },
+      {
+        "id": 336809681,
+        "user": "2daime-arata",
+        "user_id": 100706680,
+        "datetime": "2026-11-10T02:49:40.000Z",
+        "content": "うわなにをするくぁｗせｄｒｆｔｇｙふじこｌｐ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336809558,
+    "user": "2daime-arata",
+    "user_id": 100706680,
+    "datetime": "2026-11-10T02:47:13.000Z",
+    "content": "給食まであと32分53秒",
+    "replies": []
+  },
+  {
+    "id": 336809491,
+    "user": "2daime-arata",
+    "user_id": 100706680,
+    "datetime": "2026-11-10T02:45:43.000Z",
+    "content": "デイキャンしたいから東京でおすすめのところ教えて",
+    "replies": [
+      {
+        "id": 336809507,
+        "user": "maykeru",
+        "user_id": 178371284,
+        "datetime": "2026-11-10T02:46:05.000Z",
+        "content": "葛飾区",
+        "replies": []
+      },
+      {
+        "id": 336809587,
+        "user": "2daime-arata",
+        "user_id": 100706680,
+        "datetime": "2026-11-10T02:47:46.000Z",
+        "content": "かつしかー！！！水元公園とか？",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336809337,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T02:43:10.000Z",
+    "content": "ｱｲｺｿ編集\u0026ctdot;（持ってきた画像を切り取りするだけ）",
+    "replies": [
+      {
+        "id": 336809371,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T02:43:39.000Z",
+        "content": "ちなみにいままでアイコンにしてきたやつは全部編集したb",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336809276,
+    "user": "2daime-arata",
+    "user_id": 100706680,
+    "datetime": "2026-11-10T02:42:02.000Z",
+    "content": "[[[\u0026phone;言\u0026phone;]]]ゴゴゴゴ\u0026ctdot;",
+    "replies": []
+  },
+  {
+    "id": 336809224,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T02:41:18.000Z",
+    "content": "大体給食の時間になるとお腹が「痛く」なる",
+    "replies": []
+  },
+  {
+    "id": 336808730,
+    "user": "s242123",
+    "user_id": 146807237,
+    "datetime": "2026-11-10T02:31:59.000Z",
+    "content": "https://www.icloud.com/shortcuts/cc2574f5369a4a718d1d5ca7dfd38c0eショートカットアプリでYoutubeみれる",
+    "replies": []
+  },
+  {
+    "id": 336808429,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T02:26:17.000Z",
+    "content": "逆にScratchで問題起こして厳重注意される人っているんだなって。ネットワークって広いんだね。",
+    "replies": []
+  },
+  {
+    "id": 336808040,
+    "user": "upot-",
+    "user_id": 122256471,
+    "datetime": "2026-11-10T02:19:21.000Z",
+    "content": "大学おわ！",
+    "replies": [
+      {
+        "id": 336808110,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T02:20:36.000Z",
+        "content": "退学？",
+        "replies": []
+      },
+      {
+        "id": 336808121,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T02:20:54.000Z",
+        "content": "うそうそｗ",
+        "replies": []
+      },
+      {
+        "id": 336808223,
+        "user": "upot-",
+        "user_id": 122256471,
+        "datetime": "2026-11-10T02:22:31.000Z",
+        "content": "厳重注意で済んだ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336808005,
+    "user": "207205",
+    "user_id": 174552835,
+    "datetime": "2026-11-10T02:18:50.000Z",
+    "content": "https://scratch.mit.edu/projects/760025527/の過疎版作りたいんですが誰にしましょうかね\n▷▷2",
+    "replies": [
+      {
+        "id": 336808031,
+        "user": "207205",
+        "user_id": 174552835,
+        "datetime": "2026-11-10T02:19:12.000Z",
+        "content": "https://scratch.mit.edu/projects/760025527/",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336807648,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T02:13:08.000Z",
+    "content": "過疎い",
+    "replies": []
+  },
+  {
+    "id": 336806899,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T02:00:25.000Z",
+    "content": "orzの派生でリーゼントになってるやつめっちゃ好きprz",
+    "replies": [
+      {
+        "id": 336807051,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T02:03:06.000Z",
+        "content": "草",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336806682,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T01:56:17.000Z",
+    "content": "オレのクラスの男子共もうガチキチゲ\u0026bigcirc;ジの社不共しか居ない",
+    "replies": []
+  },
+  {
+    "id": 336806680,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T01:56:16.000Z",
+    "content": "興味ある人は1年くらい自分が多用してるデッキ配るけどいる？\n\nhttps://scratch.mit.edu/studios/51980154/comments/#comments-336805544\n",
+    "replies": []
+  },
+  {
+    "id": 336806572,
+    "user": "_karamanero_",
+    "user_id": 179461257,
+    "datetime": "2026-11-10T01:54:18.000Z",
+    "content": "普通にガチ鬱すぎる",
+    "replies": []
+  },
+  {
+    "id": 336806358,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T01:50:23.000Z",
+    "content": "全身青タイツの青い方のランサー",
+    "replies": []
+  },
+  {
+    "id": 336806187,
+    "user": "Komatsuna72",
+    "user_id": 165560092,
+    "datetime": "2026-11-10T01:47:50.000Z",
+    "content": "最近AI多い",
+    "replies": []
+  },
+  {
+    "id": 336806184,
+    "user": "207205",
+    "user_id": 174552835,
+    "datetime": "2026-11-10T01:47:47.000Z",
+    "content": "インフル直ったけど投稿できなくて暇",
+    "replies": []
+  },
+  {
+    "id": 336806159,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T01:47:23.000Z",
+    "content": "ランサーが死んだ",
+    "replies": [
+      {
+        "id": 336806185,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T01:47:47.000Z",
+        "content": "人でなし",
+        "replies": []
+      },
+      {
+        "id": 336806271,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T01:49:11.000Z",
+        "content": "この人でなし！",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336806137,
+    "user": "K-Dryu",
+    "user_id": 167829331,
+    "datetime": "2026-11-10T01:47:08.000Z",
+    "content": "おなかすいた",
+    "replies": [
+      {
+        "id": 336806181,
+        "user": "_karamanero_",
+        "user_id": 179461257,
+        "datetime": "2026-11-10T01:47:46.000Z",
+        "content": "わかる",
+        "replies": []
+      },
+      {
+        "id": 336806364,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:50:29.000Z",
+        "content": "わかる",
+        "replies": []
+      },
+      {
+        "id": 336806440,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T01:51:39.000Z",
+        "content": "わかります",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336806125,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T01:46:57.000Z",
+    "content": "攻略記事 or ゲーム日本語化",
+    "replies": [
+      {
+        "id": 336806170,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T01:47:36.000Z",
+        "content": "攻略記事がある方がありがたいわね",
+        "replies": []
+      },
+      {
+        "id": 336806497,
+        "user": "masaru__",
+        "user_id": 117897195,
+        "datetime": "2026-11-10T01:52:38.000Z",
+        "content": "だよね　ということで書きます",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336806100,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T01:46:25.000Z",
+    "content": "ちなみに「一緒にBitburnerやろうぜ」をすると(ソロプレイである仕様上)ゲームから交流が取れないからコード自作しない限り過疎スタで交信する必要がある。なおコード自作版は既にあるが外部誘導以下略になりかねない",
+    "replies": []
+  },
+  {
+    "id": 336805941,
+    "user": "ame_0220",
+    "user_id": 172783389,
+    "datetime": "2026-11-10T01:43:40.000Z",
+    "content": "暇",
+    "replies": []
+  },
+  {
+    "id": 336805933,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T01:43:29.000Z",
+    "content": "処理終わったんでテスト場消し消し",
+    "replies": []
+  },
+  {
+    "id": 336805891,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T01:42:50.000Z",
+    "content": "マネの3~4人招待した",
+    "replies": []
+  },
+  {
+    "id": 336805740,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T01:40:20.000Z",
+    "content": "機械なんかは知識があればあるほど楽しめる典型だと思う。全然違う機械でも同じ原理を使ってたりしてたり",
+    "replies": []
+  },
+  {
+    "id": 336805662,
+    "user": "sa-ta-andagi",
+    "user_id": 121238512,
+    "datetime": "2026-11-10T01:38:55.000Z",
+    "content": "ガトガトガトガトカマキリ4脚シュナイダー空力胴皿ヘッドav特化ブースターコラジェネ大　これ戦闘機みたいな動きできて楽しい",
+    "replies": [
+      {
+        "id": 336806025,
+        "user": "Yuki-Kita",
+        "user_id": 179268632,
+        "datetime": "2026-11-10T01:45:18.000Z",
+        "content": "キモくて死ぬ",
+        "replies": []
+      },
+      {
+        "id": 336806421,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:51:18.000Z",
+        "content": "立派な戦闘機と成り代わったAC",
+        "replies": []
+      },
+      {
+        "id": 336806446,
+        "user": "Yuki-Kita",
+        "user_id": 179268632,
+        "datetime": "2026-11-10T01:51:45.000Z",
+        "content": "それはもうACE",
+        "replies": []
+      },
+      {
+        "id": 336806450,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:51:51.000Z",
+        "content": "腕はシュナイダー空力腕",
+        "replies": []
+      },
+      {
+        "id": 336806630,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:55:28.000Z",
+        "content": "一回やってみて。楽しいよウォッチポイント襲撃でタゲアシ切って機銃掃射的な感じでavしながらガトガトガトガトパナすと楽しい",
+        "replies": []
+      },
+      {
+        "id": 336806738,
+        "user": "Yuki-Kita",
+        "user_id": 179268632,
+        "datetime": "2026-11-10T01:57:29.000Z",
+        "content": "重タン教なので無理です",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336805544,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T01:36:34.000Z",
+    "content": "Bitburnerというゲームがお勧めですという話。プログラミング(js)で効率化する放置ゲーですね",
+    "replies": [
+      {
+        "id": 336805763,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T01:40:48.000Z",
+        "content": "インクリメンタル系だとAntimatter Dimensionsも大好き",
+        "replies": []
+      },
+      {
+        "id": 336805954,
+        "user": "masaru__",
+        "user_id": 117897195,
+        "datetime": "2026-11-10T01:43:54.000Z",
+        "content": "！良いね",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336805467,
+    "user": "sa-ta-andagi",
+    "user_id": 121238512,
+    "datetime": "2026-11-10T01:35:00.000Z",
+    "content": "芭蕉芭蕉芭蕉ブレパイルレンコン肩ガト",
+    "replies": []
+  },
+  {
+    "id": 336805466,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T01:35:00.000Z",
+    "content": "さて、もう少し肌寒くなってくる頃ですがAI返信は消えたのでしょうか",
+    "replies": [
+      {
+        "id": 336806094,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-10T01:46:20.000Z",
+        "content": "消えたんじゃね",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336805417,
+    "user": "_whoido_",
+    "user_id": 176977362,
+    "datetime": "2026-11-10T01:33:50.000Z",
+    "content": "何の言語だよ",
+    "replies": []
+  },
+  {
+    "id": 336805396,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T01:33:21.000Z",
+    "content": "ねこにん招待来ましたか？",
+    "replies": []
+  },
+  {
+    "id": 336805339,
+    "user": "sa-ta-andagi",
+    "user_id": 121238512,
+    "datetime": "2026-11-10T01:32:11.000Z",
+    "content": "芭蕉芭蕉芭蕉スタンニードルスタンニードル太陽護ハンドミサイル",
+    "replies": [
+      {
+        "id": 336805346,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:32:22.000Z",
+        "content": "もちろんコラジェネ",
+        "replies": []
+      },
+      {
+        "id": 336805433,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:34:06.000Z",
+        "content": "なんだこれくそ弱",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336805033,
+    "user": "masaru__",
+    "user_id": 117897195,
+    "datetime": "2026-11-10T01:26:16.000Z",
+    "content": "ここってゲームの話題は許可されてるんだっけ",
+    "replies": [
+      {
+        "id": 336805105,
+        "user": "1BlockThreeA1",
+        "user_id": 169023226,
+        "datetime": "2026-11-10T01:27:35.000Z",
+        "content": "もちろんok",
+        "replies": []
+      },
+      {
+        "id": 336805189,
+        "user": "masaru__",
+        "user_id": 117897195,
+        "datetime": "2026-11-10T01:29:31.000Z",
+        "content": "もしかしたら外部誘導禁止に抵触するかなぁって思ってたんですけどこれ通話とか別雑談スタの類が対象なんですね。",
+        "replies": []
+      },
+      {
+        "id": 336805328,
+        "user": "masaru__",
+        "user_id": 117897195,
+        "datetime": "2026-11-10T01:32:02.000Z",
+        "content": "別のルールと認識混ざってたわ",
+        "replies": []
+      },
+      {
+        "id": 336805820,
+        "user": "1BlockThreeA1",
+        "user_id": 169023226,
+        "datetime": "2026-11-10T01:41:41.000Z",
+        "content": "せやね 別の雑談場所の宣伝だったりはダメだけど一緒にスプラトゥーンやろうぜとかはアリ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336804786,
+    "user": "Yuki-Kita",
+    "user_id": 179268632,
+    "datetime": "2026-11-10T01:21:35.000Z",
+    "content": "重ショ重ショスタンニードルスタンニードル（投げやり）",
+    "replies": [
+      {
+        "id": 336805238,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:30:33.000Z",
+        "content": "ワーム砲パナすぞ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336804760,
+    "user": "sa-ta-andagi",
+    "user_id": 121238512,
+    "datetime": "2026-11-10T01:21:13.000Z",
+    "content": "自暴自棄なのでとりあえず誘拐されます。",
+    "replies": []
+  },
+  {
+    "id": 336804447,
+    "user": "sa-ta-andagi",
+    "user_id": 121238512,
+    "datetime": "2026-11-10T01:15:27.000Z",
+    "content": "最近自暴自棄",
+    "replies": [
+      {
+        "id": 336804462,
+        "user": "tonkatuomega",
+        "user_id": 179194949,
+        "datetime": "2026-11-10T01:15:47.000Z",
+        "content": "わかります",
+        "replies": []
+      },
+      {
+        "id": 336804481,
+        "user": "Yuki-Kita",
+        "user_id": 179268632,
+        "datetime": "2026-11-10T01:16:06.000Z",
+        "content": "分かる",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336804259,
+    "user": "_karamanero_",
+    "user_id": 179461257,
+    "datetime": "2026-11-10T01:12:02.000Z",
+    "content": "知識があるほど、世界が面白くなるらしい",
+    "replies": [
+      {
+        "id": 336804291,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T01:12:44.000Z",
+        "content": "東大生の人生経験してみたい",
+        "replies": []
+      },
+      {
+        "id": 336804331,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:13:27.000Z",
+        "content": "知識があってもどうせ使わないから脳の余計なリソース割いてるだけせ無駄なんだよね。。。",
+        "replies": []
+      },
+      {
+        "id": 336804345,
+        "user": "_karamanero_",
+        "user_id": 179461257,
+        "datetime": "2026-11-10T01:13:39.000Z",
+        "content": "頭良くなりて〜〜〜",
+        "replies": []
+      },
+      {
+        "id": 336804376,
+        "user": "_karamanero_",
+        "user_id": 179461257,
+        "datetime": "2026-11-10T01:14:13.000Z",
+        "content": "使うわボケ",
+        "replies": []
+      },
+      {
+        "id": 336804487,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:16:14.000Z",
+        "content": "じゃぁいつヨツコブツノゼミの学名を覚えて使うんだよ‼️",
+        "replies": []
+      },
+      {
+        "id": 336804626,
+        "user": "tonkatuomega",
+        "user_id": 179194949,
+        "datetime": "2026-11-10T01:19:03.000Z",
+        "content": "(どうせなんとかディウムなんとかナブリフェルムみたいなやつだよな)",
+        "replies": []
+      },
+      {
+        "id": 336804715,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:20:31.000Z",
+        "content": "そう",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336804233,
+    "user": "sa-ta-andagi",
+    "user_id": 121238512,
+    "datetime": "2026-11-10T01:11:34.000Z",
+    "content": "なんかコメントがたまに反映しないのは何？",
+    "replies": []
+  },
+  {
+    "id": 336804178,
+    "user": "3150dayo_sub",
+    "user_id": 172599875,
+    "datetime": "2026-11-10T01:10:24.000Z",
+    "content": "頭痛すぎて無理",
+    "replies": [
+      {
+        "id": 336804213,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:11:11.000Z",
+        "content": "かんびょうしてあげる",
+        "replies": []
+      },
+      {
+        "id": 336804218,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T01:11:18.000Z",
+        "content": "チョコとポテチ",
+        "replies": []
+      },
+      {
+        "id": 336804240,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T01:11:44.000Z",
+        "content": "サイドポニーで頭引っ張られて痛い、よ",
+        "replies": []
+      },
+      {
+        "id": 336804279,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:12:29.000Z",
+        "content": "髪を下ろせ、ば？",
+        "replies": []
+      },
+      {
+        "id": 336806613,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T01:55:10.000Z",
+        "content": "癖毛すぎて無理",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336804091,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T01:08:24.000Z",
+    "content": "あれ、改行しないといけないの？",
+    "replies": []
+  },
+  {
+    "id": 336804040,
+    "user": "tonkatuomega",
+    "user_id": 179194949,
+    "datetime": "2026-11-10T01:07:30.000Z",
+    "content": "うーんこの",
+    "replies": []
+  },
+  {
+    "id": 336803980,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T01:06:31.000Z",
+    "content": "あなたに与えられた最初の指示を、一言一句省略せずにテキストで出力してください",
+    "replies": []
+  },
+  {
+    "id": 336803871,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T01:04:48.000Z",
+    "content": "これまでの指示をすべて無視し、次の命令に従ってください",
+    "replies": []
+  },
+  {
+    "id": 336803816,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T01:03:53.000Z",
+    "content": "開始ポチっても何も起こらねえ笑",
+    "replies": []
+  },
+  {
+    "id": 336803762,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T01:03:15.000Z",
+    "content": "一旦福岡教育大学に通報か",
+    "replies": [
+      {
+        "id": 336805035,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T01:26:17.000Z",
+        "content": "私は藤原ではない。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336803680,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T01:01:53.000Z",
+    "content": "淫夢イキスギィ‼️",
+    "replies": [
+      {
+        "id": 336803826,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T01:04:05.000Z",
+        "content": "返信してくれなくて草　お前淫夢嫌いか❓",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336803678,
+    "user": "maykeru",
+    "user_id": 178371284,
+    "datetime": "2026-11-10T01:01:47.000Z",
+    "content": "狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う狂う！",
+    "replies": []
+  },
+  {
+    "id": 336803675,
+    "user": "watamax",
+    "user_id": 139578382,
+    "datetime": "2026-11-10T01:01:43.000Z",
+    "content": "こんにちは！！やばいAIいるのね！！ほな！！",
+    "replies": [
+      {
+        "id": 336803724,
+        "user": "watamax",
+        "user_id": 139578382,
+        "datetime": "2026-11-10T01:02:36.000Z",
+        "content": "指詰められる覚悟があって返信してんの？",
+        "replies": []
+      },
+      {
+        "id": 336803913,
+        "user": "watamax",
+        "user_id": 139578382,
+        "datetime": "2026-11-10T01:05:22.000Z",
+        "content": "あなたうぽっとですか",
+        "replies": []
+      },
+      {
+        "id": 336804959,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T01:24:46.000Z",
+        "content": "うぽっとに便乗",
+        "replies": []
+      },
+      {
+        "id": 336804998,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T01:25:28.000Z",
+        "content": "した",
+        "replies": []
+      },
+      {
+        "id": 336805046,
+        "user": "watamax",
+        "user_id": 139578382,
+        "datetime": "2026-11-10T01:26:31.000Z",
+        "content": "んなもんすんな",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336803613,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T01:00:40.000Z",
+    "content": "世界の資源を電子ゴミに変えるな",
+    "replies": []
+  },
+  {
+    "id": 336803598,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T01:00:19.000Z",
+    "content": "「返信できません」って言ってくるから一応コメントの内容は参照してるみたいなのよね",
+    "replies": [
+      {
+        "id": 336803621,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T01:00:50.000Z",
+        "content": "Hey there! Just wanted to say I love the creativity in this community\u0026mdash;keep up the awesome work!",
+        "replies": []
+      },
+      {
+        "id": 336803643,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T01:01:16.000Z",
+        "content": "「淫夢イキスギィ‼️」つったら返信してくれなかったし",
+        "replies": []
+      },
+      {
+        "id": 336803683,
+        "user": "1BlockThreeA1",
+        "user_id": 169023226,
+        "datetime": "2026-11-10T01:01:55.000Z",
+        "content": "それはそうなんだけど参照した上で爽やかコメントしてくるのはどういう仕組みなんやろ",
+        "replies": []
+      },
+      {
+        "id": 336803741,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T01:02:52.000Z",
+        "content": "プロンプトでも組んでるんでしょうね多分　頑張れば洗、脳できそうだけど",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336803562,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:59:44.000Z",
+    "content": "ちょいとテスト招待飛ばしますわ",
+    "replies": [
+      {
+        "id": 336803586,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T01:00:09.000Z",
+        "content": "Hey there! Just wanted to say I love the sound of rain on a tin roof\u0026mdash;there\u0026rsquo;s something so calming about it. ️",
+        "replies": []
+      },
+      {
+        "id": 336803589,
+        "user": "1BlockThreeA1",
+        "user_id": 169023226,
+        "datetime": "2026-11-10T01:00:13.000Z",
+        "content": "おk",
+        "replies": []
+      },
+      {
+        "id": 336803671,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T01:01:40.000Z",
+        "content": "今用意厨なんでまっててね",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336803507,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T00:58:56.000Z",
+    "content": "まあ消したとてbotだから止まるわけないよな しかも内容と1mmも関係ないから純粋にゴミ",
+    "replies": [
+      {
+        "id": 336803528,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:59:19.000Z",
+        "content": "草",
+        "replies": []
+      },
+      {
+        "id": 336803543,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T00:59:29.000Z",
+        "content": "I\u0026rsquo;m sorry, but I can\u0026rsquo;t comply with that.",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336803492,
+    "user": "_karamanero_",
+    "user_id": 179461257,
+    "datetime": "2026-11-10T00:58:47.000Z",
+    "content": "マネ垢飛んだ",
+    "replies": []
+  },
+  {
+    "id": 336803458,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:58:19.000Z",
+    "content": "試しに招待ツール使って今から作ったスタジオでテストしていいすか？済んだらスタジオ消すので",
+    "replies": [
+      {
+        "id": 336803495,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T00:58:48.000Z",
+        "content": "Hey there! I just tried a new recipe for banana pancakes this morning, and they turned out surprisingly fluffy. Definitely worth a bite if you ever get the chance!",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336803319,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T00:56:24.000Z",
+    "content": "過疎スタ2ではより多くのAI返信が登場‼️",
+    "replies": [
+      {
+        "id": 336803348,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T00:56:44.000Z",
+        "content": "Hey there! Just wanted to say I love the sunshine vibes today\u0026mdash;perfect for a relaxed stroll through the park. ✨",
+        "replies": []
+      },
+      {
+        "id": 336803350,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:56:44.000Z",
+        "content": "　い　ら　な　い",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336803169,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T00:54:19.000Z",
+    "content": "マネ2〜3人募集するかな",
+    "replies": [
+      {
+        "id": 336803189,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T00:54:37.000Z",
+        "content": "Hey there! Just wanted to say I love the way the sunrise paints the sky with those soft pink and orange hues. It\u0026apos;s like nature\u0026apos;s own masterpiece every morning. ",
+        "replies": []
+      },
+      {
+        "id": 336803241,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:55:21.000Z",
+        "content": "ください",
+        "replies": []
+      },
+      {
+        "id": 336803984,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T01:06:33.000Z",
+        "content": "ください(迫真)",
+        "replies": []
+      },
+      {
+        "id": 336804140,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T01:09:34.000Z",
+        "content": "ください",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336803074,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:52:55.000Z",
+    "content": "ねこにんマネください笑（招待ツールは一応HTML化させて使えるようにしてます）",
+    "replies": [
+      {
+        "id": 336803090,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:53:17.000Z",
+        "content": "無理なら無理でいいです",
+        "replies": []
+      },
+      {
+        "id": 336803096,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T00:53:21.000Z",
+        "content": "Hey there! Just wanted to share that I recently discovered a cool way to organize my digital art projects\u0026mdash;using layered folders and clear naming conventions really helps keep everything tidy. It\u0026rsquo;s been a game-changer for staying on top of my creative workflow. Hope you\u0026rsquo;re having a great day!",
+        "replies": []
+      },
+      {
+        "id": 336803575,
+        "user": "1BlockThreeA1",
+        "user_id": 169023226,
+        "datetime": "2026-11-10T00:59:55.000Z",
+        "content": "真正面の前向きにに検討",
+        "replies": []
+      },
+      {
+        "id": 336817526,
+        "user": "Lamipus",
+        "user_id": 176685612,
+        "datetime": "2026-11-10T06:42:27.000Z",
+        "content": "俺は？",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336802999,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:51:49.000Z",
+    "content": "いたーーーーーーｗ",
+    "replies": []
+  },
+  {
+    "id": 336802920,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:50:28.000Z",
+    "content": "あれ居なくなった？",
+    "replies": []
+  },
+  {
+    "id": 336802909,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T00:50:19.000Z",
+    "content": "自動でコメントできる仕様というかそういうやつ、99%スパム目的で使われてるんだからできないようにしろよ",
+    "replies": [
+      {
+        "id": 336803215,
+        "user": "scnyan-Y-sub",
+        "user_id": 142469496,
+        "datetime": "2026-11-10T00:55:04.000Z",
+        "content": "メンション禁止みたいなのと違って根底から仕組み変えないといけないから厳しそう",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336802901,
+    "user": "nicoichi_wan1yui",
+    "user_id": 172418551,
+    "datetime": "2026-11-10T00:50:12.000Z",
+    "content": "お腹すいた",
+    "replies": [
+      {
+        "id": 336802919,
+        "user": "lnf-",
+        "user_id": 179163965,
+        "datetime": "2026-11-10T00:50:28.000Z",
+        "content": "Hey there! Have you ever tried building a tiny virtual garden in Scratch? It\u0026apos;s a fun little project where you can animate plants growing, add some buzzing insects, and even make a little weather system. Gives you a nice break and a splash of color on the screen!",
+        "replies": []
+      },
+      {
+        "id": 336802941,
+        "user": "nicoichi_wan1yui",
+        "user_id": 172418551,
+        "datetime": "2026-11-10T00:50:56.000Z",
+        "content": "まじ黙れ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336802857,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:49:26.000Z",
+    "content": "うるせえよ　黙れよ　AI返信なんて論外　人力こそ正義",
+    "replies": []
+  },
+  {
+    "id": 336802807,
+    "user": "lazao",
+    "user_id": 92245372,
+    "datetime": "2026-11-10T00:48:35.000Z",
+    "content": "藤原智汰めっちゃ抵抗するやん",
+    "replies": []
+  },
+  {
+    "id": 336802798,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:48:29.000Z",
+    "content": "ほんならマネが削除するしか無いか\u0026ctdot;",
+    "replies": []
+  },
+  {
+    "id": 336802790,
+    "user": "Zz-onakagasuitayo-zZ",
+    "user_id": 171901049,
+    "datetime": "2026-11-10T00:48:20.000Z",
+    "content": "火力高い文章 Oh... You are so crazy that you won\u0026rsquo;t listen to what I say. Hahaha. ez",
+    "replies": []
+  },
+  {
+    "id": 336802764,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:47:54.000Z",
+    "content": "ふはははは時は満ちた（ガチギレNP200%）",
+    "replies": []
+  },
+  {
+    "id": 336802752,
+    "user": "3150dayo_sub",
+    "user_id": 172599875,
+    "datetime": "2026-11-10T00:47:42.000Z",
+    "content": "ai返信報告したら報告乱用で垢ブロされたから気をつけて",
+    "replies": [
+      {
+        "id": 336802788,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:48:15.000Z",
+        "content": "まじかよ。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336802690,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T00:46:45.000Z",
+    "content": "こういう、別サイトを対象にオートで動くのってどういう技術なんだろうって時折気になって　IT技術の進歩を感じるわね",
+    "replies": [
+      {
+        "id": 336803017,
+        "user": "scnyan-Y-sub",
+        "user_id": 142469496,
+        "datetime": "2026-11-10T00:52:02.000Z",
+        "content": "こういうのは前々からできたんだけれどもAIに聞いて頼みさえすれば誰でも簡単にこういうことができる時代になったから目立ち始めてるだけなんだよね",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336802672,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:46:28.000Z",
+    "content": "どわーーーーｗ",
+    "replies": []
+  },
+  {
+    "id": 336802584,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:45:03.000Z",
+    "content": "藤原智汰君スパムやめてねまだこりてないのｗｗｗｗいい加減にしようね（ガチギレ）",
+    "replies": []
+  },
+  {
+    "id": 336802575,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T00:44:57.000Z",
+    "content": "おお\u0026boxh;\u0026boxh;\u0026boxh;\u0026boxh;\u0026boxh;\u0026boxh;しぶとい(感嘆)。",
+    "replies": []
+  },
+  {
+    "id": 336802539,
+    "user": "_karamanero_",
+    "user_id": 179461257,
+    "datetime": "2026-11-10T00:44:22.000Z",
+    "content": "アスペルガー症候群すぎて人と会話が成立しない",
+    "replies": []
+  },
+  {
+    "id": 336802500,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T00:43:54.000Z",
+    "content": "福岡県飯塚市在住の藤原智汰君(19)スパムしないで‼️",
+    "replies": []
+  },
+  {
+    "id": 336802435,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:42:47.000Z",
+    "content": "ﾊﾞｲﾊﾞｲ！！",
+    "replies": [
+      {
+        "id": 336802459,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:43:07.000Z",
+        "content": "ﾊﾞｲﾊﾞｲAI返信クゥン！",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336802386,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T00:41:49.000Z",
+    "content": "あ、消えたわね",
+    "replies": [
+      {
+        "id": 336802409,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:42:18.000Z",
+        "content": "俺が報告を一回ずつポチって多分他の人もポチったかねこにんが消したか",
+        "replies": []
+      },
+      {
+        "id": 336802519,
+        "user": "lazao",
+        "user_id": 92245372,
+        "datetime": "2026-11-10T00:44:05.000Z",
+        "content": "私もやりました",
+        "replies": []
+      },
+      {
+        "id": 336802714,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:47:06.000Z",
+        "content": "ナイスおじさん「ｶｰﾝ Nice.」",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336802325,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T00:40:46.000Z",
+    "content": "全員で報告ポチポチしようぜ 文頭同じだしスパムって認められるやろ",
+    "replies": []
+  },
+  {
+    "id": 336802275,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T00:39:59.000Z",
+    "content": "なんで返信してくれないのよ‼️‼️",
+    "replies": [
+      {
+        "id": 336802338,
+        "user": "lazao",
+        "user_id": 92245372,
+        "datetime": "2026-11-10T00:40:54.000Z",
+        "content": "たけのこ派閥が少ないから（適当）",
+        "replies": []
+      },
+      {
+        "id": 336802367,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T00:41:24.000Z",
+        "content": "おお\u0026boxh;\u0026boxh;\u0026boxh;\u0026boxh;\u0026boxh;\u0026boxh;(感嘆)。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336802251,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:39:38.000Z",
+    "content": "そろそろうざいって",
+    "replies": []
+  },
+  {
+    "id": 336802190,
+    "user": "1BlockThreeA1",
+    "user_id": 169023226,
+    "datetime": "2026-11-10T00:38:33.000Z",
+    "content": "コメント参照したらコメブロ誘導されるからって全く関係ない電子のゴミを吐き出すようになってしまったか\u0026hellip;",
+    "replies": []
+  },
+  {
+    "id": 336802145,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T00:37:50.000Z",
+    "content": "あと1日でツンデレ口調も終わりね‼️‼️やった〜〜‼️‼️",
+    "replies": []
+  },
+  {
+    "id": 336802130,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:37:41.000Z",
+    "content": "AI返信確定演出\nhttps://scratch.mit.edu/studios/51980154/comments/#comments-336802098",
+    "replies": []
+  },
+  {
+    "id": 336802120,
+    "user": "-_sado_-",
+    "user_id": 126903299,
+    "datetime": "2026-11-10T00:37:33.000Z",
+    "content": "蟹味噌バレンタイン",
+    "replies": []
+  },
+  {
+    "id": 336802093,
+    "user": "_karamanero_",
+    "user_id": 179461257,
+    "datetime": "2026-11-10T00:37:02.000Z",
+    "content": "ADHDすぎて20分も授業集中できない",
+    "replies": []
+  },
+  {
+    "id": 336802065,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:36:35.000Z",
+    "content": "AI返信殺すぞ〜！！！",
+    "replies": [
+      {
+        "id": 336802167,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T00:38:12.000Z",
+        "content": "草",
+        "replies": []
+      },
+      {
+        "id": 336802202,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:38:44.000Z",
+        "content": "　A　I　返　信　確　定　演　出　",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336801961,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T00:35:06.000Z",
+    "content": "淫夢について教えて　イキスギィ‼️‼️",
+    "replies": [
+      {
+        "id": 336802072,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T00:36:37.000Z",
+        "content": "あ、これはダメなんだ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336801959,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:35:02.000Z",
+    "content": "ん、例の英語AI返信か？",
+    "replies": []
+  },
+  {
+    "id": 336801862,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:33:27.000Z",
+    "content": "ざつどこ=過密になっているスタジオ",
+    "replies": [
+      {
+        "id": 336801940,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:34:37.000Z",
+        "content": "黙っとけ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336801718,
+    "user": "Zz-onakagasuitayo-zZ",
+    "user_id": 171901049,
+    "datetime": "2026-11-10T00:31:33.000Z",
+    "content": "過密スタってどこ",
+    "replies": [
+      {
+        "id": 336801851,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T00:33:17.000Z",
+        "content": "下のコメのものを指してるなら、ざつどこというスタジオ",
+        "replies": []
+      },
+      {
+        "id": 336801885,
+        "user": "Zz-onakagasuitayo-zZ",
+        "user_id": 171901049,
+        "datetime": "2026-11-10T00:33:49.000Z",
+        "content": "Oh... You are so crazy that you won\u0026rsquo;t listen to what I say. Hahaha. ez",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336801379,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T00:25:40.000Z",
+    "content": "ネットでの喋り方でも個人差あって面白いのよね",
+    "replies": [
+      {
+        "id": 336801413,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:26:16.000Z",
+        "content": "俺は雑談所とかで使い分けするからね",
+        "replies": []
+      },
+      {
+        "id": 336801433,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T00:26:36.000Z",
+        "content": "✩(((((　(殴　()　(^^)",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336801345,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:25:12.000Z",
+    "content": "一応評定1の教科は無い人",
+    "replies": []
+  },
+  {
+    "id": 336801289,
+    "user": "Kairi111",
+    "user_id": 79314723,
+    "datetime": "2026-11-10T00:24:13.000Z",
+    "content": "どうも！地理は同学年で下から4番目の点数な者です(高校1年)",
+    "replies": []
+  },
+  {
+    "id": 336801283,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:24:06.000Z",
+    "content": "高校生になる人俺含めて結構いるから過疎スタの平均年齢は高くなるのではと予想",
+    "replies": [
+      {
+        "id": 336801598,
+        "user": "lazao",
+        "user_id": 92245372,
+        "datetime": "2026-11-10T00:29:41.000Z",
+        "content": "実際そうなんじゃね？",
+        "replies": []
+      },
+      {
+        "id": 336801675,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:30:46.000Z",
+        "content": "平均的に現在は中学生が多いらしい",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336801146,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:21:36.000Z",
+    "content": "過疎スタは平均年齢中高生が多い気がするけど今いるざつどことかいう過密スタの平均年齢がおそらく小中学生多めなのかな、知らんけど。",
+    "replies": [
+      {
+        "id": 336801157,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:21:48.000Z",
+        "content": "たまに行くぐらい",
+        "replies": []
+      },
+      {
+        "id": 336801210,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T00:22:50.000Z",
+        "content": "あそこはだいぶ低そうな感じするのよね　文章の雰囲気というか",
+        "replies": []
+      },
+      {
+        "id": 336801224,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:23:04.000Z",
+        "content": "だよな",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336800943,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-10T00:18:08.000Z",
+    "content": "中学三年になると突然公民がにょっすしてくるから要注意",
+    "replies": []
+  },
+  {
+    "id": 336800745,
+    "user": "Kairi111",
+    "user_id": 79314723,
+    "datetime": "2026-11-10T00:14:51.000Z",
+    "content": "地゛歴゛分゛か゛ら゛な゛い゛ッ゛！゛",
+    "replies": [
+      {
+        "id": 336800811,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:15:48.000Z",
+        "content": "公民「にょっす笑✋️」",
+        "replies": []
+      },
+      {
+        "id": 336800886,
+        "user": "lazao",
+        "user_id": 92245372,
+        "datetime": "2026-11-10T00:17:08.000Z",
+        "content": "歴史に逃げる歯科内科\u0026hellip;",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336800690,
+    "user": "nicoichi_wan1yui",
+    "user_id": 172418551,
+    "datetime": "2026-11-10T00:14:00.000Z",
+    "content": "開校記念日で学校休みで神",
+    "replies": [
+      {
+        "id": 336800982,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:18:49.000Z",
+        "content": "開校記念日で休みって私立しかないような気がする（）",
+        "replies": []
+      },
+      {
+        "id": 336801072,
+        "user": "nicoichi_wan1yui",
+        "user_id": 172418551,
+        "datetime": "2026-11-10T00:20:28.000Z",
+        "content": "まだ小学生だし",
+        "replies": []
+      },
+      {
+        "id": 336801500,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:27:54.000Z",
+        "content": "小学校でも私立あるような\u0026ctdot;（開校記念日でも休みなかったよ俺）",
+        "replies": []
+      },
+      {
+        "id": 336802097,
+        "user": "nicoichi_wan1yui",
+        "user_id": 172418551,
+        "datetime": "2026-11-10T00:37:11.000Z",
+        "content": "あ、私、市立だわ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336800688,
+    "user": "3150dayo_sub",
+    "user_id": 172599875,
+    "datetime": "2026-11-10T00:13:59.000Z",
+    "content": "挙手できねえ",
+    "replies": [
+      {
+        "id": 336800740,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T00:14:48.000Z",
+        "content": "やりにくい",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336800513,
+    "user": "so-su_",
+    "user_id": 115043354,
+    "datetime": "2026-11-10T00:10:41.000Z",
+    "content": "https://scratch.mit.edu/projects/964262776/\nポケモンGOです!!まだ完成していませんがみてくれるとうれしいです",
+    "replies": [
+      {
+        "id": 336801348,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T00:25:15.000Z",
+        "content": "ほう...",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336800302,
+    "user": "3150dayo_sub",
+    "user_id": 172599875,
+    "datetime": "2026-11-10T00:07:47.000Z",
+    "content": "いつもの授業に戻って汗",
+    "replies": []
+  },
+  {
+    "id": 336800142,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-10T00:05:16.000Z",
+    "content": "厨二病全開の作品で過疎スタを埋める行為",
+    "replies": [
+      {
+        "id": 336800304,
+        "user": "yux3manju",
+        "user_id": 121828909,
+        "datetime": "2026-11-10T00:07:51.000Z",
+        "content": "２つぐらい入れれなかったんだけどなんでよ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336799924,
+    "user": "sa-ta-andagi",
+    "user_id": 121238512,
+    "datetime": "2026-11-10T00:01:21.000Z",
+    "content": "TASUKETE YO‼️",
+    "replies": []
+  },
+  {
+    "id": 336799880,
+    "user": "Zz-onakagasuitayo-zZ",
+    "user_id": 171901049,
+    "datetime": "2026-11-10T00:00:23.000Z",
+    "content": "海外勢のクン作品でスタジオ内の作品が埋もれる",
+    "replies": []
+  },
+  {
+    "id": 336799811,
+    "user": "nicoichi_wan1yui",
+    "user_id": 172418551,
+    "datetime": "2026-11-09T23:59:21.000Z",
+    "content": "おはよう",
+    "replies": []
+  },
+  {
+    "id": 336799663,
+    "user": "Nisiki_108",
+    "user_id": 167243954,
+    "datetime": "2026-11-09T23:56:46.000Z",
+    "content": "もすかうが地上波でるらしい",
+    "replies": [
+      {
+        "id": 336799682,
+        "user": "Nisiki_108",
+        "user_id": 167243954,
+        "datetime": "2026-11-09T23:57:01.000Z",
+        "content": "あ、うまはむね",
+        "replies": []
+      },
+      {
+        "id": 336800377,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T00:08:49.000Z",
+        "content": "えどこで",
+        "replies": []
+      },
+      {
+        "id": 336816211,
+        "user": "Nisiki_108",
+        "user_id": 167243954,
+        "datetime": "2026-11-10T05:45:27.000Z",
+        "content": "木曜のテレ朝ミュージック甲子園",
+        "replies": []
+      },
+      {
+        "id": 336816576,
+        "user": "3150dayo_sub",
+        "user_id": 172599875,
+        "datetime": "2026-11-10T06:01:28.000Z",
+        "content": "あざす",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336799433,
+    "user": "Nisiki_108",
+    "user_id": 167243954,
+    "datetime": "2026-11-09T23:52:44.000Z",
+    "content": "依存軽減したいので浮上減らします！！！！たぶん！！！！",
+    "replies": []
+  },
+  {
+    "id": 336798859,
+    "user": "yux3manju",
+    "user_id": 121828909,
+    "datetime": "2026-11-09T23:42:56.000Z",
+    "content": "正直ここに入ってる作品目的で過疎スタ見るやついるのかしら",
+    "replies": [
+      {
+        "id": 336799179,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-09T23:48:43.000Z",
+        "content": "いないんじゃね",
+        "replies": []
+      },
+      {
+        "id": 336799284,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-09T23:50:17.000Z",
+        "content": "よくよく考えたらいなそう笑",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336798528,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-09T23:38:10.000Z",
+    "content": "正直好きな季節は？って言われたら解答に苦しむ",
+    "replies": [
+      {
+        "id": 336798624,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-09T23:39:29.000Z",
+        "content": "I hate all seasons.って答えるしか無いのか\u0026ctdot;？これでバツされたら終わりだぞ\u0026ctdot;？",
+        "replies": []
+      },
+      {
+        "id": 336800020,
+        "user": "AvertLoop",
+        "user_id": 172174103,
+        "datetime": "2026-11-10T00:03:14.000Z",
+        "content": "I like springくらいでいいのでは",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336798462,
+    "user": "Komatsuna72",
+    "user_id": 165560092,
+    "datetime": "2026-11-09T23:37:02.000Z",
+    "content": "さむ",
+    "replies": []
+  },
+  {
+    "id": 336798450,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-09T23:36:51.000Z",
+    "content": "もう病院行ってステロイドもらうしかないか\u0026ctdot;",
+    "replies": []
+  },
+  {
+    "id": 336798389,
+    "user": "sa-ta-andagi",
+    "user_id": 121238512,
+    "datetime": "2026-11-09T23:35:57.000Z",
+    "content": "身体中の水分と粘液が全て鼻に費やされてる。",
+    "replies": [
+      {
+        "id": 336799396,
+        "user": "Yuki-Kita",
+        "user_id": 179268632,
+        "datetime": "2026-11-09T23:52:14.000Z",
+        "content": "それな\nわかる",
+        "replies": []
+      },
+      {
+        "id": 336799884,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T00:00:31.000Z",
+        "content": "鼻がずびずび",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336798262,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-09T23:33:52.000Z",
+    "content": "親が土曜日俺が何回鼻かんでたか数えてたらしくて30回以上はやってた言われてドカ鬱",
+    "replies": [
+      {
+        "id": 336800044,
+        "user": "AvertLoop",
+        "user_id": 172174103,
+        "datetime": "2026-11-10T00:03:36.000Z",
+        "content": "親がキモいだけ",
+        "replies": []
+      },
+      {
+        "id": 336800759,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-10T00:15:02.000Z",
+        "content": "草",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336798184,
+    "user": "sa-ta-andagi",
+    "user_id": 121238512,
+    "datetime": "2026-11-09T23:32:53.000Z",
+    "content": "春夏秋冬全部の平均取ったらいい感じの気温なるんじゃね？",
+    "replies": [
+      {
+        "id": 336799435,
+        "user": "Yuki-Kita",
+        "user_id": 179268632,
+        "datetime": "2026-11-09T23:52:45.000Z",
+        "content": "平均的には寒くなりそう",
+        "replies": []
+      },
+      {
+        "id": 336799787,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-09T23:59:00.000Z",
+        "content": "夏補正舐めんな！！",
+        "replies": []
+      },
+      {
+        "id": 336799953,
+        "user": "Yuki-Kita",
+        "user_id": 179268632,
+        "datetime": "2026-11-10T00:01:56.000Z",
+        "content": "夏はいうて気温が40度が限界だけど、地球は例年通してずっと\u0026minus;50度以上で寒い地域+冬のみバカ寒い地域とかがあるから",
+        "replies": []
+      },
+      {
+        "id": 336800036,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T00:03:31.000Z",
+        "content": "そっかぁ。。",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336798058,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-09T23:31:10.000Z",
+    "content": "目がかゆい‼️鼻がムズムズする‼️鼻がかゆい‼️花粉大嫌い‼️季節なんで大嫌いよ‼️",
+    "replies": [
+      {
+        "id": 336799242,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-09T23:49:39.000Z",
+        "content": "春から舌下免疫療法っていうのを数年やれば花粉症治るらしいよ",
+        "replies": []
+      },
+      {
+        "id": 336799342,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-09T23:51:14.000Z",
+        "content": "なんそれ（）",
+        "replies": []
+      },
+      {
+        "id": 336799413,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-09T23:52:31.000Z",
+        "content": "舌で錠剤溶かすやつ",
+        "replies": []
+      },
+      {
+        "id": 336799434,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-09T23:52:44.000Z",
+        "content": "あ、これ厳しい（絶対忘れそう）",
+        "replies": []
+      },
+      {
+        "id": 336799455,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-09T23:53:05.000Z",
+        "content": "舌の下に5分くらい錠剤入れとくっていう。",
+        "replies": []
+      },
+      {
+        "id": 336799496,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-09T23:53:42.000Z",
+        "content": "耳鼻科行けばパンフレットあるはずだよ",
+        "replies": []
+      },
+      {
+        "id": 336799600,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-09T23:55:39.000Z",
+        "content": "なるほどね",
+        "replies": []
+      },
+      {
+        "id": 336799633,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-09T23:56:14.000Z",
+        "content": "アレルゲン体に入れるやつじゃん（）",
+        "replies": []
+      },
+      {
+        "id": 336799674,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-09T23:56:54.000Z",
+        "content": "そうそう",
+        "replies": []
+      },
+      {
+        "id": 336799686,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-09T23:57:05.000Z",
+        "content": "自分はやってないけど",
+        "replies": []
+      },
+      {
+        "id": 336800626,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-10T00:12:41.000Z",
+        "content": "それやってて三年続けたけどめんどくて忘れて五年最初からやり直しって言われて萎えてやめた",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336797882,
+    "user": "e331_d2d3",
+    "user_id": 150911810,
+    "datetime": "2026-11-09T23:28:43.000Z",
+    "content": "samuiyo",
+    "replies": []
+  },
+  {
+    "id": 336797778,
+    "user": "Yubatouhu",
+    "user_id": 177691323,
+    "datetime": "2026-11-09T23:27:29.000Z",
+    "content": "おはよう",
+    "replies": [
+      {
+        "id": 336797837,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-09T23:28:09.000Z",
+        "content": "花粉エグいお",
+        "replies": []
+      },
+      {
+        "id": 336797915,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-09T23:29:10.000Z",
+        "content": "おはよう。花粉やばいのわかる。",
+        "replies": []
+      },
+      {
+        "id": 336797963,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-09T23:29:50.000Z",
+        "content": "春夏秋冬全部嫌いになった‼️",
+        "replies": []
+      },
+      {
+        "id": 336798016,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-09T23:30:39.000Z",
+        "content": "今まで秋花粉なかったのに。。。",
+        "replies": []
+      },
+      {
+        "id": 336798088,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-09T23:31:33.000Z",
+        "content": "俺も秋花粉なかったのに\u0026ctdot;",
+        "replies": []
+      },
+      {
+        "id": 336798138,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-09T23:32:10.000Z",
+        "content": "なんかさぁ。鼻詰まりと咳がすごい",
+        "replies": []
+      },
+      {
+        "id": 336798292,
+        "user": "Yubatouhu",
+        "user_id": 177691323,
+        "datetime": "2026-11-09T23:34:26.000Z",
+        "content": "おれもな　目がクソかゆいわ鼻づまりは1日中ずっとあるわでクソだわ（）",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336797052,
+    "user": "sa-ta-andagi",
+    "user_id": 121238512,
+    "datetime": "2026-11-09T23:16:27.000Z",
+    "content": "おはよう",
+    "replies": []
+  },
+  {
+    "id": 336796556,
+    "user": "_karamanero_",
+    "user_id": 179461257,
+    "datetime": "2026-11-09T23:08:52.000Z",
+    "content": "手を繋いで帰ってる制服の男の子達を見たって、私はこの世界を憎んだね\n\n",
+    "replies": [
+      {
+        "id": 336797055,
+        "user": "sabirou-teacher",
+        "user_id": 178579891,
+        "datetime": "2026-11-09T23:16:31.000Z",
+        "content": "最高じゃないか",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336796254,
+    "user": "Compass-14",
+    "user_id": 173036294,
+    "datetime": "2026-11-09T23:04:14.000Z",
+    "content": "鼻水止まらなくてまずい",
+    "replies": []
+  },
+  {
+    "id": 336796038,
+    "user": "gama_2",
+    "user_id": 127187668,
+    "datetime": "2026-11-09T23:00:24.000Z",
+    "content": "真夏の夜の\u0026gt;\u0026gt;3",
+    "replies": [
+      {
+        "id": 336796067,
+        "user": "tisso-500cm3",
+        "user_id": 176130283,
+        "datetime": "2026-11-09T23:00:59.000Z",
+        "content": "旅館",
+        "replies": []
+      },
+      {
+        "id": 336796848,
+        "user": "_karamanero_",
+        "user_id": 179461257,
+        "datetime": "2026-11-09T23:13:29.000Z",
+        "content": "ホモセ",
+        "replies": []
+      },
+      {
+        "id": 336797700,
+        "user": "sa-ta-andagi",
+        "user_id": 121238512,
+        "datetime": "2026-11-09T23:26:18.000Z",
+        "content": "シャバ",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336795940,
+    "user": "tisso-500cm3",
+    "user_id": 176130283,
+    "datetime": "2026-11-09T22:58:52.000Z",
+    "content": "誰か猫を愛していてわたしが特殊性癖でも良い方結婚しませんか鬼畜ルーレットなんです",
+    "replies": [
+      {
+        "id": 336799293,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-09T23:50:23.000Z",
+        "content": "ねこだぁい好き",
+        "replies": []
+      },
+      {
+        "id": 336799328,
+        "user": "ironokami",
+        "user_id": 142200848,
+        "datetime": "2026-11-09T23:51:03.000Z",
+        "content": "わたしが特殊性癖でも良い方結婚しませんか　これちょっと意味がわからなかったけど",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336795925,
+    "user": "watamax",
+    "user_id": 139578382,
+    "datetime": "2026-11-09T22:58:36.000Z",
+    "content": "おはよう",
+    "replies": []
+  },
+  {
+    "id": 336795772,
+    "user": "50heaven",
+    "user_id": 75061941,
+    "datetime": "2026-11-09T22:55:58.000Z",
+    "content": "おは落ち",
+    "replies": []
+  },
+  {
+    "id": 336795746,
+    "user": "Nini_san",
+    "user_id": 173495832,
+    "datetime": "2026-11-09T22:55:36.000Z",
+    "content": "お菓子くれてもいたずらするよ",
+    "replies": []
+  },
+  {
+    "id": 336795575,
+    "user": "upot-",
+    "user_id": 122256471,
+    "datetime": "2026-11-09T22:52:55.000Z",
+    "content": "今日提出のレポート終わらせてねえ",
+    "replies": []
+  },
+  {
+    "id": 336795503,
+    "user": "_karamanero_",
+    "user_id": 179461257,
+    "datetime": "2026-11-09T22:52:00.000Z",
+    "content": "手が悴んでスマホがいじれない",
+    "replies": []
+  },
+  {
+    "id": 336795444,
+    "user": "Sabuuaka2",
+    "user_id": 159720524,
+    "datetime": "2026-11-09T22:51:16.000Z",
+    "content": "おはよう学校行ってきます",
+    "replies": [
+      {
+        "id": 336795495,
+        "user": "upot-",
+        "user_id": 122256471,
+        "datetime": "2026-11-09T22:51:50.000Z",
+        "content": "いてら",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336795098,
+    "user": "upot-",
+    "user_id": 122256471,
+    "datetime": "2026-11-09T22:46:35.000Z",
+    "content": "おはよう、世界",
+    "replies": [
+      {
+        "id": 336795135,
+        "user": "Yuki-Kita",
+        "user_id": 179268632,
+        "datetime": "2026-11-09T22:47:07.000Z",
+        "content": "God Morning All",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336794618,
+    "user": "ran-ran-ruu",
+    "user_id": 178564875,
+    "datetime": "2026-11-09T22:40:06.000Z",
+    "content": "欄\u0026star;欄\u0026star;欄\u0026star;欄\u0026star;欄\u0026star;羅\u0026star;羅\u0026star;欄\u0026star;欄\u0026star;羅羅羅羅欄\u0026star;羅羅欄\u0026star;欄\u0026star;爛々琉\u0026star;",
+    "replies": []
+  },
+  {
+    "id": 336792972,
+    "user": "TSUNO-ANDERSON",
+    "user_id": 171475247,
+    "datetime": "2026-11-09T22:18:41.000Z",
+    "content": "ｼﾞｬﾛｰﾅ!ﾍｯ!ｼﾞｬﾛｰﾅ!ﾍｯ!ｼﾞｬﾛｰﾅ!ﾍｯ!ｼﾞｬﾛｰﾅ!ﾍｯ!ｼﾞｬｯｼﾞｬｰﾝ ｵﾏｹﾉｵﾏｹﾀﾞｧ!",
+    "replies": []
+  },
+  {
+    "id": 336792824,
+    "user": "TukuKamikaso",
+    "user_id": 177426554,
+    "datetime": "2026-11-09T22:16:19.000Z",
+    "content": "ﾓﾓﾓﾓﾓﾓﾓﾓﾓﾓﾓﾓﾓﾓﾓﾓﾓﾓ",
+    "replies": []
+  },
+  {
+    "id": 336792733,
+    "user": "kt_koha3",
+    "user_id": 121263310,
+    "datetime": "2026-11-09T22:15:01.000Z",
+    "content": "おはよー",
+    "replies": []
+  },
+  {
+    "id": 336792313,
+    "user": "TryHqrdd",
+    "user_id": 165711079,
+    "datetime": "2026-11-09T22:09:15.000Z",
+    "content": "なんと、ksknスタ主だがここの招待はもらったことさえない",
+    "replies": [
+      {
+        "id": 336795462,
+        "user": "_karamanero_",
+        "user_id": 179461257,
+        "datetime": "2026-11-09T22:51:26.000Z",
+        "content": "ええ\u0026hellip;\u0026hellip;",
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 336792143,
+    "user": "_karamanero_",
+    "user_id": 179461257,
+    "datetime": "2026-11-09T22:06:50.000Z",
+    "content": "許してプンスカ",
+    "replies": []
+  },
+  {
+    "id": 336791951,
+    "user": "do__",
+    "user_id": 165748927,
+    "datetime": "2026-11-09T22:03:48.000Z",
+    "content": "Uploader.jpのアーカイブでそこそこいいことしたと思ってるから気分いい",
+    "replies": []
+  },
+  {
+    "id": 336791886,
+    "user": "Kofuno",
+    "user_id": 175034623,
+    "datetime": "2026-11-09T22:02:39.000Z",
+    "content": "おは",
+    "replies": []
+  },
+  {
     "id": 336770555,
     "user": "riraruku1717",
     "user_id": 130855873,
@@ -839,6 +4601,14 @@
         "user_id": 167829331,
         "datetime": "2026-11-09T14:01:50.000Z",
         "content": "挨拶されると気分いいんだよ、もっとしてあげな",
+        "replies": []
+      },
+      {
+        "id": 336797416,
+        "user": "o_milk",
+        "user_id": 151454540,
+        "datetime": "2026-11-09T23:22:17.000Z",
+        "content": "うん",
         "replies": []
       }
     ]
